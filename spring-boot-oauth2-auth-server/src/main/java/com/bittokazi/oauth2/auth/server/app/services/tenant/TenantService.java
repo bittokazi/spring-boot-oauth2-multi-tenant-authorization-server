@@ -33,12 +33,6 @@ public class TenantService {
         if(!TenantContext.getCurrentDataTenant().equals("public")) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         tenant = tenantRepository.save(tenant);
         multiTenantConnectionProvider.singleTenantCreation(tenant);
-        TenantContext.setCurrentTenant(tenant.getCompanyKey());
-        OauthClient oauthClient = oauthClientRepository.findById("user_login_service").get();
-        oauthClient.setWebServerRedirectUri("http://"+tenant.getDomain()+"/authorize_user");
-        oauthClient.setPostLogoutUrl("http://"+tenant.getDomain()+"/app/login");
-        oauthClientRepository.save(oauthClient);
-        TenantContext.setCurrentTenant("public");
         return ResponseEntity.ok(tenant);
     }
 
