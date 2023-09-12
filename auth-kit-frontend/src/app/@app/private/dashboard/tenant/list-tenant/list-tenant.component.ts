@@ -35,7 +35,7 @@ export class ListTenantComponent implements OnInit {
 
   switchTenant(tenant) {
     AuthHolder.setTenant(tenant);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   @FeatherIconSetterInjector()

@@ -50,6 +50,6 @@ export class DashboardVerticleHeaderComponent
 
   switchTenant() {
     AuthHolder.setTenant(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 }
