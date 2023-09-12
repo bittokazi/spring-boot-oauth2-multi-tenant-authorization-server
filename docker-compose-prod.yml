@@ -23,7 +23,7 @@ services:
         DEPLOY_ENV: "prod"
     image: "auth-kit-frontend:latest"
     restart: unless-stopped
-    env_file: auth-kit-frontend/prod.env
+    env_file: auth-kit-frontend/.env
     network_mode: "bridge"
     ports:
       - "45011:5011"
