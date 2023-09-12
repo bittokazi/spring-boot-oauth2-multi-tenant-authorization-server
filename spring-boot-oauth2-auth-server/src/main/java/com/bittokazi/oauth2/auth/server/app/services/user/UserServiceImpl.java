@@ -8,6 +8,7 @@ import com.bittokazi.oauth2.auth.server.app.services.base.RestResponseGenerator;
 import com.bittokazi.oauth2.auth.server.app.services.user.helpers.UserAddHelper;
 import com.bittokazi.oauth2.auth.server.app.services.user.helpers.UserHelpers;
 import com.bittokazi.oauth2.auth.server.app.services.user.helpers.UserUpdateHelper;
+import com.bittokazi.oauth2.auth.server.config.TenantContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
@@ -89,6 +90,11 @@ public class UserServiceImpl implements UserService {
 
 	public ResponseEntity<?> whoAmI(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
 		if(Objects.nonNull(httpServletRequest.getUserPrincipal())) {
+			String host = httpServletRequest.getHeader("host").replace("www.", "");
+			if(host.equals(System.getenv().get("APPLICATION_BACKEND_URL")
+					.replace("http://", "")
+					.replace("https://", "")
+					.replace("www", ""))) TenantContext.setCurrentDataTenant("public");
 			Optional<User> useOptional = userRepository.findOneByUsername(httpServletRequest.getUserPrincipal().getName());
 			if (useOptional.isPresent()) {
 				User user = useOptional.get();
