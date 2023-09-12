@@ -1,0 +1,280 @@
+package com.bittokazi.oauth2.auth.server.app.controllers;
+
+import com.bittokazi.oauth2.auth.server.app.models.base.Oauth2Response;
+import com.bittokazi.oauth2.auth.server.app.models.master.Tenant;
+import com.bittokazi.oauth2.auth.server.app.models.tenant.OauthClient;
+import com.bittokazi.oauth2.auth.server.app.repositories.master.TenantRepository;
+import com.bittokazi.oauth2.auth.server.app.repositories.tenant.OauthClientRepository;
+import com.bittokazi.oauth2.auth.server.config.TenantContext;
+import com.bittokazi.oauth2.auth.server.utils.CookieActionsProvider;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
+import org.springframework.security.oauth2.core.oidc.OidcScopes;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.util.*;
+
+@RestController()
+public class LoginController {
+
+    @Autowired
+    private OauthClientRepository oauthClientRepository;
+
+    @Autowired
+    private TenantRepository tenantRepository;
+
+    @Autowired
+    private OAuth2AuthorizationConsentService customJdbcOAuth2AuthorizationConsentService;
+
+    @GetMapping("/login")
+    public Object loginPage(Model model, HttpServletRequest request,
+                                  HttpServletResponse response) {
+        final SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
+        if (null != savedRequest) {
+            final String redirectUrl = savedRequest.getRedirectUrl();
+            final MultiValueMap parameters = UriComponentsBuilder.fromUriString(redirectUrl).build().getQueryParams();
+            if (!parameters.containsKey("client_id")) {
+                return "Missing login information";
+            }
+        }
+        Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
+        model.addAttribute("tenantName", tenantOptional.isPresent()? tenantOptional.get().getName(): "AuthKit");
+        ModelAndView modelAndView = new ModelAndView("login", (Map<String, ?>) model);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/oauth2/consent")
+    public ModelAndView consent(Principal principal, Model model,
+                          @RequestParam(OAuth2ParameterNames.CLIENT_ID) String clientId,
+                          @RequestParam(OAuth2ParameterNames.SCOPE) String scope,
+                          @RequestParam(OAuth2ParameterNames.STATE) String state,
+                          @RequestParam(name = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
+
+        // Remove scopes that were already approved
+        Set<String> scopesToApprove = new HashSet<>();
+        Set<String> previouslyApprovedScopes = new HashSet<>();
+        Optional<OauthClient> registeredClient = this.oauthClientRepository.findOneByClientId(clientId);
+        OAuth2AuthorizationConsent currentAuthorizationConsent =
+                this.customJdbcOAuth2AuthorizationConsentService.findById(registeredClient.get().getId(), principal.getName());
+        Set<String> authorizedScopes;
+        if (currentAuthorizationConsent != null) {
+            authorizedScopes = currentAuthorizationConsent.getScopes();
+        } else {
+            authorizedScopes = Collections.emptySet();
+        }
+        for (String requestedScope : StringUtils.delimitedListToStringArray(scope, " ")) {
+            if (OidcScopes.OPENID.equals(requestedScope)) {
+                continue;
+            }
+            if (authorizedScopes.contains(requestedScope)) {
+                previouslyApprovedScopes.add(requestedScope);
+            } else {
+                scopesToApprove.add(requestedScope);
+            }
+        }
+
+        model.addAttribute("clientId", clientId);
+        model.addAttribute("state", state);
+        model.addAttribute("scopes", withDescription(scopesToApprove));
+        model.addAttribute("previouslyApprovedScopes", withDescription(previouslyApprovedScopes));
+        model.addAttribute("principalName", principal.getName());
+        model.addAttribute("userCode", userCode);
+        if (StringUtils.hasText(userCode)) {
+            model.addAttribute("requestURI", "/oauth2/device_verification");
+        } else {
+            model.addAttribute("requestURI", "/oauth2/authorize");
+        }
+
+        ModelAndView modelAndView = new ModelAndView("consent", (Map<String, ?>) model);
+        return modelAndView;
+    }
+
+    @GetMapping("/authorize_user")
+    public ResponseEntity<?> login(@RequestParam("code") String code, HttpServletResponse httpServletResponse) throws IOException {
+        Optional<OauthClient> optionalOauthClient = Optional.empty();
+        Optional<Tenant> tenantOptional = Optional.empty();
+        if(Objects.equals(TenantContext.getCurrentTenant(), "public")) {
+            optionalOauthClient = oauthClientRepository.findOneById("user_login_service");
+        } else {
+            optionalOauthClient = oauthClientRepository.findOneById("user_login_service");
+            tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
+        }
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setBasicAuth(optionalOauthClient.get().getClientId(), optionalOauthClient.get().getClientSecret());
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("grant_type", "authorization_code");
+        map.add("code", code);
+        map.add("redirect_uri", optionalOauthClient.get().getWebServerRedirectUri().stream().findFirst().get());
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+        try{
+            if(Objects.equals(TenantContext.getCurrentTenant(), "public")) {
+                ResponseEntity<Oauth2Response> oauth2Response = restTemplate.postForEntity(System.getenv().get("APPLICATION_BACKEND_URL")+"/oauth2/token", request, Oauth2Response.class);
+                updateCookies(httpServletResponse, oauth2Response.getBody());
+                httpServletResponse.sendRedirect(System.getenv().get("APPLICATION_BACKEND_URL")+"/app/dashboard");
+                return ResponseEntity.ok(oauth2Response.getBody());
+//                return ResponseEntity.ok().build();
+            } else {
+                ResponseEntity<Oauth2Response> oauth2Response = restTemplate.postForEntity("http://"+tenantOptional.get().getDomain()+"/oauth2/token", request, Oauth2Response.class);
+                updateCookies(httpServletResponse, oauth2Response.getBody());
+                httpServletResponse.sendRedirect("http://"+tenantOptional.get().getDomain()+"/app/dashboard");
+                return ResponseEntity.ok(oauth2Response.getBody());
+            }
+        } catch(HttpStatusCodeException e){
+            if (e.getStatusCode().is4xxClientError()) {
+                return ResponseEntity.status(401).body("{ message: \"Unauthorized Access\"}");
+            } else if (e.getStatusCode().is5xxServerError()) {
+                return ResponseEntity.status(500).body("{ message: \"Server Error\"}");
+            }
+            e.printStackTrace();
+        } catch(RestClientException e){
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(503).body("{ message: \"Identity Service Unavailable\"}");
+    }
+
+    @GetMapping("/oauth2/login")
+    public void loginRedirect(HttpServletResponse httpServletResponse) throws IOException {
+        if(Objects.equals(TenantContext.getCurrentTenant(), "public")) {
+            Optional<OauthClient> optionalOauthClient = oauthClientRepository.findOneById("user_login_service");
+            httpServletResponse.sendRedirect(System.getenv().get("APPLICATION_BACKEND_URL")+"/oauth2/authorize?client_id="+optionalOauthClient.get().getClientId()+"&response_type=code&scope="+String.join("+", optionalOauthClient.get().getScope())+"&redirect_uri="+optionalOauthClient.get().getWebServerRedirectUri().stream().findFirst().get());
+        } else {
+            Optional<OauthClient> optionalOauthClient = oauthClientRepository.findOneById("user_login_service");
+            Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
+            httpServletResponse.sendRedirect("http://"+tenantOptional.get().getDomain()+"/oauth2/authorize?client_id="+optionalOauthClient.get().getClientId()+"&response_type=code&scope="+String.join("+", optionalOauthClient.get().getScope())+"&redirect_uri="+optionalOauthClient.get().getWebServerRedirectUri().stream().findFirst().get());
+        }
+    }
+
+    @PostMapping("/oauth2/refresh/token")
+    public ResponseEntity<?>  refreshToken(@RequestBody HashMap<String, String> payload, HttpServletRequest httpServletRequest,
+                                           HttpServletResponse httpServletResponse) throws IOException {
+        Optional<OauthClient> optionalOauthClient = Optional.empty();
+        Optional<Tenant> tenantOptional = Optional.empty();
+        if(Objects.equals(TenantContext.getCurrentTenant(), "public")) {
+            optionalOauthClient = oauthClientRepository.findOneById("user_login_service");
+        } else {
+            optionalOauthClient = oauthClientRepository.findOneById("user_login_service");
+            tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
+        }
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setBasicAuth(optionalOauthClient.get().getClientId(), optionalOauthClient.get().getClientSecret());
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("grant_type", "refresh_token");
+        map.add("refresh_token", payload.get("refresh_token"));
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+        try{
+            if(Objects.equals(TenantContext.getCurrentTenant(), "public")) {
+                ResponseEntity<Oauth2Response> oauth2Response = restTemplate.postForEntity(System.getenv().get("APPLICATION_BACKEND_URL")+"/oauth2/token", request, Oauth2Response.class);
+                updateCookies(httpServletResponse, oauth2Response.getBody());
+                return ResponseEntity.ok(oauth2Response.getBody());
+            } else {
+                ResponseEntity<Oauth2Response> oauth2Response = restTemplate.postForEntity("http://"+tenantOptional.get().getDomain()+"/oauth2/token", request, Oauth2Response.class);
+                updateCookies(httpServletResponse, oauth2Response.getBody());
+                return ResponseEntity.ok(oauth2Response.getBody());
+            }
+        } catch(HttpStatusCodeException e){
+            if (e.getStatusCode().is4xxClientError()) {
+                return ResponseEntity.status(401).body("{ message: \"Unauthorized Access\"}");
+            } else if (e.getStatusCode().is5xxServerError()) {
+                return ResponseEntity.status(500).body("{ message: \"Server Error\"}");
+            }
+        } catch(RestClientException e){
+        }
+        return ResponseEntity.status(503).body("{ message: \"Identity Service Unavailable\"}");
+    }
+
+    @GetMapping("/oauth2/logout/redirect")
+    public void logout(HttpServletResponse httpServletResponse) throws IOException {
+        if(Objects.equals(TenantContext.getCurrentTenant(), "public")) {
+            httpServletResponse.sendRedirect(System.getenv().get("APPLICATION_BACKEND_URL")+"/app/login");
+        } else {
+            Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
+            httpServletResponse.sendRedirect("http://"+tenantOptional.get().getDomain()+"/app/login?");
+        }
+    }
+
+    public void updateCookies(HttpServletResponse httpServletResponse, Oauth2Response oauth2Response) {
+        CookieActionsProvider cookieActionsProvider = new CookieActionsProvider();
+        cookieActionsProvider.setUpdateFunction(CookieActionsProvider.updateCookieFunc(httpServletResponse));
+        cookieActionsProvider.updateCookie(new CookieActionsProvider.CookieValue("access_token", oauth2Response.getAccess_token()));
+        cookieActionsProvider.updateCookie(new CookieActionsProvider.CookieValue("refresh_token", oauth2Response.getRefresh_token()));
+        cookieActionsProvider.updateCookie(new CookieActionsProvider.CookieValue("token_type", oauth2Response.getToken_type()));
+        cookieActionsProvider.updateCookie(new CookieActionsProvider.CookieValue("expires_in", String.valueOf(oauth2Response.getExpires_in())));
+    }
+
+    private static Set<ScopeWithDescription> withDescription(Set<String> scopes) {
+        Set<ScopeWithDescription> scopeWithDescriptions = new HashSet<>();
+        for (String scope : scopes) {
+            scopeWithDescriptions.add(new ScopeWithDescription(scope));
+
+        }
+        return scopeWithDescriptions;
+    }
+
+    public static class ScopeWithDescription {
+        private static final String DEFAULT_DESCRIPTION = "UNKNOWN SCOPE - We cannot provide information about this permission, use caution when granting this.";
+        private static final Map<String, String> scopeDescriptions = new HashMap<>();
+        static {
+            scopeDescriptions.put(
+                    OidcScopes.PROFILE,
+                    "This application will be able to read your profile information."
+            );
+            scopeDescriptions.put(
+                    "tenant:write",
+                    "Write tenant information"
+            );
+            scopeDescriptions.put(
+                    "tenant:read",
+                    "Read tenant information"
+            );
+            scopeDescriptions.put(
+                    "trust",
+                    "Trust the client"
+            );
+        }
+
+        public final String scope;
+        public final String description;
+
+        ScopeWithDescription(String scope) {
+            this.scope = scope;
+            this.description = scopeDescriptions.getOrDefault(scope, DEFAULT_DESCRIPTION);
+        }
+    }
+
+
+}

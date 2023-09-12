@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+    <app-user-profile-card [user]="user" [websites]="websites">
+    </app-user-profile-card>
+  </div>
+  <div
+    class="col-xl-2 col-md-4 col-sm-6"
+    *ngIf="user.roles[0].name == 'ROLE_USER'"
+  >
+    <app-website-number-card [websites]="websites"></app-website-number-card>
+  </div>
+  <div
+    class="col-xl-2 col-md-4 col-sm-6"
+    *ngIf="user.roles[0].name == 'ROLE_USER'"
+  >
+    <app-resume-config-box
+      [sectionTemplates]="sectionTemplates"
+      [sections]="sections"
+    ></app-resume-config-box>
+  </div>
+</div>

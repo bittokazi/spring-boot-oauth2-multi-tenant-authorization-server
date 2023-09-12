@@ -1,0 +1,53 @@
+<form class="form" [formGroup]="form">
+  <div class="row">
+    <div class="col-md-6 col-6">
+      <app-verticle-text-input
+        label="Tenant name"
+        placeHolder="give a suitable name..."
+        errorMessage="Please enter a valid name"
+        [control]="form.controls.name"
+      >
+      </app-verticle-text-input>
+    </div>
+    <div class="col-md-6 col-6">
+      <app-verticle-text-input
+        label="Company Key"
+        placeHolder="a to z and _ is allowed"
+        errorMessage="Please enter a valid key"
+        [control]="form.controls.companyKey"
+      >
+      </app-verticle-text-input>
+    </div>
+    <div class="col-md-6 col-12">
+      <app-verticle-text-input
+        label="Domain"
+        placeHolder="Auth issuer domain"
+        errorMessage="Please enter a valid key"
+        [control]="form.controls.domain"
+      >
+      </app-verticle-text-input>
+    </div>
+    <div class="col-md-6 col-12">
+      <app-verticle-switch-input
+        label="Enabled"
+        [control]="form.controls.enabled"
+      >
+      </app-verticle-switch-input>
+    </div>
+    <div class="col-12">
+      <button
+        type="submit"
+        (click)="onSubmit()"
+        [disabled]="form.invalid || loading"
+        class="btn btn-primary me-1"
+      >
+        <ng-container *ngIf="!edit"> Add Tenant </ng-container>
+
+        <ng-container *ngIf="edit"> Update Tenant </ng-container>
+      </button>
+      <button *ngIf="!edit" type="reset" class="btn btn-outline-secondary">
+        Reset
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col-12">
+    <app-account-settings-top-bar activeTab="security">
+    </app-account-settings-top-bar>
+    <div class="card">
+      <div class="card-header border-bottom">
+        <h4 class="card-title">Change Password</h4>
+      </div>
+      <div class="card-body pt-1" *ngIf="user">
+        <!-- form -->
+        <form class="validate-form" [fromGroup]="form">
+          <div class="row">
+            <div class="col-12 col-sm-6 mb-1">
+              <div class="col-md-6 col-12" *ngIf="!edit">
+                <app-verticle-text-input
+                  label="Current Password"
+                  placeHolder="Current password"
+                  type="password"
+                  errorMessage="Please enter current password"
+                  [control]="form.controls.password"
+                  [inputErrors]="customErrors.password"
+                >
+                </app-verticle-text-input>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-6 mb-1">
+              <app-verticle-text-input
+                label="New Password"
+                placeHolder="New password"
+                type="password"
+                errorMessage="Password must be minumum 8 character long and Min 1 uppercase letter and Min 1 lowercase letter and Min 1 special character and Min 1 number"
+                [control]="form.controls.newPassword"
+                [inputErrors]="customErrors.newPassword"
+              >
+              </app-verticle-text-input>
+            </div>
+            <div class="col-12 col-sm-6 mb-1">
+              <app-verticle-text-input
+                label="Retype New Password"
+                placeHolder="Confirm new password"
+                type="password"
+                errorMessage="password must be 8 character long"
+                [control]="form.controls.newConfirmPassword"
+                [inputErrors]="customErrors.newConfirmPassword"
+              >
+              </app-verticle-text-input>
+            </div>
+            <div class="col-12">
+              <p class="fw-bolder">Password requirements:</p>
+              <ul class="ps-1 ms-25">
+                <li class="mb-50">
+                  Minimum 8 characters long - the more, the better
+                </li>
+                <li class="mb-50">Min 1 uppercase letter</li>
+                <li class="mb-50">Min 1 lowercase letter</li>
+                <li class="mb-50">Min 1 special character</li>
+                <li class="mb-50">Min 1 number</li>
+              </ul>
+            </div>
+            <div class="col-12">
+              <app-loading-button
+                btnClass="btn-primary"
+                [loading]="loading"
+                [disabled]="form.invalid || loading"
+                (buttonClick)="onSubmit()"
+              >
+                <i data-feather="save" class="me-25"></i>
+                <span>Update Password</span>
+              </app-loading-button>
+            </div>
+          </div>
+        </form>
+        <!--/ form -->
+      </div>
+    </div>
+  </div>
+</div>
