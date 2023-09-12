@@ -28,7 +28,7 @@ public class TenantContextListener implements ServletRequestListener {
             tenantOptional = tenantRepository.findOneByDomain(host);
         }
         if(!tenantOptional.isPresent()) {
-            String header = request.getHeader("X-AUTH-DATA-TENANT");
+            String header = request.getHeader("X-DATA-TENANT");
             if(Objects.nonNull(header)) {
                 dataTenantOptional = tenantRepository.findOneByCompanyKey(header);
             }
@@ -45,9 +45,9 @@ public class TenantContextListener implements ServletRequestListener {
                 TenantContext.setCurrentDataTenant("public");
             }
         }
-        System.out.println(
-                ">>>>>>>>>>>>>>>>>>>>>>TTTTTTTTTTTTTTTTTTTTTTEEEEEEEEENNNNNNNNNEEEEEEEEEETTTTTTTTTT>>>>>>>>>>>>>>>"
-                        + TenantContext.getCurrentTenant());
+//        System.out.println(
+//                ">>>>>>>>>>>>>>>>>>>>>>TTTTTTTTTTTTTTTTTTTTTTEEEEEEEEENNNNNNNNNEEEEEEEEEETTTTTTTTTT>>>>>>>>>>>>>>>"
+//                        + TenantContext.getCurrentTenant());
     }
 }
 

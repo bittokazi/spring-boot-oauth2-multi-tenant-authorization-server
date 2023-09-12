@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${this.getCookie('access_token')}`,
         };
         if (AuthHolder.getTenant() != '') {
-          headers['X-AUTH-DATA-TENANT'] = AuthHolder.getTenant();
+          headers['X-DATA-TENANT'] = AuthHolder.getTenant();
         }
         request = request.clone({
           setHeaders: headers,
