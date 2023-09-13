@@ -294,6 +294,8 @@ public class SecurityConfig {
                             userOptional.get().getRoles().forEach(role -> {
                                 scopes.add(role.getName().replace("ROLE_",""));
                             });
+                            claims.put("email", userOptional.get().getEmail());
+                            claims.put("userid", userOptional.get().getId());
                         }
                         claims.put("scope", scopes);
                     }
