@@ -1,5 +1,8 @@
 server:
   port: 5010
+  tomcat:
+    remoteip:
+      internal-proxies: .*
 
 spring:
   datasource:
