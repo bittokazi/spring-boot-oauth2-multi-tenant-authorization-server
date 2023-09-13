@@ -8,6 +8,8 @@ public class TenantContext {
 
     private static ThreadLocal<String> currentDataTenant = new ThreadLocal<String>();
 
+    private static ThreadLocal<String> currentIssuerUri = new ThreadLocal<String>();
+
     public static void setCurrentTenant(String tenant) {
         currentTenant.set(tenant);
     }
@@ -41,6 +43,18 @@ public class TenantContext {
     }
 
     public static void clearCurrentDataTenant() {
+        currentDataTenant.set(null);
+    }
+
+    public static void setCurrentIssuerUri(String client) {
+        currentDataTenant.set(client);
+    }
+
+    public static String getCurrentIssuerUri() {
+        return currentDataTenant.get();
+    }
+
+    public static void clearCurrentIssuerUri() {
         currentDataTenant.set(null);
     }
 

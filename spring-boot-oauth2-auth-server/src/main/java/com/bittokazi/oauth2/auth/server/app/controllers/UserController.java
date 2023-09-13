@@ -57,7 +57,7 @@ public class UserController {
         return userService.updateUserPassword(user, httpServletResponse);
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_user:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_user:all') or hasAuthority('SCOPE_user:read:whoami') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @GetMapping("/users/whoami")
     public Object whoAmI(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         return userService.whoAmI(httpServletRequest, httpServletResponse);
