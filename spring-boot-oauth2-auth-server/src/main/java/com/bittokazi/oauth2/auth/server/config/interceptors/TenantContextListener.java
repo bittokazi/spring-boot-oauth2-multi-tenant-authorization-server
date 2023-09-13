@@ -45,7 +45,6 @@ public class TenantContextListener implements ServletRequestListener {
                 TenantContext.setCurrentDataTenant("public");
             }
         }
-        TenantContext.setCurrentIssuerUri(request.getScheme()+request.getHeader("host"));
 //        System.out.println(
 //                ">>>>>>>>>>>>>>>>>>>>>>TTTTTTTTTTTTTTTTTTTTTTEEEEEEEEENNNNNNNNNEEEEEEEEEETTTTTTTTTT>>>>>>>>>>>>>>>"
 //                        + TenantContext.getCurrentTenant());
