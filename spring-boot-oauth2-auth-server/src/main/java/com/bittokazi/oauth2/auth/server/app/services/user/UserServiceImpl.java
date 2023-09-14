@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 		Optional<User> userOptional = userRepository.findById(user.getId());
 		if (userOptional.isPresent()) {
 			Map<String, List<String>> errors = UserUpdateHelper.validatePassword(user, userOptional,
-					userRepository);
+					userRepository, true);
 			if (errors.size() > 0) {
 				return ResponseEntity.badRequest().body(errors);
 			}
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
 		Optional<User> userOptional = userRepository.findOneByUsername(httpServletRequest.getUserPrincipal().getName());
 		if (userOptional.isPresent()) {
 			Map<String, List<String>> errors = UserUpdateHelper.validatePassword(user, userOptional,
-					userRepository);
+					userRepository, false);
 			if (errors.size() > 0) {
 				return ResponseEntity.badRequest().body(errors);
 			}

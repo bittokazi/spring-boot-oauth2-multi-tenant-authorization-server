@@ -36,16 +36,16 @@ public class UserUpdateHelper {
 	}
 
 	public static Map<String, List<String>> validatePassword(User user, Optional<User> userOptional,
-			UserRepository userRepository) {
+			UserRepository userRepository, boolean fromAdmin) {
 		Map<String, List<String>> errors = new HashMap<String, List<String>>();
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		if (!bCryptPasswordEncoder.matches(user.getPassword(), userOptional.get().getPassword())) {
 			errors.put("password", Arrays.asList("currentWrong"));
 		}
-		if (bCryptPasswordEncoder.matches(user.getNewPassword(), userOptional.get().getPassword())) {
+		if (!fromAdmin && bCryptPasswordEncoder.matches(user.getNewPassword(), userOptional.get().getPassword())) {
 			errors.put("newPassword", Arrays.asList("sameToPrevious"));
 		}
-		if (!user.getNewPassword().equals(user.getNewConfirmPassword())) {
+		if (!fromAdmin && !user.getNewPassword().equals(user.getNewConfirmPassword())) {
 			errors.put("newConfirmPassword", Arrays.asList("newDoNotMatch"));
 		}
 		return errors;
