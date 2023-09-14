@@ -44,18 +44,18 @@ export class UserAccountSettingsComponent
 
   onSubmit() {
     this.loading = true;
-    if (this.myInputVariable.nativeElement.files.length > 0) {
-      this.fileService.uploadFile(
-        this.myInputVariable.nativeElement.files,
-        'image.*',
-        3,
-        (data) => {
-          this.accountSettingsService.addUserImage(data);
-        },
-        () => {}
-      );
-      return;
-    }
+    // if (this.myInputVariable.nativeElement.files.length > 0) {
+    //   this.fileService.uploadFile(
+    //     this.myInputVariable.nativeElement.files,
+    //     'image.*',
+    //     3,
+    //     (data) => {
+    //       this.accountSettingsService.addUserImage(data);
+    //     },
+    //     () => {}
+    //   );
+    //   return;
+    // }
     this.accountSettingsService.updateMyProfile(this.form.value);
   }
 

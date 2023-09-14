@@ -88,7 +88,7 @@ export class ClientService {
         []
       ),
       requireConsent: new FormControl(
-        client?.requireConsent ? client?.requireConsent : ''
+        client?.requireConsent ? client?.requireConsent : false
       ),
       postLogoutUrl: new FormControl(
         client?.postLogoutUrl ? client?.postLogoutUrl : '',

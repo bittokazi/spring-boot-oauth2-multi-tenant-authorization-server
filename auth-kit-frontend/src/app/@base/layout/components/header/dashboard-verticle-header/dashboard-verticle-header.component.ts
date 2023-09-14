@@ -44,7 +44,6 @@ export class DashboardVerticleHeaderComponent
   }
 
   onInfoChange(user: User): void {
-    user.imageName = user.imageName + '?a=' + Math.floor(Math.random() * 10);
     this.authServie.userInfo.user = this.user = user;
   }
 

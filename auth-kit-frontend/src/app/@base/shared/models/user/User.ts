@@ -9,5 +9,6 @@ export interface User {
   password?: String;
   email?: String;
   imageName?: String;
+  avatarImage?: String;
   imageAbsolutePath?: string;
 }

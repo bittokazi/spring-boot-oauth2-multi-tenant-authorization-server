@@ -40,7 +40,7 @@ export class AccountSettingsService {
 
   updateMyProfile(user: User) {
     this.http
-      .put<User>(`${environment.baseUrl}/api/users/${user.id}`, user)
+      .put<User>(`${environment.baseUrl}/api/users/whoami`, user)
       .toPromise()
       .then((response) => {
         this.updateMyProfileView.onUserInfoUpateSuccess(response);
@@ -54,10 +54,7 @@ export class AccountSettingsService {
 
   updatePassword(user: User) {
     this.http
-      .put<User>(
-        `${environment.baseUrl}/api/users/${user.id}/update/password`,
-        user
-      )
+      .put<User>(`${environment.baseUrl}/api/users/whoami/password`, user)
       .toPromise()
       .then((response) => {
         this.updatePasswordView.onUserPasswordUpateSuccess(response);

@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { AuthHolder } from '../AuthHolder';
 import menu from './menu.json';
 import menuTenant from './menuTenant.json';
+import menuUser from './menuUser.json';
+import menuTenantAdmin from './menuTenantAdmin.json';
 
 @Injectable({
   providedIn: 'root',
@@ -101,7 +103,14 @@ export class AuthService {
   }
 
   getMenu() {
-    if (AuthHolder.getTenant() != '') return menuTenant;
+    if (this.userInfo.roles[0].name != 'ROLE_SUPER_ADMIN') {
+      return menuUser;
+    }
+    if (AuthHolder.getTenant() != '' && this.userInfo.adminTenantUser) {
+      return menuTenant;
+    } else if (!this.userInfo.adminTenantUser) {
+      return menuTenantAdmin;
+    }
     return menu;
   }
 }
