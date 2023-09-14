@@ -57,7 +57,7 @@ public class UserController {
         return userService.updateUserPassword(user, httpServletResponse);
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_user:all') or hasAuthority('SCOPE_user:read:whoami') or hasAuthority('SCOPE_SUPER_ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_user:all') or hasAuthority('SCOPE_profile') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @GetMapping("/users/whoami")
     public Object whoAmI(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         return userService.whoAmI(httpServletRequest, httpServletResponse);
@@ -72,6 +72,18 @@ public class UserController {
     @PreAuthorize("hasAuthority('SCOPE_user:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     public Object getByEmail(@RequestBody User user) {
         return userService.getByEmail(user);
+    }
+
+    @PreAuthorize("hasAuthority('SCOPE_profile')")
+    @PutMapping("/users/whoami")
+    public Object updateMyAccount(@RequestBody User user, HttpServletRequest httpServletRequest) {
+        return userService.updateMyProfile(user, httpServletRequest);
+    }
+
+    @PreAuthorize("hasAuthority('SCOPE_profile')")
+    @PutMapping("/users/whoami/password")
+    public Object updateMyPassword(@RequestBody User user, HttpServletRequest httpServletRequest) {
+        return userService.updateMyPassword(user, httpServletRequest);
     }
 
 }

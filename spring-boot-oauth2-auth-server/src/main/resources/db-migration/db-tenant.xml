@@ -146,17 +146,17 @@
 
     </changeSet>
 
-<!--    <changeSet id="2" author="bitto" context="production">-->
-<!--        <customChange-->
-<!--                class="com.bittokazi.oauth2.auth.server.database.seed.SeedOauthClient">-->
-<!--            <param name="clientFileName" value="/db-migration/seed/clients_tenant.csv" />-->
-<!--        </customChange>-->
-<!--    </changeSet>-->
+    <changeSet id="2" author="bitto" context="production">
+        <customChange
+                class="com.bittokazi.oauth2.auth.server.database.seed.SeedOauthClient">
+            <param name="clientFileName" value="/db-migration/seed/clients_tenant.csv" />
+        </customChange>
+    </changeSet>
 
-<!--    <changeSet id="3" author="bitto" context="production">-->
-<!--        <customChange-->
-<!--                class="com.bittokazi.oauth2.auth.server.database.seed.SeedUserRole">-->
-<!--            <param name="userFileName" value="/db-migration/seed/user_tenant.csv" />-->
-<!--        </customChange>-->
-<!--    </changeSet>-->
+    <changeSet id="3" author="bitto" context="production">
+        <customChange
+                class="com.bittokazi.oauth2.auth.server.database.seed.SeedUserRole">
+            <param name="userFileName" value="/db-migration/seed/user_tenant.csv" />
+        </customChange>
+    </changeSet>
 </databaseChangeLog>

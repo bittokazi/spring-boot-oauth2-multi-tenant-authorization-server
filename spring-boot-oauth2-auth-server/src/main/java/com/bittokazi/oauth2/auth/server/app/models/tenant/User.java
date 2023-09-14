@@ -104,6 +104,12 @@ public class User extends BaseModel implements UserDetails, Serializable {
     @Transient
     private List<GrantedAuthority> authorities;
 
+    @Transient
+    private String avatarImage;
+
+    @Transient
+    private boolean adminTenantUser = false;
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> rls = new ArrayList<GrantedAuthority>();
         for (Role role : roles) {

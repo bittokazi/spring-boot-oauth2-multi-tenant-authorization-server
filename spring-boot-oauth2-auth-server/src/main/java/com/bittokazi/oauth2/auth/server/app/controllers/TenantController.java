@@ -19,26 +19,26 @@ public class TenantController {
         this.tenantService = tenantService;
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_tenant:read')")
+    @PreAuthorize("hasAuthority('SCOPE_tenant:read') and hasAuthority('SCOPE_SUPER_ADMIN')")
     @GetMapping("/tenants")
     public ResponseEntity<?> getAllTenants() {
         return tenantService.getAllTenants();
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_tenant:write')")
+    @PreAuthorize("hasAuthority('SCOPE_tenant:write') and hasAuthority('SCOPE_SUPER_ADMIN')")
     @PostMapping("/tenants")
     public ResponseEntity<?> addTenant(@RequestBody Tenant tenant) {
         return tenantService.addTenant(tenant);
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_tenant:read')")
+    @PreAuthorize("hasAuthority('SCOPE_tenant:read') and hasAuthority('SCOPE_SUPER_ADMIN')")
     @GetMapping("/tenants/{id}")
     public ResponseEntity<?> getTenant(@PathVariable String id, HttpServletRequest httpServletRequest,
                              HttpServletResponse httpServletResponse) {
         return tenantService.getTenant(httpServletRequest, httpServletResponse, id);
     }
 
-    @PreAuthorize("hasAuthority('SCOPE_tenant:write')")
+    @PreAuthorize("hasAuthority('SCOPE_tenant:write') and hasAuthority('SCOPE_SUPER_ADMIN')")
     @PutMapping("/tenants/{id}")
     public ResponseEntity<?> updateCompany(@RequestBody Tenant tenant, HttpServletRequest httpServletRequest,
                                 HttpServletResponse httpServletResponse) {

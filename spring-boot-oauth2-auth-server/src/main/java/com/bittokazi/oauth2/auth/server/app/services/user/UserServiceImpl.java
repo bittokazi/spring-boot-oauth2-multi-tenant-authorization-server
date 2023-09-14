@@ -99,6 +99,7 @@ public class UserServiceImpl implements UserService {
 			if (useOptional.isPresent()) {
 				User user = useOptional.get();
 				user = UserHelpers.setUserImage(user);
+				user.setAdminTenantUser(TenantContext.getCurrentDataTenant().equals("public"));
 				return ResponseEntity.ok(user);
 			}
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -107,7 +108,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public ResponseEntity<?> updateMyProfile(User user, HttpServletRequest httpServletRequest) {
-		Optional<User> userOptional = userRepository.findOneByUsername(user.getUsername());
+		Optional<User> userOptional = userRepository.findOneByUsername(httpServletRequest.getUserPrincipal().getName());
 		if (userOptional.isPresent()) {
 			Map<String, List<String>> errors = UserUpdateHelper.validateUser(user, userOptional, userRepository);
 			if (errors.size() > 0) {
@@ -120,7 +121,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public ResponseEntity<?> updateMyPassword(User user, HttpServletRequest httpServletRequest) {
-		Optional<User> userOptional = userRepository.findOneByUsername(user.getUsername());
+		Optional<User> userOptional = userRepository.findOneByUsername(httpServletRequest.getUserPrincipal().getName());
 		if (userOptional.isPresent()) {
 			Map<String, List<String>> errors = UserUpdateHelper.validatePassword(user, userOptional,
 					userRepository);

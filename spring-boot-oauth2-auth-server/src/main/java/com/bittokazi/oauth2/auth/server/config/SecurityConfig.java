@@ -121,7 +121,24 @@ public class SecurityConfig {
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .authorizationEndpoint(authorizationEndpoint ->
                         authorizationEndpoint.consentPage("/oauth2/consent"))
-                .oidc(Customizer.withDefaults());	// Enable OpenID Connect 1.0
+                //.oidc(Customizer.withDefaults());	// Enable OpenID Connect 1.0
+                        .oidc(oidcConfigurer -> oidcConfigurer
+                                .providerConfigurationEndpoint(providerConfigurationEndpoint ->
+                                        providerConfigurationEndpoint
+                                                .providerConfigurationCustomizer(builder -> {
+                                                    builder
+                                                            .issuer(TenantContext.getCurrentIssuer())
+                                                            .authorizationEndpoint(TenantContext.getCurrentIssuer()+"/oauth2/authorize")
+                                                            .deviceAuthorizationEndpoint(TenantContext.getCurrentIssuer()+"/oauth2/device_authorization")
+                                                            .tokenEndpoint(TenantContext.getCurrentIssuer()+"/oauth2/token")
+                                                            .jwkSetUrl(TenantContext.getCurrentIssuer()+"/oauth2/jwks")
+                                                            .userInfoEndpoint(TenantContext.getCurrentIssuer()+"/userinfo")
+                                                            .endSessionEndpoint(TenantContext.getCurrentIssuer()+"/connect/logout")
+                                                            .tokenRevocationEndpoint(TenantContext.getCurrentIssuer()+"/oauth2/revoke")
+                                                            .tokenIntrospectionEndpoint(TenantContext.getCurrentIssuer()+"/oauth2/introspect")
+                                                            .build();
+                                                })
+                                ));
         http
                 // Redirect to the login page when not authenticated from the
                 // authorization endpoint
@@ -278,6 +295,7 @@ public class SecurityConfig {
             JwsHeader.Builder headers = context.getJwsHeader();
             if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType())) {
                 context.getClaims().claims((claims) -> {
+                    claims.put("iss", TenantContext.getCurrentIssuer());
                     if(claims.get("sub").toString().equals(context.getRegisteredClient().getClientId())) {
                         Optional<OauthClient> optionalOauthClient = oauthClientRepository.findOneByClientId(context.getRegisteredClient().getClientId());
                         Set<String> scopes = optionalOauthClient.isPresent() && Objects.nonNull(((Set<String>) claims.get("scope")))? ((Set<String>) claims.get("scope")).stream().collect(Collectors.toSet()): new HashSet<>();

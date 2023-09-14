@@ -35,7 +35,7 @@ public class UserHelpers {
 
 	public static User setUserImage(User user) {
 		try {
-			user.setImageName("https://www.gravatar.com/avatar/" + Utils.getMD5(user.getEmail()) + "?d=identicon");
+			user.setAvatarImage("https://www.gravatar.com/avatar/" + Utils.getMD5(user.getEmail()) + "?d=identicon");
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
