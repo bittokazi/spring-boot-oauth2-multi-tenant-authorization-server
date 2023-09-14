@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 		Optional<User> userOptional = userRepository.findById(user.getId());
 		if (userOptional.isPresent()) {
 			User userDB = userOptional.get();
-			userDB.setPassword(new BCryptPasswordEncoder().encode(user.getNewPassword()));
+			userDB.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 			return ResponseEntity.ok(userRepository.save(userDB));
 		}
 		return ResponseEntity.status(404).build();
