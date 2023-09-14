@@ -54,7 +54,7 @@ export const UpdateMyPasswordFormHelper = (user: User) => {
     id: new FormControl(user.id),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(8),
+      Validators.minLength(4),
     ]),
     newPassword: new FormControl('', [
       Validators.required,
