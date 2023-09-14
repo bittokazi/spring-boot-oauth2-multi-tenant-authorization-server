@@ -136,6 +136,7 @@ public class SecurityConfig {
                                                             .endSessionEndpoint(TenantContext.getCurrentIssuer()+"/connect/logout")
                                                             .tokenRevocationEndpoint(TenantContext.getCurrentIssuer()+"/oauth2/revoke")
                                                             .tokenIntrospectionEndpoint(TenantContext.getCurrentIssuer()+"/oauth2/introspect")
+                                                            .claim("iss", TenantContext.getCurrentIssuer())
                                                             .build();
                                                 })
                                 ));
