@@ -40,6 +40,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
+import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.authorization.*;
 import org.springframework.security.oauth2.server.authorization.authentication.JwtClientAssertionAuthenticationProvider;
@@ -136,7 +137,6 @@ public class SecurityConfig {
                                                             .endSessionEndpoint(TenantContext.getCurrentIssuer()+"/connect/logout")
                                                             .tokenRevocationEndpoint(TenantContext.getCurrentIssuer()+"/oauth2/revoke")
                                                             .tokenIntrospectionEndpoint(TenantContext.getCurrentIssuer()+"/oauth2/introspect")
-                                                            .claim("iss", TenantContext.getCurrentIssuer())
                                                             .build();
                                                 })
                                 ));
@@ -317,6 +317,11 @@ public class SecurityConfig {
                         claims.put("scope", scopes);
                     }
                     claims.put("tenant", TenantContext.getCurrentTenant());
+                });
+            }
+            if (OidcParameterNames.ID_TOKEN.equals(context.getTokenType().getValue())) {
+                context.getClaims().claims(claims -> {
+                    claims.put("iss", TenantContext.getCurrentIssuer());
                 });
             }
         };
