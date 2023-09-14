@@ -142,9 +142,9 @@ public class LoginController {
                 return ResponseEntity.ok(oauth2Response.getBody());
 //                return ResponseEntity.ok().build();
             } else {
-                ResponseEntity<Oauth2Response> oauth2Response = restTemplate.postForEntity("http://"+tenantOptional.get().getDomain()+"/oauth2/token", request, Oauth2Response.class);
+                ResponseEntity<Oauth2Response> oauth2Response = restTemplate.postForEntity(System.getenv().get("HTTP_SCHEMA")+tenantOptional.get().getDomain()+"/oauth2/token", request, Oauth2Response.class);
                 updateCookies(httpServletResponse, oauth2Response.getBody());
-                httpServletResponse.sendRedirect("http://"+tenantOptional.get().getDomain()+"/app/dashboard");
+                httpServletResponse.sendRedirect(System.getenv().get("HTTP_SCHEMA")+tenantOptional.get().getDomain()+"/app/dashboard");
                 return ResponseEntity.ok(oauth2Response.getBody());
             }
         } catch(HttpStatusCodeException e){
@@ -168,7 +168,7 @@ public class LoginController {
         } else {
             Optional<OauthClient> optionalOauthClient = oauthClientRepository.findOneById("user_login_service");
             Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
-            httpServletResponse.sendRedirect("http://"+tenantOptional.get().getDomain()+"/oauth2/authorize?client_id="+optionalOauthClient.get().getClientId()+"&response_type=code&scope="+String.join("+", optionalOauthClient.get().getScope())+"&redirect_uri="+optionalOauthClient.get().getWebServerRedirectUri().stream().findFirst().get());
+            httpServletResponse.sendRedirect(System.getenv().get("HTTP_SCHEMA")+tenantOptional.get().getDomain()+"/oauth2/authorize?client_id="+optionalOauthClient.get().getClientId()+"&response_type=code&scope="+String.join("+", optionalOauthClient.get().getScope())+"&redirect_uri="+optionalOauthClient.get().getWebServerRedirectUri().stream().findFirst().get());
         }
     }
 
@@ -202,7 +202,7 @@ public class LoginController {
                 updateCookies(httpServletResponse, oauth2Response.getBody());
                 return ResponseEntity.ok(oauth2Response.getBody());
             } else {
-                ResponseEntity<Oauth2Response> oauth2Response = restTemplate.postForEntity("http://"+tenantOptional.get().getDomain()+"/oauth2/token", request, Oauth2Response.class);
+                ResponseEntity<Oauth2Response> oauth2Response = restTemplate.postForEntity(System.getenv().get("HTTP_SCHEMA")+tenantOptional.get().getDomain()+"/oauth2/token", request, Oauth2Response.class);
                 updateCookies(httpServletResponse, oauth2Response.getBody());
                 return ResponseEntity.ok(oauth2Response.getBody());
             }
@@ -223,7 +223,7 @@ public class LoginController {
             httpServletResponse.sendRedirect(System.getenv().get("APPLICATION_BACKEND_URL")+"/app/login");
         } else {
             Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
-            httpServletResponse.sendRedirect("http://"+tenantOptional.get().getDomain()+"/app/login?");
+            httpServletResponse.sendRedirect(System.getenv().get("HTTP_SCHEMA")+tenantOptional.get().getDomain()+"/app/login?");
         }
     }
 
