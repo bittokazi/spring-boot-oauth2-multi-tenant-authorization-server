@@ -51,8 +51,9 @@ public class LoginController {
 
     @GetMapping("/login")
     public Object loginPage(Model model, HttpServletRequest request,
-                                  HttpServletResponse response) {
+                                  HttpServletResponse response) throws IOException {
         checkDeviceId(request, response);
+        if(Objects.nonNull(request.getUserPrincipal())) response.sendRedirect("/oauth2/login");
         final SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
         if (null != savedRequest) {
             final String redirectUrl = savedRequest.getRedirectUrl();
