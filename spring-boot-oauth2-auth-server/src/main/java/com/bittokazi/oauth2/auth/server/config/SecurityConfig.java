@@ -54,6 +54,7 @@ import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -81,19 +82,19 @@ public class SecurityConfig {
 
     private CustomHttpStatusReturningLogoutSuccessHandler customHttpStatusReturningLogoutSuccessHandler;
 
-//    private OtpFilter otpFilter;
+    private OtpFilter otpFilter;
 
 
     public SecurityConfig(OauthClientRepository oauthClientRepository, DataSource dataSource, UserRepository userRepository,
                           MultiTenantConnectionProviderImpl multiTenantConnectionProviderImpl, TenantRepository tenantRepository,
-                          CustomHttpStatusReturningLogoutSuccessHandler customHttpStatusReturningLogoutSuccessHandler) {
+                          CustomHttpStatusReturningLogoutSuccessHandler customHttpStatusReturningLogoutSuccessHandler, OtpFilter otpFilter) {
         this.oauthClientRepository = oauthClientRepository;
         this.dataSource = dataSource;
         this.userRepository = userRepository;
         this.multiTenantConnectionProviderImpl = multiTenantConnectionProviderImpl;
         this.tenantRepository = tenantRepository;
         this.customHttpStatusReturningLogoutSuccessHandler = customHttpStatusReturningLogoutSuccessHandler;
-//        this.otpFilter = otpFilter;
+        this.otpFilter = otpFilter;
     }
 
     @Bean
@@ -168,7 +169,7 @@ public class SecurityConfig {
         http.csrf().disable();
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/oauth2/login", "/oauth2/refresh/token", "/authorize_user", "/login", "/assets/**").permitAll()
+                        .requestMatchers("/oauth2/login", "/oauth2/refresh/token", "/authorize_user", "/login", "/assets/**", "/otp-login").permitAll()
                         .anyRequest().authenticated()
                 )
 //                .exceptionHandling((exceptions) -> exceptions
@@ -177,9 +178,10 @@ public class SecurityConfig {
 //                                new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
 //                        )
 //                )
-//                .addFilterBefore(otpFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(otpFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form
                             .loginPage("/login")
+                        .successHandler(new LoginSuccessHandler())
                 )
                 .logout((logout) -> logout.logoutSuccessHandler(customHttpStatusReturningLogoutSuccessHandler))
                 .rememberMe((remember) -> remember

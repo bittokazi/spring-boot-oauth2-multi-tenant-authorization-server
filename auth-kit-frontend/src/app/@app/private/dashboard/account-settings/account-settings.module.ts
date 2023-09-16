@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from 'src/app/@base/layout/layout.module';
 import { SharedModule } from 'src/app/@base/shared/shared.module';
 import { AccountSettingsTopBarComponent } from './components/account-settings-top-bar/account-settings-top-bar.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 const routes: Routes = [
   { path: '', component: UserAccountSettingsComponent },
@@ -14,7 +15,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [UserAccountSettingsComponent, UserSecuritySettingsComponent, AccountSettingsTopBarComponent],
+  declarations: [
+    UserAccountSettingsComponent,
+    UserSecuritySettingsComponent,
+    AccountSettingsTopBarComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -22,6 +27,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     LayoutModule,
     SharedModule,
+    QRCodeModule,
   ],
   exports: [RouterModule],
 })

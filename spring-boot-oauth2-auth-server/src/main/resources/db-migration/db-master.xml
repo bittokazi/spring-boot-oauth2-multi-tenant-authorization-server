@@ -119,6 +119,7 @@
             <column name="gender" type="varchar(128)" />
             <column name="address" type="varchar(1000)" />
             <column name="email_verified" type="BOOLEAN" />
+            <column name="two_fa_enabled" type="BOOLEAN" />
             <column name="created_by" type="VARCHAR(255)" />
             <column name="created_date" type="TIMESTAMP" />
             <column name="os_user" type="VARCHAR(255)" />
@@ -214,6 +215,25 @@
             <column name="code" type="VARCHAR(255)" />
         </createTable>
 
+        <createTable tableName="user_two_fa_secret">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="user_id" type="varchar(128)" />
+            <column name="secret" type="varchar(511)" />
+            <column name="scratch_codes" type="varchar(50000)" />
+        </createTable>
+
+        <createTable tableName="user_trusted_device">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="user_id" type="varchar(128)" />
+            <column name="instance_id" type="varchar(255)" />
+            <column name="device_ip" type="varchar(255)" />
+            <column name="user_agent" type="varchar(10000)" />
+        </createTable>
+
         <createSequence cycle="true" incrementBy="1"
                         sequenceName="role_sequence" startValue="3" />
         <createSequence cycle="true" incrementBy="1"
@@ -228,6 +248,10 @@
                         sequenceName="layout_sequence" startValue="1" />
         <createSequence cycle="true" incrementBy="1"
                         sequenceName="email_verification_sequence" startValue="1" />
+        <createSequence cycle="true" incrementBy="1"
+                        sequenceName="user_two_fa_secret_sequence" startValue="1" />
+        <createSequence cycle="true" incrementBy="1"
+                        sequenceName="user_trusted_device_sequence" startValue="1" />
 
     </changeSet>
 
@@ -245,10 +269,4 @@
         </customChange>
     </changeSet>
 
-<!--    <changeSet id="4" author="bitto" context="production">-->
-<!--        <customChange-->
-<!--                class="com.bittokazi.oauth2.auth.server.database.seed.SeedCompany">-->
-<!--            <param name="clientFileName" value="/db-migration/seed/companies.csv" />-->
-<!--        </customChange>-->
-<!--    </changeSet>-->
 </databaseChangeLog>

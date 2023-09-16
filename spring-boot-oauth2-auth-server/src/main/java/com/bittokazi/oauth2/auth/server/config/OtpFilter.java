@@ -2,30 +2,34 @@ package com.bittokazi.oauth2.auth.server.config;
 
 import com.bittokazi.oauth2.auth.server.app.models.tenant.User;
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.UserRepository;
+import com.bittokazi.oauth2.auth.server.app.services.base.RestResponseGenerator;
+import com.bittokazi.oauth2.auth.server.app.services.mfa.TwoFaService;
+import com.bittokazi.oauth2.auth.server.utils.CookieActionsProvider;
+import com.bittokazi.oauth2.auth.server.utils.HttpReqRespUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.*;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
-//@Component
+@Component
 public class OtpFilter implements Filter {
-
-//    private static final Logger logger = LoggerFactory.getLogger(Filter.class);
 
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private TwoFaService twoFaService;
+    @Autowired
+    private TwoFaService twoFaService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -41,21 +45,6 @@ public class OtpFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         if (request != null && request.getContentType() != null
                 && Objects.equals(httpServletRequest.getServletPath(), "/login")) {
-//			logger.info("User IP -> " + HttpReqRespUtils.getClientIpAddressIfServletRequestExist(httpServletRequest));
-//			logger.info("User Agent -> " + HttpReqRespUtils.getUserAgent(httpServletRequest));
-//
-//			logger.info("Username -> " + httpServletRequest.getParameter("username"));
-//			logger.info("GrantType -> " + httpServletRequest.getParameter("grant_type"));
-//			logger.info("ClientInstanceId -> " + httpServletRequest.getParameter("client_instance_id"));
-
-//            if ((httpServletRequest.getParameter("grant_type").equals("password")
-//                    && !httpServletRequest.getParameterMap().containsKey("client_instance_id"))
-//                    || (httpServletRequest.getParameter("grant_type").equals("password")
-//                    && httpServletRequest.getParameterMap().containsKey("client_instance_id")
-//                    && httpServletRequest.getParameter("client_instance_id").length() < 10)) {
-//                RestResponseGenerator.instanceIdRequired(httpServletResponse);
-//                return;
-//            }
 
             Optional<User> user = userRepository
                     .findOneByUsernameIgnoreCase(httpServletRequest.getParameter("username"));
@@ -63,11 +52,55 @@ public class OtpFilter implements Filter {
                 BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
                 if (bCryptPasswordEncoder.matches(httpServletRequest.getParameter("password"),
                         user.get().getPassword())) {
-//                    httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//                    httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-//                    httpServletResponse.getOutputStream().print(new ObjectMapper().writeValueAsString("OTP Required"));
-//                    httpServletResponse.flushBuffer();
-//                    return;
+                    Cookie[] cookies = httpServletRequest.getCookies();
+                    Optional<Cookie> deviceId = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("deviceId"))
+                            .findFirst();
+                    if(deviceId.isPresent()) {
+                        if (user.get().getTwoFaEnabled() && !twoFaService.isTrustedDevice(deviceId.get().getValue(),
+                                user.get())) {
+
+                            if (httpServletRequest.getParameterMap().containsKey("otp-code")) {
+                                Integer code = null;
+                                try {
+                                    code = Integer.valueOf(httpServletRequest.getParameter("otp-code").toString());
+                                } catch (Exception e) {
+
+                                }
+                                if (twoFaService.validate2FA(code, httpServletRequest, httpServletResponse)
+                                        || twoFaService.validate2FAScratchCode(httpServletRequest.getParameter("otp-code"),
+                                        httpServletRequest)
+                                ) {
+                                    if (httpServletRequest.getParameterMap().containsKey("trust-device")) {
+                                        twoFaService.saveTrustedDevice(
+                                                deviceId.get().getValue(), user.get(),
+                                                HttpReqRespUtils.getUserAgent(httpServletRequest), HttpReqRespUtils
+                                                        .getClientIpAddressIfServletRequestExist(httpServletRequest));
+                                    }
+                                    chain.doFilter(request, response);
+                                    return;
+                                } else {
+                                    HttpSession session = httpServletRequest.getSession(true);
+                                    session.setAttribute("otpRequiredUsername", httpServletRequest.getParameter("username"));
+                                    session.setAttribute("otpRequiredPassword", httpServletRequest.getParameter("password"));
+                                    session.setAttribute("otpRequiredRememberMe", httpServletRequest.getParameter("remember-me"));
+                                    session.setAttribute("otpRequiredTrustDevice", httpServletRequest.getParameter("trust-device"));
+                                    session.setAttribute("otpRequired", true);
+                                    session.setAttribute("message", "Invalid OTP");
+                                    httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/otp-login");
+                                    return;
+                                }
+                            }
+                            HttpSession session = httpServletRequest.getSession(true);
+                            session.setAttribute("otpRequiredUsername", httpServletRequest.getParameter("username"));
+                            session.setAttribute("otpRequiredPassword", httpServletRequest.getParameter("password"));
+                            session.setAttribute("otpRequiredRememberMe", httpServletRequest.getParameter("remember-me"));
+                            session.setAttribute("otpRequiredTrustDevice", httpServletRequest.getParameter("trust-device"));
+                            session.setAttribute("otpRequired", true);
+                            session.setAttribute("message", "Please Enter OTP");
+                            httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/otp-login");
+                            return;
+                        }
+                    }
                 }
             }
         }

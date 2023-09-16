@@ -75,4 +75,121 @@ export class AccountSettingsService {
       .catch((error) => this.updateMyProfileView.onUserImageUploadError(error))
       .finally(() => this.updateMyProfileView.onLoadComplete());
   }
+
+  generate2FaSecret() {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(
+          `${environment.baseUrl}/api/users/whoami/mfa/otp/generate-secret`,
+          {
+            observe: 'response',
+          }
+        )
+        .subscribe({
+          next: (res) => {
+            return resolve(res);
+          },
+          error: (err) => {
+            return reject(err);
+          },
+        });
+    });
+  }
+
+  enable2Fa(payload, code) {
+    console.log(code);
+
+    let req = {
+      ...payload,
+      code: code,
+    };
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(`${environment.baseUrl}/api/users/whoami/mfa/otp/enable`, req, {
+          observe: 'response',
+        })
+        .subscribe({
+          next: (res) => {
+            return resolve(res);
+          },
+          error: (err) => {
+            return reject(err);
+          },
+        });
+    });
+  }
+
+  get2FaTrustedDeviceList() {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(`${environment.baseUrl}/api/users/whoami/mfa/trusted-devices`, {
+          observe: 'response',
+        })
+        .subscribe({
+          next: (res) => {
+            return resolve(res);
+          },
+          error: (err) => {
+            return reject(err);
+          },
+        });
+    });
+  }
+
+  diable2Fa() {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(`${environment.baseUrl}/api/users/whoami/mfa/otp/disable`, {
+          observe: 'response',
+        })
+        .subscribe({
+          next: (res) => {
+            return resolve(res);
+          },
+          error: (err) => {
+            return reject(err);
+          },
+        });
+    });
+  }
+
+  deleteTrustedDevice(id) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(
+          `${environment.baseUrl}/api/users/whoami/mfa/trusted-devices/${id}`,
+          {
+            observe: 'response',
+          }
+        )
+        .subscribe({
+          next: (res) => {
+            return resolve(res);
+          },
+          error: (err) => {
+            return reject(err);
+          },
+        });
+    });
+  }
+
+  regenrateScratchCode() {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(
+          `${environment.baseUrl}/api/users/whoami/mfa/generate-scratch-codes`,
+          {
+            observe: 'response',
+          }
+        )
+        .subscribe({
+          next: (res) => {
+            return resolve(res);
+          },
+          error: (err) => {
+            return reject(err);
+          },
+        });
+    });
+  }
 }

@@ -18,10 +18,12 @@
 <!--          <p class="message">Already registered? <a href="#">Sign In</a></p>-->
         </form>
         <form class="login-form" th:action="@{/login}" method="post">
-          <div th:if="${param.error}">
+          <div th:if="${param.error}" style="margin-bottom: 10px">
             Invalid username and password.</div>
-          <div th:if="${param.logout}">
+          <div th:if="${param.logout}" style="margin-bottom: 10px">
             You have been logged out.</div>
+          <div th:if="${otpError}" style="margin-bottom: 10px">
+               Otp Error</div>
           <input type="text" name="username" placeholder="Username" />
           <input type="password" name="password" placeholder="Password" />
           <div style="text-align: left;">

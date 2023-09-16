@@ -104,3 +104,34 @@ body {
 .title {
   text-align: center;
 }
+
+/* style.css */
+.container-otp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input {
+    width: 40px;
+    border: none;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+    margin: 0 10px;
+    text-align: center;
+    font-size: 36px;
+    cursor: not-allowed;
+    pointer-events: none;
+    padding: 5px !important;
+    width: 41px !important;
+    height: 41px !important;
+}
+
+.input:focus {
+    border-bottom: 3px solid orange;
+    outline: none;
+}
+
+.input:nth-child(1) {
+    cursor: pointer;
+    pointer-events: all;
+}

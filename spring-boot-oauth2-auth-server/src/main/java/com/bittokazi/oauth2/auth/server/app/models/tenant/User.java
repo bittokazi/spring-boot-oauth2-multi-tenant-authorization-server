@@ -95,6 +95,9 @@ public class User extends BaseModel implements UserDetails, Serializable {
 
     private String gender;
 
+    @Column(name = "two_fa_enabled")
+    private Boolean twoFaEnabled;
+
     @Transient
     private String newPassword;
 

@@ -11,4 +11,6 @@ export interface User {
   imageName?: String;
   avatarImage?: String;
   imageAbsolutePath?: string;
+  twoFaEnabled?: Boolean;
+  tenantName?: String;
 }

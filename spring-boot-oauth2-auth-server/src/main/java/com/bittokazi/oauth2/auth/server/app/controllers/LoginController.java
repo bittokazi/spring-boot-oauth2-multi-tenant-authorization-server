@@ -7,8 +7,10 @@ import com.bittokazi.oauth2.auth.server.app.repositories.master.TenantRepository
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.OauthClientRepository;
 import com.bittokazi.oauth2.auth.server.config.TenantContext;
 import com.bittokazi.oauth2.auth.server.utils.CookieActionsProvider;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -50,6 +52,7 @@ public class LoginController {
     @GetMapping("/login")
     public Object loginPage(Model model, HttpServletRequest request,
                                   HttpServletResponse response) {
+        checkDeviceId(request, response);
         final SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
         if (null != savedRequest) {
             final String redirectUrl = savedRequest.getRedirectUrl();
@@ -60,7 +63,31 @@ public class LoginController {
         }
         Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
         model.addAttribute("tenantName", tenantOptional.isPresent()? tenantOptional.get().getName(): "AuthKit");
+        if(Objects.nonNull(request.getParameter("otp"))) {
+            model.addAttribute("otpError", request.getParameter("otp"));
+        }
         ModelAndView modelAndView = new ModelAndView("login", (Map<String, ?>) model);
+        return modelAndView;
+    }
+
+    @GetMapping("/otp-login")
+    public Object otpLoginPage(Model model, HttpServletRequest request,
+                            HttpServletResponse response) throws IOException {
+
+        HttpSession session = request.getSession(false);
+        if(Objects.isNull(session.getAttribute("otpRequired"))) {
+            response.sendRedirect(request.getContextPath()+"/login?otp=error");
+            return "";
+        }
+        Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
+        model.addAttribute("tenantName", tenantOptional.isPresent()? tenantOptional.get().getName(): "AuthKit");
+        setOtpParam(model, session, "otpRequiredUsername");
+        setOtpParam(model, session, "otpRequiredPassword");
+        setOtpParam(model, session, "otpRequiredRememberMe");
+        setOtpParam(model, session, "otpRequiredTrustDevice");
+        setOtpParam(model, session, "otpRequired");
+        setOtpParam(model, session, "message");
+        ModelAndView modelAndView = new ModelAndView("otp-login", (Map<String, ?>) model);
         return modelAndView;
     }
 
@@ -276,5 +303,21 @@ public class LoginController {
         }
     }
 
+    public void checkDeviceId(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+        Cookie[] cookies = httpServletRequest.getCookies();
+        Optional<Cookie> deviceId = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("deviceId"))
+                .findFirst();
+        if(!deviceId.isPresent()) {
+            CookieActionsProvider cookieActionsProvider = new CookieActionsProvider();
+            cookieActionsProvider.setUpdateFunction(CookieActionsProvider.updateCookieFunc(httpServletResponse));
+            cookieActionsProvider.updateCookie(new CookieActionsProvider.CookieValue("deviceId", UUID.randomUUID().toString()));
+        }
+    }
 
+    public void setOtpParam(Model model, HttpSession session, String name) {
+        if(Objects.nonNull(session.getAttribute(name))) {
+            model.addAttribute(name, session.getAttribute(name));
+            session.removeAttribute(name);
+        }
+    }
 }
