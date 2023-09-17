@@ -62,8 +62,9 @@ public class LoginController {
 //                return "Missing login information";
 //            }
             String targetUrl = savedRequest.getRedirectUrl();
-            response.sendRedirect(targetUrl);
-            return "";
+            if(Objects.nonNull(request.getUserPrincipal())) {
+                response.sendRedirect(targetUrl);
+            }
         } else {
             if(Objects.nonNull(request.getUserPrincipal())) response.sendRedirect("/oauth2/login");
         }
