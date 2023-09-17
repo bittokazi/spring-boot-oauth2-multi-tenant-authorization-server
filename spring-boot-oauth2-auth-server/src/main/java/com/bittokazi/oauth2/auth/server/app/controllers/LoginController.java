@@ -312,8 +312,11 @@ public class LoginController {
 
     public void checkDeviceId(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         Cookie[] cookies = httpServletRequest.getCookies();
-        Optional<Cookie> deviceId = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("deviceId"))
-                .findFirst();
+        Optional<Cookie> deviceId = Optional.empty();
+        if(Objects.nonNull(cookies)) {
+            Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("deviceId"))
+                    .findFirst();
+        }
         if(!deviceId.isPresent()) {
             CookieActionsProvider cookieActionsProvider = new CookieActionsProvider();
             cookieActionsProvider.setUpdateFunction(CookieActionsProvider.updateCookieFunc(httpServletResponse));
