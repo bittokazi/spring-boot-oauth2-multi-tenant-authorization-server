@@ -53,14 +53,19 @@ public class LoginController {
     public Object loginPage(Model model, HttpServletRequest request,
                                   HttpServletResponse response) throws IOException {
         checkDeviceId(request, response);
-        if(Objects.nonNull(request.getUserPrincipal())) response.sendRedirect("/oauth2/login");
+//        if(Objects.nonNull(request.getUserPrincipal())) response.sendRedirect("/oauth2/login");
         final SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
         if (null != savedRequest) {
-            final String redirectUrl = savedRequest.getRedirectUrl();
-            final MultiValueMap parameters = UriComponentsBuilder.fromUriString(redirectUrl).build().getQueryParams();
-            if (!parameters.containsKey("client_id")) {
-                return "Missing login information";
-            }
+//            final String redirectUrl = savedRequest.getRedirectUrl();
+//            final MultiValueMap parameters = UriComponentsBuilder.fromUriString(redirectUrl).build().getQueryParams();
+//            if (!parameters.containsKey("client_id")) {
+//                return "Missing login information";
+//            }
+            String targetUrl = savedRequest.getRedirectUrl();
+            response.sendRedirect(targetUrl);
+            return "";
+        } else {
+            if(Objects.nonNull(request.getUserPrincipal())) response.sendRedirect("/oauth2/login");
         }
         Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
         model.addAttribute("tenantName", tenantOptional.isPresent()? tenantOptional.get().getName(): "AuthKit");
