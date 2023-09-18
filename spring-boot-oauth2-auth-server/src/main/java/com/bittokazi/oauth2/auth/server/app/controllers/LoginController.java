@@ -64,6 +64,7 @@ public class LoginController {
             String targetUrl = savedRequest.getRedirectUrl();
             if(Objects.nonNull(request.getUserPrincipal())) {
                 response.sendRedirect(targetUrl);
+                new HttpSessionRequestCache().removeRequest(request, response);
             }
         } else {
             if(Objects.nonNull(request.getUserPrincipal())) response.sendRedirect("/oauth2/login");
