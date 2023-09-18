@@ -314,7 +314,7 @@ public class LoginController {
         Cookie[] cookies = httpServletRequest.getCookies();
         Optional<Cookie> deviceId = Optional.empty();
         if(Objects.nonNull(cookies)) {
-            Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("deviceId"))
+            deviceId = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("deviceId"))
                     .findFirst();
         }
         if(!deviceId.isPresent()) {
