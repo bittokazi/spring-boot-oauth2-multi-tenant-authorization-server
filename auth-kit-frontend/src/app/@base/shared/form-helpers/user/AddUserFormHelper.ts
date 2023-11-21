@@ -53,7 +53,7 @@ export const AddUserError = () => {
 
 export const UpdateMyPasswordError = () => {
   return {
-    password: [
+    currentPassword: [
       {
         key: 'currentWrong',
         message: 'Current password do not match',

@@ -42,7 +42,7 @@ export const UpdateUserFormHelper = (user: User) => {
 export const UpdateUserPasswordFormHelper = (user: User) => {
   return new FormGroup({
     id: new FormControl(user.id),
-    password: new FormControl('', [
+    newPassword: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
     ]),
@@ -52,7 +52,7 @@ export const UpdateUserPasswordFormHelper = (user: User) => {
 export const UpdateMyPasswordFormHelper = (user: User) => {
   return new FormGroup({
     id: new FormControl(user.id),
-    password: new FormControl('', [
+    currentPassword: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
     ]),

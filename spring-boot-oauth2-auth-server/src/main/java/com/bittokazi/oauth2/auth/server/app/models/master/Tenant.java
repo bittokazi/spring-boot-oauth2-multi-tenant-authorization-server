@@ -38,4 +38,13 @@ public class Tenant implements Serializable {
     @Column(name = "logo_absolute_path")
     private String logoAbsolutePath;
 
+    @Column(name = "signin_btn_color")
+    private String signInBtnColor;
+
+    @Column(name = "reset_password_link")
+    private String resetPasswordLink;
+
+    @Column(name = "create_account_link")
+    private String createAccountLink;
+
 }

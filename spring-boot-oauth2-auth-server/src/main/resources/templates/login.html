@@ -29,8 +29,9 @@
           <div style="text-align: left;">
               <input type="checkbox" name="remember-me" style="width: 13px;"/> Remember me
           </div>
-          <button type="submit">login</button>
-          <!-- <p class="message">Not registered? <a href="#">Create an account</a></p> -->
+          <button type="submit" th:style="${'background: ' + signInBtnColor}">login</button>
+          <p class="message" th:if="${resetPasswordLink != ''}">Forget Password? <a th:href="${resetPasswordLink}">Reset Here</a></p>
+          <p class="message" th:if="${createAccountLink != ''}">Not registered? <a th:href="${createAccountLink}">Create an account</a></p>
         </form>
       </div>
     </div>

@@ -44,7 +44,7 @@
             <div style="text-align: left; display: none;">
                 <input type="checkbox" name="remember-me" style="width: 13px;" th:checked="${otpRequiredRememberMe}" /> Remember me
             </div>
-            <button type="submit">login</button>
+            <button type="submit" th:style="${'background: ' + signInBtnColor}">login</button>
             <div style="text-align: left; text-align: left; color: blue; margin-top: 10px;">
                 <a onclick="toggleOtpInput(event)" style="cursor: pointer; text-decoration: underline;" id="otp-switch-btn">Enter Backup Code</a>
             </div>

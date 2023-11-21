@@ -36,6 +36,7 @@ public class UserAddHelper {
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 //		user.setEmailVerified(false);
 		user.setEnabled(true);
+		user.setTwoFaEnabled(false);
 		return user;
 	}
 }

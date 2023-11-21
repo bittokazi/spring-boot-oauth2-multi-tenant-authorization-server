@@ -28,6 +28,33 @@
       </app-verticle-text-input>
     </div>
     <div class="col-md-6 col-12">
+      <app-verticle-text-input
+        label="Signin Button Color"
+        placeHolder="Signin button color"
+        errorMessage="Please enter a valid value"
+        [control]="form.controls.signInBtnColor"
+      >
+      </app-verticle-text-input>
+    </div>
+    <div class="col-md-6 col-12">
+      <app-verticle-text-input
+        label="Reset Password Link"
+        placeHolder="Reset password link"
+        errorMessage="Please enter a valid value"
+        [control]="form.controls.resetPasswordLink"
+      >
+      </app-verticle-text-input>
+    </div>
+    <div class="col-md-6 col-12">
+      <app-verticle-text-input
+        label="Create Account Link"
+        placeHolder="Create account link"
+        errorMessage="Please enter a valid value"
+        [control]="form.controls.createAccountLink"
+      >
+      </app-verticle-text-input>
+    </div>
+    <div class="col-md-6 col-12">
       <app-verticle-switch-input
         label="Enabled"
         [control]="form.controls.enabled"

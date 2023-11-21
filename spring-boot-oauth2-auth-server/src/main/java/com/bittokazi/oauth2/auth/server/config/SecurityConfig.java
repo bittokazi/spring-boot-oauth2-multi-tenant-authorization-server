@@ -1,9 +1,12 @@
 package com.bittokazi.oauth2.auth.server.config;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -28,6 +31,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -221,7 +225,8 @@ public class SecurityConfig {
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
         RSAKey rsaKey = new RSAKey.Builder(publicKey)
                 .privateKey(privateKey)
-                .keyID(UUID.randomUUID().toString())
+                //.keyID(UUID.randomUUID().toString())
+                .keyID("b45a3510-8702-11ee-b9d1-0242ac120002")
                 .build();
         JWKSet jwkSet = new JWKSet(rsaKey);
         return new ImmutableJWKSet<>(jwkSet);
@@ -230,9 +235,25 @@ public class SecurityConfig {
     private static KeyPair generateRsaKey() {
         KeyPair keyPair;
         try {
-            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-            keyPairGenerator.initialize(2048);
-            keyPair = keyPairGenerator.generateKeyPair();
+//            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+//            keyPairGenerator.initialize(2048);
+//            keyPair = keyPairGenerator.generateKeyPair();
+
+            String privateKeyContent = new String(Files.readAllBytes(Paths.get(System.getenv().get("CERT_PRIVATE_KEY_FILE"))));
+            String publicKeyContent = new String(Files.readAllBytes(Paths.get(System.getenv().get("CERT_PUBLIC_KEY_FILE"))));
+
+            privateKeyContent = privateKeyContent.replaceAll("\\n", "").replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "");
+            publicKeyContent = publicKeyContent.replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "");;
+
+            KeyFactory kf = KeyFactory.getInstance("RSA");
+
+            PKCS8EncodedKeySpec keySpecPKCS8 = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKeyContent));
+            PrivateKey privKey = kf.generatePrivate(keySpecPKCS8);
+
+            X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyContent));
+            RSAPublicKey pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
+
+            keyPair = new KeyPair(pubKey, privKey);
         }
         catch (Exception ex) {
             throw new IllegalStateException(ex);
@@ -387,6 +408,7 @@ public class SecurityConfig {
     RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
         TokenBasedRememberMeServices.RememberMeTokenAlgorithm encodingAlgorithm = TokenBasedRememberMeServices.RememberMeTokenAlgorithm.SHA256;
         TokenBasedRememberMeServices rememberMe = new TokenBasedRememberMeServices(System.getenv().get("REMEMBER_ME_KEY"), userDetailsService, encodingAlgorithm);
+        rememberMe.setTokenValiditySeconds(3600 * 24 * 365);
         rememberMe.setParameter("remember-me");
         rememberMe.setMatchingAlgorithm(TokenBasedRememberMeServices.RememberMeTokenAlgorithm.MD5);
         return rememberMe;

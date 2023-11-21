@@ -91,6 +91,12 @@ public class UserController {
         return userService.updateMyPassword(user, httpServletRequest);
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_user:all')")
+    @PutMapping("/users/whoami/password/client")
+    public Object updateMyPasswordFromClient(@RequestBody User user, HttpServletRequest httpServletRequest) {
+        return userService.updateMyPasswordFromClient(user, httpServletRequest);
+    }
+
     @PreAuthorize("hasAuthority('SCOPE_profile')")
     @GetMapping("/users/whoami/mfa/otp/generate-secret")
     public Object userGenerateOtpSecret(HttpServletRequest httpServletRequest) {

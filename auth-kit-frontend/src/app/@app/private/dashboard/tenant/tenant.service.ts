@@ -46,6 +46,9 @@ export class TenantService {
         Validators.required,
         Validators.minLength(5),
       ]),
+      signInBtnColor: new FormControl(tenant?.signInBtnColor, []),
+      resetPasswordLink: new FormControl(tenant?.resetPasswordLink, []),
+      createAccountLink: new FormControl(tenant?.createAccountLink, []),
       enabled: new FormControl(tenant?.enabled, [Validators.required]),
     };
     if (tenant?.id)

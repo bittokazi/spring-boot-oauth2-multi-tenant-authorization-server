@@ -28,6 +28,8 @@ public interface UserService extends BaseService {
 
 	ResponseEntity<?> updateMyPassword(User user, HttpServletRequest httpServletRequest);
 
+	ResponseEntity<?> updateMyPasswordFromClient(User user, HttpServletRequest httpServletRequest);
+
 	ResponseEntity<?> getByUsername(User user);
 
 	ResponseEntity<?> getByEmail(User user);

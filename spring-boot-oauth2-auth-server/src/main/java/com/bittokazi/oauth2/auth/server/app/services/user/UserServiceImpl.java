@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 		Optional<User> userOptional = userRepository.findById(user.getId());
 		if (userOptional.isPresent()) {
 			User userDB = userOptional.get();
-			userDB.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+			userDB.setPassword(new BCryptPasswordEncoder().encode(user.getNewPassword()));
 			return ResponseEntity.ok(userRepository.save(userDB));
 		}
 		return ResponseEntity.status(404).build();
@@ -117,6 +117,21 @@ public class UserServiceImpl implements UserService {
 
 	public ResponseEntity<?> updateMyPassword(User user, HttpServletRequest httpServletRequest) {
 		Optional<User> userOptional = userRepository.findOneByUsername(httpServletRequest.getUserPrincipal().getName());
+		if (userOptional.isPresent()) {
+			Map<String, List<String>> errors = UserUpdateHelper.validatePassword(user, userOptional,
+					userRepository);
+			if (errors.size() > 0) {
+				return ResponseEntity.badRequest().body(errors);
+			}
+			User userDB = userOptional.get();
+			userDB.setPassword(new BCryptPasswordEncoder().encode(user.getNewPassword()));
+			return ResponseEntity.ok(userRepository.save(userDB));
+		}
+		return ResponseEntity.status(404).build();
+	}
+
+	public ResponseEntity<?> updateMyPasswordFromClient(User user, HttpServletRequest httpServletRequest) {
+		Optional<User> userOptional = userRepository.findById(user.getId());
 		if (userOptional.isPresent()) {
 			Map<String, List<String>> errors = UserUpdateHelper.validatePassword(user, userOptional,
 					userRepository);

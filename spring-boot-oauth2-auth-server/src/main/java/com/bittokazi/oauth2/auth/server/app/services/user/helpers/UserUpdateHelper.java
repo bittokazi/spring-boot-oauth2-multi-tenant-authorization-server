@@ -30,8 +30,21 @@ public class UserUpdateHelper {
 		user.setPassword(userOptional.get().getPassword());
 		user.setUsername(userOptional.get().getUsername());
 		user.setEmailVerified(userOptional.get().getEmailVerified());
-		if (myProfile)
+		if(Objects.isNull(user.getTwoFaEnabled())) {
+			user.setTwoFaEnabled(userOptional.get().getTwoFaEnabled());
+		}
+		if (myProfile) {
+			user.setEnabled(userOptional.get().isEnabled());
 			user.setRoles(userOptional.get().getRoles());
+			user.setChangePassword(userOptional.get().getChangePassword());
+		} else {
+			if(Objects.isNull(user.getEnabled())) {
+				user.setEnabled(userOptional.get().getEnabled());
+			}
+			if(Objects.isNull(user.getChangePassword())) {
+				user.setChangePassword(userOptional.get().getChangePassword());
+			}
+		}
 		return user;
 	}
 
@@ -39,8 +52,8 @@ public class UserUpdateHelper {
 			UserRepository userRepository) {
 		Map<String, List<String>> errors = new HashMap<String, List<String>>();
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		if (!bCryptPasswordEncoder.matches(user.getPassword(), userOptional.get().getPassword())) {
-			errors.put("password", Arrays.asList("currentWrong"));
+		if (!bCryptPasswordEncoder.matches(user.getCurrentPassword(), userOptional.get().getPassword())) {
+			errors.put("currentPassword", Arrays.asList("currentWrong"));
 		}
 		if (bCryptPasswordEncoder.matches(user.getNewPassword(), userOptional.get().getPassword())) {
 			errors.put("newPassword", Arrays.asList("sameToPrevious"));

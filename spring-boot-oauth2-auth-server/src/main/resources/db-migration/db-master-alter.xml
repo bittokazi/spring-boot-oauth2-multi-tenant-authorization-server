@@ -43,4 +43,40 @@
                         sequenceName="user_trusted_device_sequence" startValue="1" />
     </changeSet>
 
+    <changeSet id="5" author="bitto">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="tenant"
+                              columnName="signin_btn_color" />
+            </not>
+        </preConditions>
+        <addColumn tableName="tenant">
+            <column name="signin_btn_color" type="varchar(128)" value="" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="6" author="bitto">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="tenant"
+                              columnName="reset_password_link" />
+            </not>
+        </preConditions>
+        <addColumn tableName="tenant">
+            <column name="reset_password_link" type="varchar(1000)" value="" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="7" author="bitto">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="tenant"
+                              columnName="create_account_link" />
+            </not>
+        </preConditions>
+        <addColumn tableName="tenant">
+            <column name="create_account_link" type="varchar(1000)" value="" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -62,10 +62,10 @@ public class User extends BaseModel implements UserDetails, Serializable {
     private String password;
 
     @Column
-    private boolean enabled;
+    private Boolean enabled;
 
     @Column(name = "change_password")
-    private boolean changePassword;
+    private Boolean changePassword;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH })
     @Fetch(value = FetchMode.SELECT)
@@ -113,6 +113,9 @@ public class User extends BaseModel implements UserDetails, Serializable {
     @Transient
     private boolean adminTenantUser = false;
 
+    @Transient
+    private String currentPassword;
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> rls = new ArrayList<GrantedAuthority>();
         for (Role role : roles) {
@@ -142,7 +145,7 @@ public class User extends BaseModel implements UserDetails, Serializable {
     }
 
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 
 }
