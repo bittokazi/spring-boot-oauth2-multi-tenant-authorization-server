@@ -70,11 +70,9 @@ public class LoginController {
             if(Objects.nonNull(request.getUserPrincipal())) {
                 response.sendRedirect(targetUrl);
                 new HttpSessionRequestCache().removeRequest(request, response);
-                return "";
             }
         } else {
             if(Objects.nonNull(request.getUserPrincipal())) response.sendRedirect("/oauth2/login");
-            return "";
         }
         Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
         model.addAttribute("tenantName", tenantOptional.isPresent()? tenantOptional.get().getName(): "AuthKit");
