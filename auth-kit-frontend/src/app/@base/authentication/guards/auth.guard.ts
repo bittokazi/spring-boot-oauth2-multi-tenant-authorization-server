@@ -39,14 +39,16 @@ export class AuthGuard implements CanActivate {
         })
         .catch((error) => {
           if (error.status == 403) {
-            // this.sweetAlartService.showConfirmation(
-            //   'Access Denied',
-            //   'Your Access has been revoked.',
-            //   'Logout',
-            //   () => {
-            //     this.authService.logout();
-            //   }
-            // );
+            if (this.authService.getCookie('access_token') != null) {
+              this.sweetAlartService.showConfirmation(
+                'Access Denied',
+                'Your Access has been revoked.',
+                'Logout',
+                () => {
+                  this.authService.logout();
+                }
+              );
+            }
             this.router
               .navigateByUrl('/', { skipLocationChange: true })
               .then(() => this.router.navigate(['/login']));
