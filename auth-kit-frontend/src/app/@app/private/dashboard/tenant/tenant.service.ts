@@ -50,6 +50,7 @@ export class TenantService {
       resetPasswordLink: new FormControl(tenant?.resetPasswordLink, []),
       createAccountLink: new FormControl(tenant?.createAccountLink, []),
       enabled: new FormControl(tenant?.enabled, [Validators.required]),
+      defaultRedirectUrl: new FormControl(tenant?.defaultRedirectUrl, []),
     };
     if (tenant?.id)
       form['id'] = new FormControl(tenant.id, [Validators.required]);

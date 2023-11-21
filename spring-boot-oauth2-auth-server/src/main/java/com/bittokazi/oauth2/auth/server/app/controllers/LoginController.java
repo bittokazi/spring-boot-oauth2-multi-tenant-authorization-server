@@ -72,7 +72,18 @@ public class LoginController {
                 new HttpSessionRequestCache().removeRequest(request, response);
             }
         } else {
-            if(Objects.nonNull(request.getUserPrincipal())) response.sendRedirect("/oauth2/login");
+            if(Objects.nonNull(request.getUserPrincipal())) {
+                Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
+                if(tenantOptional.isPresent()) {
+                    if(!tenantOptional.get().getDefaultRedirectUrl().equals("")) {
+                        response.sendRedirect(tenantOptional.get().getDefaultRedirectUrl());
+                    } else {
+                        response.sendRedirect("/oauth2/login");
+                    }
+                } else {
+                    response.sendRedirect("/oauth2/login");
+                }
+            }
         }
         Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
         model.addAttribute("tenantName", tenantOptional.isPresent()? tenantOptional.get().getName(): "AuthKit");

@@ -79,4 +79,16 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="8" author="bitto">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="tenant"
+                              columnName="default_redirect_url" />
+            </not>
+        </preConditions>
+        <addColumn tableName="tenant">
+            <column name="default_redirect_url" type="varchar(1000)" value="" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

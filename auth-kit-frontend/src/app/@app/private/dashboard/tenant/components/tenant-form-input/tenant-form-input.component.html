@@ -55,6 +55,15 @@
       </app-verticle-text-input>
     </div>
     <div class="col-md-6 col-12">
+      <app-verticle-text-input
+        label="Defult Redirect URL"
+        placeHolder="Defult Redirect URL"
+        errorMessage="Please enter a valid value"
+        [control]="form.controls.defaultRedirectUrl"
+      >
+      </app-verticle-text-input>
+    </div>
+    <div class="col-md-6 col-12">
       <app-verticle-switch-input
         label="Enabled"
         [control]="form.controls.enabled"

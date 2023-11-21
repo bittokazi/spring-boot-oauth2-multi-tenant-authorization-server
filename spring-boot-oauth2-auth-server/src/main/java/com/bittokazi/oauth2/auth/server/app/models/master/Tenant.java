@@ -47,4 +47,7 @@ public class Tenant implements Serializable {
     @Column(name = "create_account_link")
     private String createAccountLink;
 
+    @Column(name = "default_redirect_url")
+    private String defaultRedirectUrl;
+
 }
