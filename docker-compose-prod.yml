@@ -10,6 +10,8 @@ services:
     image: "spring-boot-oauth2-auth-server:latest"
     restart: unless-stopped
     env_file: spring-boot-oauth2-auth-server/prod.env
+    volumes:
+      - /home/debian/data/certs:/certs
     network_mode: "bridge"
     ports:
       - "45010:5010"

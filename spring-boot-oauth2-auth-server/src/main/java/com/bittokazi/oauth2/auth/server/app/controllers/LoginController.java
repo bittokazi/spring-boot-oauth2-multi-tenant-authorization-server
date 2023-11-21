@@ -49,6 +49,11 @@ public class LoginController {
     @Autowired
     private OAuth2AuthorizationConsentService customJdbcOAuth2AuthorizationConsentService;
 
+    @GetMapping("/")
+    public void index(HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.sendRedirect("/login");
+    }
+
     @GetMapping("/login")
     public Object loginPage(Model model, HttpServletRequest request,
                                   HttpServletResponse response) throws IOException {
@@ -65,12 +70,18 @@ public class LoginController {
             if(Objects.nonNull(request.getUserPrincipal())) {
                 response.sendRedirect(targetUrl);
                 new HttpSessionRequestCache().removeRequest(request, response);
+                return "";
             }
         } else {
             if(Objects.nonNull(request.getUserPrincipal())) response.sendRedirect("/oauth2/login");
+            return "";
         }
         Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
         model.addAttribute("tenantName", tenantOptional.isPresent()? tenantOptional.get().getName(): "AuthKit");
+        model.addAttribute("signInBtnColor", tenantOptional.isPresent()? tenantOptional.get().getSignInBtnColor(): "#7367f0 !important");
+        model.addAttribute("resetPasswordLink", tenantOptional.isPresent()? tenantOptional.get().getResetPasswordLink():
+                System.getenv().get("APPLICATION_BACKEND_URL") + "/app/forget-password");
+        model.addAttribute("createAccountLink", tenantOptional.isPresent()? tenantOptional.get().getCreateAccountLink(): "");
         if(Objects.nonNull(request.getParameter("otp"))) {
             model.addAttribute("otpError", request.getParameter("otp"));
         }
@@ -89,6 +100,7 @@ public class LoginController {
         }
         Optional<Tenant> tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant());
         model.addAttribute("tenantName", tenantOptional.isPresent()? tenantOptional.get().getName(): "AuthKit");
+        model.addAttribute("signInBtnColor", tenantOptional.isPresent()? tenantOptional.get().getSignInBtnColor(): "#7367f0 !important");
         setOtpParam(model, session, "otpRequiredUsername");
         setOtpParam(model, session, "otpRequiredPassword");
         setOtpParam(model, session, "otpRequiredRememberMe");
