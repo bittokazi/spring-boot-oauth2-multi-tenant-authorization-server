@@ -16,14 +16,38 @@ export class ListClientComponent implements OnInit {
     private sas: SweetAlartService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  delete(id: string) {
+    this.clientService
+      .delete(id)
+      .then((res) => {
+        this.clients = res;
+        this.getList();
+      })
+      .catch((e) => {
+        if (e.status == 403) {
+          this.sas.successDialog(
+            'Access Denied',
+            'Deleting default client is not possible.'
+          );
+        } else {
+          this.sas.successDialog('Error', 'Error Deleting');
+        }
+      })
+      .finally(() => {
+        this.onLoad();
+      });
+  }
+
+  getList() {
     this.clientService
       .getAll()
       .then((res) => {
         this.clients = res;
       })
       .catch((e) => {
-        this.sas.successDialog('Error', 'Error');
+        this.sas.errorDialog('Error', 'Error Loading');
       })
       .finally(() => {
         this.onLoad();
