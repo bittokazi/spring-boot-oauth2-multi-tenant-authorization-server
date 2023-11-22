@@ -16,7 +16,9 @@ export class ListClientComponent implements OnInit {
     private sas: SweetAlartService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getList();
+  }
 
   delete(id: string) {
     this.clientService
