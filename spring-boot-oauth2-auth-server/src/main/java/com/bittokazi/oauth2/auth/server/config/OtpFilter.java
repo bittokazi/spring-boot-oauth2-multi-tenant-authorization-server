@@ -56,8 +56,9 @@ public class OtpFilter implements Filter {
                     Optional<Cookie> deviceId = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("deviceId"))
                             .findFirst();
                     if(deviceId.isPresent()) {
-                        if (user.get().getTwoFaEnabled() && !twoFaService.isTrustedDevice(deviceId.get().getValue(),
-                                user.get())) {
+                        if (Objects.nonNull(user.get().getTwoFaEnabled()) &&
+                                user.get().getTwoFaEnabled() &&
+                                !twoFaService.isTrustedDevice(deviceId.get().getValue(), user.get())) {
 
                             if (httpServletRequest.getParameterMap().containsKey("otp-code")) {
                                 Integer code = null;
