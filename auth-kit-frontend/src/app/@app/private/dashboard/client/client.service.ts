@@ -31,9 +31,9 @@ export class ClientService {
       .toPromise();
   }
 
-  public delete(client: any) {
+  public delete(id: any) {
     return this.http
-      .put<any>(`${environment.baseUrl}/api/clients/${client.id}`, client)
+      .delete<any>(`${environment.baseUrl}/api/clients/${id}`)
       .toPromise();
   }
 

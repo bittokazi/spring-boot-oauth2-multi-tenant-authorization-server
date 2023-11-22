@@ -25,16 +25,17 @@ export class ListClientComponent implements OnInit {
       .delete(id)
       .then((res) => {
         this.clients = res;
+        this.sas.successDialog('Success', 'Deleted oauth client');
         this.getList();
       })
       .catch((e) => {
         if (e.status == 403) {
-          this.sas.successDialog(
+          this.sas.errorDialog(
             'Access Denied',
             'Deleting default client is not possible.'
           );
         } else {
-          this.sas.successDialog('Error', 'Error Deleting');
+          this.sas.errorDialog('Error', 'Error Deleting');
         }
       })
       .finally(() => {
