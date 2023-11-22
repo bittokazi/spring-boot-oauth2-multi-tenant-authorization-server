@@ -57,4 +57,11 @@ public class RoleController {
 									HttpServletResponse response) {
 		return roleService.updateRole(role, id, response);
 	}
+
+	@PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
+	@PostMapping("/roles/search/name")
+	public Object getRoleByName(@RequestBody Role role, HttpServletRequest httpServletRequest,
+						  HttpServletResponse httpServletResponse) {
+		return roleService.getRoleByName(role);
+	}
 }

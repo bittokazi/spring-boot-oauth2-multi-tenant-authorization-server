@@ -60,6 +60,15 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public ResponseEntity<?> getRoleByName(Role role) {
+        Optional<Role> roleOptional = roleRepository.findOneByName(role.getName());
+        if (roleOptional.isPresent()) {
+            return ResponseEntity.ok(roleOptional.get());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @Override
     public ResponseEntity<?> getRole(String id) {
         Optional<Role> roleOptional = roleRepository.findById(id);
         if (roleOptional.isPresent()) {

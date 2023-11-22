@@ -16,4 +16,6 @@ public interface RoleService extends BaseService {
 	public Object getAllRoles();
 
 	Object updateRole(Role modifiedRole, String id, HttpServletResponse response);
+
+	Object getRoleByName(Role role);
 }
