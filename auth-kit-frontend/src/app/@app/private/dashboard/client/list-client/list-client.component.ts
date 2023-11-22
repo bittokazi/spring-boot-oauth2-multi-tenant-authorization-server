@@ -20,7 +20,7 @@ export class ListClientComponent implements OnInit {
     this.getList();
   }
 
-  delete(id: string) {
+  deleteClient(id: string) {
     this.clientService
       .delete(id)
       .then((res) => {
