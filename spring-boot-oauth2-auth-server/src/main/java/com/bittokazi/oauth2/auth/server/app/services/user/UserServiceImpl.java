@@ -150,7 +150,7 @@ public class UserServiceImpl implements UserService {
 		if(userOptional.isPresent()) {
 			return ResponseEntity.ok(userOptional.get());
 		}
-		return ResponseEntity.ok(userOptional.get());
+		return ResponseEntity.status(404).build();
 	}
 
 	public ResponseEntity<?> getByEmail(User user) {
@@ -158,7 +158,7 @@ public class UserServiceImpl implements UserService {
 		if(userOptional.isPresent()) {
 			return ResponseEntity.ok(userOptional.get());
 		}
-		return ResponseEntity.ok(userOptional.get());
+		return ResponseEntity.status(404).build();
 	}
 
 }
