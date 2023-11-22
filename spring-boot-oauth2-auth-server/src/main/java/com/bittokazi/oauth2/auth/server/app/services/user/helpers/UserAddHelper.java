@@ -33,7 +33,7 @@ public class UserAddHelper {
 	}
 
 	public static User addDefaultValues(User user) {
-		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+		user.setPassword(new BCryptPasswordEncoder().encode(user.getNewPassword()));
 //		user.setEmailVerified(false);
 		user.setEnabled(true);
 		user.setTwoFaEnabled(false);

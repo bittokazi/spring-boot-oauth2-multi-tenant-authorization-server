@@ -75,6 +75,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('SCOPE_user:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
+    @PostMapping("/users/search/email")
     public Object getByEmail(@RequestBody User user) {
         return userService.getByEmail(user);
     }
