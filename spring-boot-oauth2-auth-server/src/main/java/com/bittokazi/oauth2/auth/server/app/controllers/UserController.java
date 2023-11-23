@@ -137,5 +137,12 @@ public class UserController {
         return twoFaService.regenerateScratchCode(httpServletRequest, httpServletResponse);
     }
 
+    @PreAuthorize("hasAuthority('SCOPE_user:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
+    @PutMapping("/users/{id}/verify/email")
+    public Object verifyEmailOfUser(@RequestBody User user, HttpServletRequest httpServletRequest,
+                             HttpServletResponse httpServletResponse) {
+        return userService.verifyEmailOfUser(user, httpServletRequest, httpServletResponse);
+    }
+
 }
 

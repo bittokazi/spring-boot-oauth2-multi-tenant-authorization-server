@@ -34,4 +34,6 @@ public interface UserService extends BaseService {
 
 	ResponseEntity<?> getByEmail(User user);
 
+	Object verifyEmailOfUser(User user, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse);
+
 }

@@ -161,4 +161,15 @@ public class UserServiceImpl implements UserService {
 		return ResponseEntity.status(404).build();
 	}
 
+	@Override
+	public Object verifyEmailOfUser(User user, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+		Optional<User> userOptional = userRepository.findById(user.getId());
+		if (userOptional.isPresent()) {
+			User userDb = userOptional.get();
+			userDb.setEmailVerified(true);
+			return UserHelpers.setUserImage(userDb);
+		}
+		return RestResponseGenerator.notFound(httpServletResponse);
+	}
+
 }
