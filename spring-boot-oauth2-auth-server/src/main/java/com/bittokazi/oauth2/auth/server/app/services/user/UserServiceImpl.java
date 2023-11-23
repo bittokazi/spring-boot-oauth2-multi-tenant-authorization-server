@@ -167,7 +167,7 @@ public class UserServiceImpl implements UserService {
 		if (userOptional.isPresent()) {
 			User userDb = userOptional.get();
 			userDb.setEmailVerified(true);
-			return UserHelpers.setUserImage(userDb);
+			return userRepository.save(userDb);
 		}
 		return RestResponseGenerator.notFound(httpServletResponse);
 	}
