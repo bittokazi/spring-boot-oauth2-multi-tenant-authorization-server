@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --disableHostCheck --proxy-config src/proxy.conf.json",
     "build": "ng build",
-    "build:prod": "node --max_old_space_size=512 ./node_modules/@angular/cli/bin/ng build --configuration=production --aot=true --prod=true",
+    "build:prod": "ng build --configuration=production --aot=true --prod=true",
     "build:test-ci-cd": "ng build --configuration=test-ci-cd --aot=true --prod=true",
     "build:staging": "node --max_old_space_size=512 ./node_modules/@angular/cli/bin/ng build --configuration=staging --aot=true --prod=true",
     "test": "ng test",

@@ -24,7 +24,7 @@ jobs:
         run: cd ./spring-boot-oauth2-auth-server && docker build . --file ./Dockerfile --tag registry.gitlab.com/bittokazi/spring-boot-oauth2-multi-tenant-auth-server/backend:latest && docker push registry.gitlab.com/bittokazi/spring-boot-oauth2-multi-tenant-auth-server/backend:latest
 
       - name: Build and Push Angular Frontend Image
-        run: cd ./auth-kit-frontend && docker build . --file ./Dockerfile --tag registry.gitlab.com/bittokazi/spring-boot-oauth2-multi-tenant-auth-server/frontend:latest && docker push registry.gitlab.com/bittokazi/spring-boot-oauth2-multi-tenant-auth-server/frontend:latest
+        run: cd ./auth-kit-frontend && docker build . --file ./prod.Dockerfile --tag registry.gitlab.com/bittokazi/spring-boot-oauth2-multi-tenant-auth-server/frontend:latest && docker push registry.gitlab.com/bittokazi/spring-boot-oauth2-multi-tenant-auth-server/frontend:latest
 
   deploy-trigger:
     runs-on: ubuntu-latest
