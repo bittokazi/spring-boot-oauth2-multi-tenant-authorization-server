@@ -27,7 +27,7 @@ export const AddUserFormHelper = () => {
         name: new FormControl(''),
       }),
     ]),
-    password: new FormControl('', [
+    newPassword: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
     ]),
