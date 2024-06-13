@@ -4,43 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/certificates/authkit_private_key_pkcs8.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/certificates/authkit_public_key.pem" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/docker-image-build.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/components/tenant-form-input/tenant-form-input.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/components/tenant-form-input/tenant-form-input.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-layout.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-layout.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-verticle-light/dashboard-verticle-light.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-verticle-light/dashboard-verticle-light.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-verticle-light/dashboard-verticle-light.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-verticle-light/dashboard-verticle-light.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/environments/environment.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose-prod.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/master/Tenant.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/master/Tenant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/CustomUserDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/CustomHttpStatusReturningLogoutSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomHttpStatusReturningLogoutSuccessHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/CustomJdbcOAuth2AuthorizationConsentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomJdbcOAuth2AuthorizationConsentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/CustomJdbcOAuth2AuthorizationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomJdbcOAuth2AuthorizationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/CustomOAuth2TokenValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomOAuth2TokenValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/LoginSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/LoginSuccessHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/OauthAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/OauthAuthenticationEntryPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/OtpFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/interceptors/TenantContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/interceptors/TenantContextListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-master-alter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-master-alter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/footer/dashboard-verticle-footer/dashboard-verticle-footer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/footer/dashboard-verticle-footer/dashboard-verticle-footer.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/footer/dashboard-verticle-footer/dashboard-verticle-footer.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/footer/dashboard-verticle-footer/dashboard-verticle-footer.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,6 +150,19 @@
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
     </task>
+    <task id="LOCAL-00001" summary="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:">
+      <option name="closed" value="true" />
+      <created>1718303045502</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1718303045502</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:" />
   </component>
 </project>

@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 import { LoginView } from './LoginView';
 import { TenantService } from '../../private/dashboard/tenant/tenant.service';
+import info from './../../../../../../info.json';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit, LoginView {
   public captchaSuccess: Boolean = false;
   public captchaString: String = '';
   public name: String = '';
+  public version = info.version;
 
   constructor(
     public loginService: LoginService,
