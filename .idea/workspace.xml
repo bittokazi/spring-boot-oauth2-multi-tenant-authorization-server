@@ -5,12 +5,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/certificates/authkit_private_key_pkcs8.pem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/certificates/authkit_public_key.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/docker-image-build.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/components/tenant-form-input/tenant-form-input.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/components/tenant-form-input/tenant-form-input.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-layout.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-layout.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-verticle-light/dashboard-verticle-light.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-verticle-light/dashboard-verticle-light.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-verticle-light/dashboard-verticle-light.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/dashboard-layout/dashboard-verticle-light/dashboard-verticle-light.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/environments/environment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose-prod.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/master/Tenant.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/master/Tenant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/CustomUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/CustomHttpStatusReturningLogoutSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomHttpStatusReturningLogoutSuccessHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/CustomJdbcOAuth2AuthorizationConsentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomJdbcOAuth2AuthorizationConsentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/CustomJdbcOAuth2AuthorizationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomJdbcOAuth2AuthorizationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/CustomOAuth2TokenValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomOAuth2TokenValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/LoginSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/LoginSuccessHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/OauthAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/OauthAuthenticationEntryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/OtpFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/interceptors/TenantContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/interceptors/TenantContextListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-master-alter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-master-alter.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -18,9 +60,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2crrEPinSsy0ldJNmtVDaebDBVJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -28,17 +70,105 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Application.executor": "Run",
+    "Maven.angular-frontend [clean].executor": "Run",
+    "Maven.angular-frontend [install].executor": "Run",
+    "Maven.api-gateway [clean].executor": "Run",
+    "Maven.api-gateway [install].executor": "Run",
+    "Maven.api-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
+    "Maven.app-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [clean].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [install].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:repackage].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:start].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [spring-boot:run].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server-parent [clean].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server-parent [install].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "corretto-21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/bitto/Documents/java/spring-boot-oauth2-multi-tenant-auth-server"
+    "last_opened_file_path": "/home/bitto/Documents/java/spring-boot-oauth2-multi-tenant-auth-server/gateway/src/main/java/com/bittokazi/api/gateway/config",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/gateway/src/main/java/com/bittokazi/api/gateway/config" />
+      <recent name="$PROJECT_DIR$/angular-frontend/src/main" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="spring-boot-oauth2-auth-server [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="delegateBuildToMaven" value="false" />
+            <option name="environmentProperties">
+              <map>
+                <entry key="APPLICATION_BACKEND_URL" value="http://localhost:5020" />
+                <entry key="CERT_PRIVATE_KEY_FILE" value="$USER_HOME$/certs/authkit_private_key_pkcs8.pem" />
+                <entry key="CERT_PUBLIC_KEY_FILE" value="$USER_HOME$/certs/authkit_public_key.pem" />
+                <entry key="DB_HOSTNAME" value="0.0.0.0" />
+                <entry key="DB_NAME" value="auth_server_db" />
+                <entry key="DB_PASSWORD" value="password" />
+                <entry key="DB_PORT" value="5432" />
+                <entry key="DB_USERNAME" value="postgres" />
+                <entry key="HTTP_SCHEMA" value="http://" />
+                <entry key="REMEMBER_ME_KEY" value="secretkey" />
+              </map>
+            </option>
+            <option name="jreName" value="17" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="spring-boot:run" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/spring-boot-oauth2-auth-server" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.2-corretto-21.0.2-3183f394aec4-99ec9c23" />
+        <option value="jdk-17.0.10-corretto-17.0.10-f644763e9732-f00315f9" />
       </set>
     </attachedChunks>
   </component>

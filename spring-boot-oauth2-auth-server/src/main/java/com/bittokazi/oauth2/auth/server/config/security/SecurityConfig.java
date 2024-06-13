@@ -1,4 +1,4 @@
-package com.bittokazi.oauth2.auth.server.config;
+package com.bittokazi.oauth2.auth.server.config.security;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,8 +8,6 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.bittokazi.oauth2.auth.server.app.models.tenant.OauthClient;
@@ -19,7 +17,12 @@ import com.bittokazi.oauth2.auth.server.app.repositories.tenant.OauthClientRepos
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.RegisteredClientRepositoryImpl;
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.UserRepository;
 import com.bittokazi.oauth2.auth.server.app.services.CustomUserDetailsService;
+import com.bittokazi.oauth2.auth.server.config.*;
 import com.bittokazi.oauth2.auth.server.config.interceptors.TenantContextListener;
+import com.bittokazi.oauth2.auth.server.config.security.mfa.OtpFilter;
+import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomHttpStatusReturningLogoutSuccessHandler;
+import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationConsentService;
+import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationService;
 import com.bittokazi.oauth2.auth.server.database.MultiTenantConnectionProviderImpl;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -31,10 +34,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -47,9 +48,6 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.authorization.*;
-import org.springframework.security.oauth2.server.authorization.authentication.JwtClientAssertionAuthenticationProvider;
-import org.springframework.security.oauth2.server.authorization.authentication.JwtClientAssertionDecoderFactory;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
@@ -106,28 +104,10 @@ public class SecurityConfig {
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
             throws Exception {
 
-//        OAuth2AuthorizationServerConfigurer authorizationServerConfigurer =
-//                new OAuth2AuthorizationServerConfigurer();
-//        authorizationServerConfigurer
-//                .oidc(Customizer.withDefaults())	// Enable OpenID Connect 1.0
-//                .clientAuthentication(clientAuthentication ->
-//                        clientAuthentication
-//                                .authenticationProviders(configureJwtClientAssertionValidator())
-//                );
-//        RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
-//        http.securityMatcher(endpointsMatcher).authorizeHttpRequests((authorize) -> {
-//            ((AuthorizeHttpRequestsConfigurer.AuthorizedUrl)authorize.anyRequest()).authenticated();
-//        }).csrf((csrf) -> {
-//            csrf.ignoringRequestMatchers(new RequestMatcher[]{endpointsMatcher});
-//        }).apply(authorizationServerConfigurer);
-        //http.apply(authorizationServerConfigurer);
-
-
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .authorizationEndpoint(authorizationEndpoint ->
                         authorizationEndpoint.consentPage("/oauth2/consent"))
-                //.oidc(Customizer.withDefaults());	// Enable OpenID Connect 1.0
                         .oidc(oidcConfigurer -> oidcConfigurer
                                 .providerConfigurationEndpoint(providerConfigurationEndpoint ->
                                         providerConfigurationEndpoint
@@ -146,23 +126,14 @@ public class SecurityConfig {
                                                 })
                                 ));
         http
-                // Redirect to the login page when not authenticated from the
-                // authorization endpoint
                 .exceptionHandling((exceptions) -> exceptions
                         .defaultAuthenticationEntryPointFor(
                                 new LoginUrlAuthenticationEntryPoint("/login"),
                                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                         )
                 )
-                // Accept access tokens for User Info and/or Client Registration
                 .oauth2ResourceServer((resourceServer) -> resourceServer
                         .jwt(Customizer.withDefaults()));
-//                .oauth2ResourceServer(oauth2 -> oauth2
-//                        .opaqueToken(opaqueToken -> opaqueToken
-//                                .introspector(myCustomIntrospector())
-//                        )
-//                );
-
         return http.build();
     }
 
@@ -173,15 +144,11 @@ public class SecurityConfig {
         http.csrf().disable();
         http
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/oauth2/login", "/oauth2/refresh/token", "/authorize_user", "/login", "/assets/**", "/otp-login").permitAll()
+                        .requestMatchers("/oauth2/login", "/oauth2/refresh/token",
+                                "/authorize_user", "/login", "/assets/**", "/otp-login",
+                                "/app/**", "/public/api/tenants/info").permitAll()
                         .anyRequest().authenticated()
                 )
-//                .exceptionHandling((exceptions) -> exceptions
-//                        .defaultAuthenticationEntryPointFor(
-//                                new LoginUrlAuthenticationEntryPoint("/login"),
-//                                new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
-//                        )
-//                )
                 .addFilterBefore(otpFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form
                             .loginPage("/login")
@@ -204,17 +171,6 @@ public class SecurityConfig {
 
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
-//        RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
-//                .clientId("client")
-//                .clientSecret("{noop}secret")
-//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-//                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-//                .redirectUri("http://127.0.0.1:8090/code")
-//                .scope(OidcScopes.OPENID)
-//                .scope(OidcScopes.PROFILE)
-//                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-//                .build();
         return new RegisteredClientRepositoryImpl(oauthClientRepository);
     }
 
@@ -225,8 +181,7 @@ public class SecurityConfig {
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
         RSAKey rsaKey = new RSAKey.Builder(publicKey)
                 .privateKey(privateKey)
-                //.keyID(UUID.randomUUID().toString())
-                .keyID("b45a3510-8702-11ee-b9d1-0242ac120002")
+                .keyID(AppConfig.KID.isEmpty()? UUID.randomUUID().toString(): AppConfig.KID)
                 .build();
         JWKSet jwkSet = new JWKSet(rsaKey);
         return new ImmutableJWKSet<>(jwkSet);
@@ -235,25 +190,32 @@ public class SecurityConfig {
     private static KeyPair generateRsaKey() {
         KeyPair keyPair;
         try {
-//            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-//            keyPairGenerator.initialize(2048);
-//            keyPair = keyPairGenerator.generateKeyPair();
+            if(AppConfig.CERT_PRIVATE_KEY_FILE.isEmpty() || AppConfig.CERT_PUBLIC_KEY_FILE.isEmpty()) {
+                KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+                keyPairGenerator.initialize(2048);
+                keyPair = keyPairGenerator.generateKeyPair();
+            } else {
+                String privateKeyContent = new String(Files.readAllBytes(Paths.get(AppConfig.CERT_PRIVATE_KEY_FILE)));
+                String publicKeyContent = new String(Files.readAllBytes(Paths.get(AppConfig.CERT_PUBLIC_KEY_FILE)));
 
-            String privateKeyContent = new String(Files.readAllBytes(Paths.get(System.getenv().get("CERT_PRIVATE_KEY_FILE"))));
-            String publicKeyContent = new String(Files.readAllBytes(Paths.get(System.getenv().get("CERT_PUBLIC_KEY_FILE"))));
+                privateKeyContent = privateKeyContent.replaceAll("\\n", "")
+                        .replace("-----BEGIN PRIVATE KEY-----", "")
+                        .replace("-----END PRIVATE KEY-----", "");
 
-            privateKeyContent = privateKeyContent.replaceAll("\\n", "").replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "");
-            publicKeyContent = publicKeyContent.replaceAll("\\n", "").replace("-----BEGIN PUBLIC KEY-----", "").replace("-----END PUBLIC KEY-----", "");;
+                publicKeyContent = publicKeyContent.replaceAll("\\n", "")
+                        .replace("-----BEGIN PUBLIC KEY-----", "")
+                        .replace("-----END PUBLIC KEY-----", "");;
 
-            KeyFactory kf = KeyFactory.getInstance("RSA");
+                KeyFactory kf = KeyFactory.getInstance("RSA");
 
-            PKCS8EncodedKeySpec keySpecPKCS8 = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKeyContent));
-            PrivateKey privKey = kf.generatePrivate(keySpecPKCS8);
+                PKCS8EncodedKeySpec keySpecPKCS8 = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateKeyContent));
+                PrivateKey privKey = kf.generatePrivate(keySpecPKCS8);
 
-            X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyContent));
-            RSAPublicKey pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
+                X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyContent));
+                RSAPublicKey pubKey = (RSAPublicKey) kf.generatePublic(keySpecX509);
 
-            keyPair = new KeyPair(pubKey, privKey);
+                keyPair = new KeyPair(pubKey, privKey);
+            }
         }
         catch (Exception ex) {
             throw new IllegalStateException(ex);
@@ -268,7 +230,6 @@ public class SecurityConfig {
 
         NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder) OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
         jwtDecoder.setJwtValidator(validator);
-//        return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
         return jwtDecoder;
     }
 
@@ -299,19 +260,10 @@ public class SecurityConfig {
         JwtGenerator jwtGenerator = new JwtGenerator(jwtEncoder);
         jwtGenerator.setJwtCustomizer(jwtCustomizer());
         OAuth2AccessTokenGenerator accessTokenGenerator = new OAuth2AccessTokenGenerator();
-//        accessTokenGenerator.setAccessTokenCustomizer(accessTokenCustomizer());
         OAuth2RefreshTokenGenerator refreshTokenGenerator = new OAuth2RefreshTokenGenerator();
         return new DelegatingOAuth2TokenGenerator(
                 jwtGenerator, accessTokenGenerator, refreshTokenGenerator);
     }
-
-//    @Bean
-//    public OAuth2TokenCustomizer<OAuth2TokenClaimsContext> accessTokenCustomizer() {
-//        return context -> {
-//            OAuth2TokenClaimsSet.Builder claims = context.getClaims();
-//        };
-//    }
-
 
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
@@ -381,33 +333,10 @@ public class SecurityConfig {
         };
     }
 
-
-    private Consumer<List<AuthenticationProvider>> configureJwtClientAssertionValidator() {
-        return (authenticationProviders) ->
-                authenticationProviders.stream().map((authenticationProvider) -> {
-                    if (authenticationProvider instanceof JwtClientAssertionAuthenticationProvider) {
-                        // Customize JwtClientAssertionDecoderFactory
-                        JwtClientAssertionDecoderFactory jwtDecoderFactory = new JwtClientAssertionDecoderFactory();
-                        Function<RegisteredClient, OAuth2TokenValidator<Jwt>> jwtValidatorFactory = (registeredClient) ->
-                                new DelegatingOAuth2TokenValidator<>(
-                                        // Use default validators
-                                        JwtClientAssertionDecoderFactory.DEFAULT_JWT_VALIDATOR_FACTORY.apply(registeredClient),
-                                        // Add custom validator
-                                        new JwtClaimValidator<>("tenant", "hoga"::equals));
-                        jwtDecoderFactory.setJwtValidatorFactory(jwtValidatorFactory);
-
-                        JwtClientAssertionAuthenticationProvider _authenticationProvider = (JwtClientAssertionAuthenticationProvider) authenticationProvider;
-                        _authenticationProvider.setJwtDecoderFactory(jwtDecoderFactory);
-                        return _authenticationProvider;
-                    }
-                    return authenticationProvider;
-                }).collect(Collectors.toList());
-    }
-
     @Bean
     RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
         TokenBasedRememberMeServices.RememberMeTokenAlgorithm encodingAlgorithm = TokenBasedRememberMeServices.RememberMeTokenAlgorithm.SHA256;
-        TokenBasedRememberMeServices rememberMe = new TokenBasedRememberMeServices(System.getenv().get("REMEMBER_ME_KEY"), userDetailsService, encodingAlgorithm);
+        TokenBasedRememberMeServices rememberMe = new TokenBasedRememberMeServices(AppConfig.REMEMBER_ME_KEY, userDetailsService, encodingAlgorithm);
         rememberMe.setTokenValiditySeconds(3600 * 24 * 365);
         rememberMe.setParameter("remember-me");
         rememberMe.setMatchingAlgorithm(TokenBasedRememberMeServices.RememberMeTokenAlgorithm.MD5);

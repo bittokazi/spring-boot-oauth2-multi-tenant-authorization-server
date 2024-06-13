@@ -91,4 +91,16 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="9" author="bitto">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="tenant"
+                              columnName="enable_config_panel" />
+            </not>
+        </preConditions>
+        <addColumn tableName="tenant">
+            <column name="enable_config_panel" type="BOOLEAN" value="false" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

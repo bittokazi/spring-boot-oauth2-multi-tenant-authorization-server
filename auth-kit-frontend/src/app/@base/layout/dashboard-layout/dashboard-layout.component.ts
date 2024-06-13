@@ -8,6 +8,7 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import { TenantService } from 'src/app/@app/private/dashboard/tenant/tenant.service';
 
 let $ = window['$'];
 
@@ -19,8 +20,13 @@ let $ = window['$'];
 export class DashboardLayoutComponent implements OnInit {
   public hasAccess: boolean = false;
   public init: boolean = true;
+  public name: String = '';
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    public tenantService: TenantService
+  ) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
       }
@@ -38,6 +44,7 @@ export class DashboardLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.name = this.tenantService.tenantInfo.name;
     this.authService
       .checkPageAccess()
       .then((access: boolean) => {

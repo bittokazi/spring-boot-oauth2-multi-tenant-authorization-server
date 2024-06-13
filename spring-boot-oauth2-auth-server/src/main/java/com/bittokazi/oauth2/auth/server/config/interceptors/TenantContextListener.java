@@ -1,5 +1,6 @@
 package com.bittokazi.oauth2.auth.server.config.interceptors;
 
+import com.bittokazi.oauth2.auth.server.config.AppConfig;
 import com.bittokazi.oauth2.auth.server.app.models.master.Tenant;
 import com.bittokazi.oauth2.auth.server.app.repositories.master.TenantRepository;
 import com.bittokazi.oauth2.auth.server.config.TenantContext;
@@ -45,10 +46,7 @@ public class TenantContextListener implements ServletRequestListener {
                 TenantContext.setCurrentDataTenant("public");
             }
         }
-        TenantContext.setCurrentIssuer(System.getenv().get("HTTP_SCHEMA")+host);
-//        System.out.println(
-//                ">>>>>>>>>>>>>>>>>>>>>>TTTTTTTTTTTTTTTTTTTTTTEEEEEEEEENNNNNNNNNEEEEEEEEEETTTTTTTTTT>>>>>>>>>>>>>>>"
-//                        + TenantContext.getCurrentTenant());
+        TenantContext.setCurrentIssuer(AppConfig.HTTP_SCHEMA + host);
     }
 }
 

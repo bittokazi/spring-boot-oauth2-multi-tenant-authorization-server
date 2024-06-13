@@ -7,6 +7,7 @@ import { LoginResponse } from 'src/app/@base/shared/models/auth/LoginResponse';
 import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 import { LoginView } from './LoginView';
+import { TenantService } from '../../private/dashboard/tenant/tenant.service';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +20,13 @@ export class LoginComponent implements OnInit, LoginView {
   public loginCredentialsError: Boolean = false;
   public captchaSuccess: Boolean = false;
   public captchaString: String = '';
+  public name: String = '';
 
   constructor(
     public loginService: LoginService,
     public router: Router,
-    public sweetAlartService: SweetAlartService
+    public sweetAlartService: SweetAlartService,
+    public tenantService: TenantService
   ) {
     this.loginService.loginView = this;
     this.form = new FormGroup({
@@ -35,6 +38,7 @@ export class LoginComponent implements OnInit, LoginView {
   }
 
   ngOnInit(): void {
+    this.name = this.tenantService.tenantInfo.name;
     this.loginService.userAuthCheck();
   }
 

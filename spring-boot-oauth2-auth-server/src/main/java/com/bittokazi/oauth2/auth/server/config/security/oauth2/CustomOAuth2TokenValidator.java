@@ -1,5 +1,6 @@
-package com.bittokazi.oauth2.auth.server.config;
+package com.bittokazi.oauth2.auth.server.config.security.oauth2;
 
+import com.bittokazi.oauth2.auth.server.config.TenantContext;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
@@ -33,7 +34,7 @@ public class CustomOAuth2TokenValidator <T extends OAuth2Token> implements OAuth
             errors.addAll(validator.validate(token).getErrors());
         }
 
-        System.out.println("T> "+TenantContext.getCurrentTenant()+" t>"+token);
+        System.out.println("T> "+ TenantContext.getCurrentTenant()+" t>"+token);
 
         return OAuth2TokenValidatorResult.failure(errors);
     }

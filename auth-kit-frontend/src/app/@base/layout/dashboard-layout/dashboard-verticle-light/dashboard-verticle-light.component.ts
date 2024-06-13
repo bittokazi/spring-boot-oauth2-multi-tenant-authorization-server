@@ -3,6 +3,7 @@ import { DashboardApp } from './../../../shared/js/DashboardApp';
 import { DashboardAppMenu } from './../../../shared/js/DashboardAppMenu';
 import { DashboardCustom } from './../../../shared/js/DashboardCustom';
 import { Collapsed } from './../../../shared/js/Collapsed';
+import { TenantService } from 'src/app/@app/private/dashboard/tenant/tenant.service';
 
 let $ = window['$'];
 
@@ -12,9 +13,12 @@ let $ = window['$'];
   styleUrls: ['./dashboard-verticle-light.component.css'],
 })
 export class DashboardVerticleLightComponent implements OnInit {
-  constructor() {}
+  public name: String = '';
+
+  constructor(public tenantService: TenantService) {}
 
   ngOnInit(): void {
+    this.name = this.tenantService.tenantInfo.name;
     $('body').removeClass('vertical-layout');
     $('body').removeClass('vertical-menu-modern');
     $('body').removeClass('blank-page');

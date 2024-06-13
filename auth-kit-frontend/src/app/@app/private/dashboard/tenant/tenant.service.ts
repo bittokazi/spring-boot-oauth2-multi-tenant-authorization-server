@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class TenantService {
+  public tenantInfo: any = null;
+
   constructor(private http: HttpClient) {}
 
   public addTenant(tenant: any) {
@@ -31,6 +33,12 @@ export class TenantService {
       .toPromise();
   }
 
+  public info() {
+    return this.http
+      .get<any>(`${environment.baseUrl}/public/api/tenants/info`)
+      .toPromise();
+  }
+
   generateForm(tenant: any) {
     let form = {
       name: new FormControl(tenant?.name, [
@@ -51,6 +59,7 @@ export class TenantService {
       createAccountLink: new FormControl(tenant?.createAccountLink, []),
       enabled: new FormControl(tenant?.enabled, [Validators.required]),
       defaultRedirectUrl: new FormControl(tenant?.defaultRedirectUrl, []),
+      enableConfigPanel: new FormControl(tenant?.enableConfigPanel, []),
     };
     if (tenant?.id)
       form['id'] = new FormControl(tenant.id, [Validators.required]);

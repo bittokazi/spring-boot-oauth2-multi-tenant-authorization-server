@@ -1,4 +1,4 @@
-package com.bittokazi.oauth2.auth.server.config;
+package com.bittokazi.oauth2.auth.server.config.security.oauth2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
+import com.bittokazi.oauth2.auth.server.config.TenantContext;
 import com.bittokazi.oauth2.auth.server.database.MultiTenantConnectionProviderImpl;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataRetrievalFailureException;

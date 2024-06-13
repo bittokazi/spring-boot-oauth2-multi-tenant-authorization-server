@@ -63,7 +63,14 @@
       >
       </app-verticle-text-input>
     </div>
-    <div class="col-md-6 col-12">
+    <div class="col-md-2 col-12">
+      <app-verticle-switch-input
+        label="Enable Config Panel"
+        [control]="form.controls.enableConfigPanel"
+      >
+      </app-verticle-switch-input>
+    </div>
+    <div class="col-md-4 col-12">
       <app-verticle-switch-input
         label="Enabled"
         [control]="form.controls.enabled"

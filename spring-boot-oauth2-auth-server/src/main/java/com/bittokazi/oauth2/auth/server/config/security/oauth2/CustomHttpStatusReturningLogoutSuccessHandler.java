@@ -1,4 +1,4 @@
-package com.bittokazi.oauth2.auth.server.config;
+package com.bittokazi.oauth2.auth.server.config.security.oauth2;
 
 import com.bittokazi.oauth2.auth.server.app.models.tenant.OauthClient;
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.OauthClientRepository;

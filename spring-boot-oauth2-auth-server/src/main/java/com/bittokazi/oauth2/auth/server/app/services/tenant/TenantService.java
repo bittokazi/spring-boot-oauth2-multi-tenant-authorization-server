@@ -1,6 +1,7 @@
 package com.bittokazi.oauth2.auth.server.app.services.tenant;
 
 import com.bittokazi.oauth2.auth.server.app.models.master.Tenant;
+import com.bittokazi.oauth2.auth.server.app.models.master.TenantInfo;
 import com.bittokazi.oauth2.auth.server.app.models.tenant.OauthClient;
 import com.bittokazi.oauth2.auth.server.app.repositories.master.TenantRepository;
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.OauthClientRepository;
@@ -63,5 +64,45 @@ public class TenantService {
                                 HttpServletResponse httpServletResponse) {
         if(!TenantContext.getCurrentDataTenant().equals("public")) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         return ResponseEntity.ok(tenantRepository.save(tenant));
+    }
+
+    public ResponseEntity<?> info() {
+        if(TenantContext.getCurrentDataTenant().equals("public")) {
+            return ResponseEntity.ok(
+                    TenantInfo
+                            .builder()
+                            .cpanel(true)
+                            .enabledConfigPanel(true)
+                            .name("AuthKit IDP")
+                            .build()
+            );
+        }
+
+        Optional<Tenant> tenant = tenantRepository
+                .findOneByCompanyKey(
+                        TenantContext
+                                .getCurrentDataTenant()
+                );
+
+        if(tenant.isEmpty()) {
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        }
+
+        return ResponseEntity.ok(
+                TenantInfo
+                        .builder()
+                        .name(
+                                tenant.get()
+                                        .getName()
+                        )
+                        .cpanel(false)
+                        .enabledConfigPanel(
+                                tenant.get()
+                                        .getEnableConfigPanel()
+                        )
+                        .build()
+        );
     }
 }

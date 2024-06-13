@@ -50,4 +50,6 @@ public class Tenant implements Serializable {
     @Column(name = "default_redirect_url")
     private String defaultRedirectUrl;
 
+    @Column(name = "enable_config_panel")
+    private Boolean enableConfigPanel;
 }

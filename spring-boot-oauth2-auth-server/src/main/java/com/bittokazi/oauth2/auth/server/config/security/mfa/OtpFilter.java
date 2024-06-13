@@ -1,4 +1,4 @@
-package com.bittokazi.oauth2.auth.server.config;
+package com.bittokazi.oauth2.auth.server.config.security.mfa;
 
 import com.bittokazi.oauth2.auth.server.app.models.tenant.User;
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.UserRepository;
@@ -34,7 +34,7 @@ public class OtpFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // TODO Auto-generated method stub
-        System.out.println(">>>");
+        System.out.println("OtpFilter -> Init");
     }
 
     @Override
