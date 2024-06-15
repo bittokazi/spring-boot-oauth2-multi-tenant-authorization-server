@@ -1,5 +1,5 @@
 {
-  "name": "internet-politie-admin-panel",
+  "name": "auth-kit-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

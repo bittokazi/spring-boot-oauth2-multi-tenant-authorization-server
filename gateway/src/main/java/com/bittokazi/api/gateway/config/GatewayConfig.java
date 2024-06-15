@@ -34,13 +34,13 @@ public class GatewayConfig {
                         .filters(f ->{
                             return f.preserveHostHeader();
                         })
-                        .uri("http://127.0.0.1:4200")
+                        .uri(System.getenv().getOrDefault("GATEWAY_FRONTEND_SERVICE", "http://127.0.0.1:4200"))
                 )
                 .route(r -> r.path("/**")
                         .filters(f ->{
                             return f.preserveHostHeader();
                         })
-                        .uri("http://127.0.0.1:5010")
+                        .uri(System.getenv().getOrDefault("GATEWAY_BACKEND_SERVICE", "http://127.0.0.1:5010"))
                 ).build();
     }
 }

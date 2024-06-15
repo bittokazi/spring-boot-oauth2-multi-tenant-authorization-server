@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:">
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(version): added versioning :lipstick: :triangular_flag_on_post:">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/public/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/footer/dashboard-verticle-footer/dashboard-verticle-footer.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/footer/dashboard-verticle-footer/dashboard-verticle-footer.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/footer/dashboard-verticle-footer/dashboard-verticle-footer.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/footer/dashboard-verticle-footer/dashboard-verticle-footer.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/header/dashboard-verticle-header/dashboard-verticle-header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/header/dashboard-verticle-header/dashboard-verticle-header.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose_.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/bittokazi/api/gateway/config/GatewayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/bittokazi/api/gateway/config/GatewayConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/ci-cd-test.env" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/ci-cd-test.env" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -40,6 +44,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Application.executor": "Run",
+    "Docker.Dockerfile.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Docker.docker-compose_.yml: Compose Deployment.executor": "Run",
     "Maven.angular-frontend [clean].executor": "Run",
     "Maven.angular-frontend [install].executor": "Run",
     "Maven.api-gateway [clean].executor": "Run",
@@ -76,7 +83,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
     <configuration name="spring-boot-oauth2-auth-server [spring-boot:run]" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -133,6 +140,47 @@
       </MavenSettings>
       <method v="2" />
     </configuration>
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose_.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose_.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose_.yml: Compose Deployment" />
+        <item itemvalue="Docker.Dockerfile" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -158,11 +206,20 @@
       <option name="project" value="LOCAL" />
       <updated>1718303045502</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat(version): added versioning :lipstick: :triangular_flag_on_post:">
+      <option name="closed" value="true" />
+      <created>1718304969023</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1718304969023</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:" />
+    <MESSAGE value="feat(version): added versioning :lipstick: :triangular_flag_on_post:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(version): added versioning :lipstick: :triangular_flag_on_post:" />
   </component>
 </project>

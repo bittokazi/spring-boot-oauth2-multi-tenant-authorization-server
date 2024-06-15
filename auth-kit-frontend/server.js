@@ -13,6 +13,6 @@ app.get("/*", (req, res) => {
   res.sendFile(__dirname + "/dist/app/index.html");
 });
 
-var port = process.env.PORT || 3003;
+var port = process.env.FE_PORT || 3003;
 app.listen(port);
 console.log("frontend server started " + port);
