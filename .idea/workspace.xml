@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(version): added versioning :lipstick: :triangular_flag_on_post:">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/header/dashboard-verticle-header/dashboard-verticle-header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/header/dashboard-verticle-header/dashboard-verticle-header.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose_.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/bittokazi/api/gateway/config/GatewayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/bittokazi/api/gateway/config/GatewayConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/ci-cd-test.env" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/ci-cd-test.env" afterDir="false" />
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(version): Change docker files for local :sparkles:">
+      <change afterPath="$PROJECT_DIR$/docker-compose_.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,12 +207,21 @@
       <option name="project" value="LOCAL" />
       <updated>1718304969023</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat(version): Change docker files for local :sparkles:">
+      <option name="closed" value="true" />
+      <created>1718481190041</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1718481190041</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:" />
     <MESSAGE value="feat(version): added versioning :lipstick: :triangular_flag_on_post:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(version): added versioning :lipstick: :triangular_flag_on_post:" />
+    <MESSAGE value="feat(version): Change docker files for local :sparkles:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(version): Change docker files for local :sparkles:" />
   </component>
 </project>
