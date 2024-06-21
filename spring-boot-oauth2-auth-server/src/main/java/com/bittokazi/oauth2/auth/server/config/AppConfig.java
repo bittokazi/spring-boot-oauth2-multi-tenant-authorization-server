@@ -8,6 +8,15 @@ public class AppConfig {
     public static String CERT_PUBLIC_KEY_FILE = System.getenv().getOrDefault("CERT_PUBLIC_KEY_FILE", "");
     public static String REMEMBER_ME_KEY = System.getenv().getOrDefault(
             "REMEMBER_ME_KEY",
-            "changeThisSecretInEnv"
+            "changeThisSecretInEnv");
+    public static Boolean USE_X_AUTH_TENANT = Boolean.parseBoolean(
+            System.getenv().getOrDefault(
+                    "USE_X_AUTH_TENANT",
+                    "false"
+            )
     );
+    public static String DEFAULT_APP_NAME = System.getenv()
+            .getOrDefault("DEFAULT_APP_NAME", "AuthKit IDP");
+    public static String DEFAULT_RESET_PASSWORD_LINK = System.getenv()
+            .getOrDefault("DEFAULT_RESET_PASSWORD_LINK", "");
 }

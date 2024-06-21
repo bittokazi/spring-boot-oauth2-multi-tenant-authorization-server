@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TenantService } from 'src/app/@app/private/dashboard/tenant/tenant.service';
 import { AuthService } from 'src/app/@base/authentication/services/auth.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class DashboardVerticleBreadcrumbComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private tenantService: TenantService
   ) {
     this.router.events.subscribe((val: any) => {
       this.currentUrl = val.url;
@@ -100,7 +102,9 @@ export class DashboardVerticleBreadcrumbComponent implements OnInit {
 
   setTitle() {
     this.titleService.setTitle(
-      `AuthKit IDP | ${this.breadCrumbs[this.breadCrumbs.length - 1].title}`
+      `${this.tenantService.tenantInfo.name} | ${
+        this.breadCrumbs[this.breadCrumbs.length - 1].title
+      }`
     );
   }
 }

@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title = 'AuthKit IDP';
+  title = 'SSO Login';
   loading = true;
   accessDenied = false;
 
