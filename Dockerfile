@@ -30,5 +30,3 @@ COPY ./docker_entry_point.sh /app/docker_entry_point.sh
 
 EXPOSE 5020
 CMD ./docker_entry_point.sh
-
-
