@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(version): Change docker files for local :sparkles:">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(update-dockei): Updated docker files :sparkles:">
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/bread-crumb/dashboard-verticle-breadcrumb/dashboard-verticle-breadcrumb.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/bread-crumb/dashboard-verticle-breadcrumb/dashboard-verticle-breadcrumb.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/ci-cd-test.env" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/ci-cd-test.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/AppConfig.java" afterDir="false" />
@@ -225,13 +224,22 @@
       <option name="project" value="LOCAL" />
       <updated>1718481190041</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat(update-dockei): Updated docker files :sparkles:">
+      <option name="closed" value="true" />
+      <created>1718990614172</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1718990614172</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:" />
     <MESSAGE value="feat(version): added versioning :lipstick: :triangular_flag_on_post:" />
     <MESSAGE value="feat(version): Change docker files for local :sparkles:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(version): Change docker files for local :sparkles:" />
+    <MESSAGE value="feat(update-dockei): Updated docker files :sparkles:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(update-dockei): Updated docker files :sparkles:" />
   </component>
 </project>

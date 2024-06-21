@@ -25,28 +25,43 @@ public class TenantContextListener implements ServletRequestListener {
         String host = request.getHeader("host").replace("www.", "");
         Optional<Tenant> tenantOptional = Optional.empty();
         Optional<Tenant> dataTenantOptional = Optional.empty();
-        if(Objects.nonNull(host)) {
+        Optional<Tenant> authTenantOptional = Optional.empty();
+        if (Objects.nonNull(host)) {
             tenantOptional = tenantRepository.findOneByDomain(host);
         }
-        if(!tenantOptional.isPresent()) {
+        if (!tenantOptional.isPresent()) {
             String header = request.getHeader("X-DATA-TENANT");
-            if(Objects.nonNull(header)) {
+            if (Objects.nonNull(header)) {
                 dataTenantOptional = tenantRepository.findOneByCompanyKey(header);
             }
         }
 
-        if(tenantOptional.isPresent()) {
+        if (tenantOptional.isPresent()) {
             TenantContext.setCurrentTenant(tenantOptional.get().getCompanyKey());
             TenantContext.setCurrentDataTenant(tenantOptional.get().getCompanyKey());
         } else {
-            TenantContext.setCurrentTenant("public");
-            if(dataTenantOptional.isPresent()) {
-                TenantContext.setCurrentDataTenant(dataTenantOptional.get().getCompanyKey());
+            if (AppConfig.USE_X_AUTH_TENANT) {
+                String header = request.getHeader("X-AUTH-TENANT");
+                if (Objects.nonNull(header)) {
+                    authTenantOptional = tenantRepository.findOneByCompanyKey(header);
+                }
+            }
+            if (AppConfig.USE_X_AUTH_TENANT && authTenantOptional.isPresent()) {
+                TenantContext.setCurrentTenant(authTenantOptional.get().getCompanyKey());
+                TenantContext.setCurrentDataTenant(authTenantOptional.get().getCompanyKey());
             } else {
-                TenantContext.setCurrentDataTenant("public");
+                TenantContext.setCurrentTenant("public");
+                if (dataTenantOptional.isPresent()) {
+                    TenantContext.setCurrentDataTenant(dataTenantOptional.get().getCompanyKey());
+                } else {
+                    TenantContext.setCurrentDataTenant("public");
+                }
             }
         }
-        TenantContext.setCurrentIssuer(AppConfig.HTTP_SCHEMA + host);
+        if (authTenantOptional.isPresent()) {
+            TenantContext.setCurrentIssuer(AppConfig.HTTP_SCHEMA + authTenantOptional.get().getDomain());
+        } else {
+            TenantContext.setCurrentIssuer(AppConfig.HTTP_SCHEMA + host);
+        }
     }
 }
-
