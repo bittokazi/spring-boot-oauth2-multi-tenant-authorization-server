@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(update-dockei): Updated docker files :sparkles:">
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/bread-crumb/dashboard-verticle-breadcrumb/dashboard-verticle-breadcrumb.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/bread-crumb/dashboard-verticle-breadcrumb/dashboard-verticle-breadcrumb.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/interceptors/TenantContextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/interceptors/TenantContextListener.java" afterDir="false" />
-    </list>
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(tenant): updated tenant context :building_construction:" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -232,7 +223,23 @@
       <option name="project" value="LOCAL" />
       <updated>1718990614172</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat(config): Changed app configs :wrench:">
+      <option name="closed" value="true" />
+      <created>1718990728616</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1718990728616</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat(tenant): updated tenant context :building_construction:">
+      <option name="closed" value="true" />
+      <created>1718990796090</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1718990796090</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -240,6 +247,8 @@
     <MESSAGE value="feat(version): added versioning :lipstick: :triangular_flag_on_post:" />
     <MESSAGE value="feat(version): Change docker files for local :sparkles:" />
     <MESSAGE value="feat(update-dockei): Updated docker files :sparkles:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(update-dockei): Updated docker files :sparkles:" />
+    <MESSAGE value="feat(config): Changed app configs :wrench:" />
+    <MESSAGE value="feat(tenant): updated tenant context :building_construction:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(tenant): updated tenant context :building_construction:" />
   </component>
 </project>
