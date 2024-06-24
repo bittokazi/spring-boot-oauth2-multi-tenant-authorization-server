@@ -43,4 +43,8 @@
                         sequenceName="user_trusted_device_sequence" startValue="1" />
     </changeSet>
 
+    <changeSet id="5" author="bitto">
+        <modifyDataType tableName="user_two_fa_secret" columnName="user_id" newDataType="varchar(128)"/>
+    </changeSet>
+
 </databaseChangeLog>
