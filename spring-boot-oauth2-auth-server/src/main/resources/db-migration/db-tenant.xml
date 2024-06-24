@@ -144,7 +144,7 @@
             <column name="id" autoIncrement="true" type="bigint">
                 <constraints primaryKey="true" />
             </column>
-            <column name="user_id" type="NUMERIC(20)" />
+            <column name="user_id" type="varchar(128)" />
             <column name="secret" type="varchar(511)" />
             <column name="scratch_codes" type="varchar(50000)" />
         </createTable>
@@ -153,7 +153,7 @@
             <column name="id" autoIncrement="true" type="bigint">
                 <constraints primaryKey="true" />
             </column>
-            <column name="user_id" type="NUMERIC(20)" />
+            <column name="user_id" type="varchar(128)" />
             <column name="instance_id" type="varchar(255)" />
             <column name="device_ip" type="varchar(255)" />
             <column name="user_agent" type="varchar(10000)" />

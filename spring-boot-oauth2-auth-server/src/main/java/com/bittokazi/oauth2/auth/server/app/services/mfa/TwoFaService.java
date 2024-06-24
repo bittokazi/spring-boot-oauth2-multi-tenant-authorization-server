@@ -84,7 +84,7 @@ public class TwoFaService {
                             HttpServletResponse httpServletResponse) {
         Optional<User> userOptional = userRepository.findOneByUsername(httpServletRequest.getUserPrincipal().getName());
 
-        if(userOptional.get().getTwoFaEnabled()) return ResponseEntity.status(403).build();
+        if(userOptional.get().getTwoFaEnabled() != null && userOptional.get().getTwoFaEnabled()) return ResponseEntity.status(403).build();
 
         UserTwoFaSecret userTwoFaSecret = new UserTwoFaSecret();
         userTwoFaSecret.setUser(userOptional.get());
