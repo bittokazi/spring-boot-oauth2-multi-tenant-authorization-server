@@ -22,7 +22,7 @@
         <maven.test.skip>true</maven.test.skip>
         <kotlin.version>2.0.0</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
-        <start-class>com.bittokazi.oauth2.auth.server.ApplicationKt</start-class>
+        <main.class>com.bittokazi.oauth2.auth.server.ApplicationKt</main.class>
     </properties>
 
     <dependencies>
@@ -130,10 +130,15 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>

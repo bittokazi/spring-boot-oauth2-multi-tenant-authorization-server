@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(kotlin-convert): Converted the project to kotlin :art:">
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(kotlin-convert): set start class kotlin :zap:">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,45 +39,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Backend.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose_.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.ApplicationKt.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.angular-frontend [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.angular-frontend [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.api-gateway [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.api-gateway [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.api-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.app-gateway [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.app-gateway [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.app-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.app-gateway [spring-boot:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:repackage].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:start].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [spring-boot:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server-parent [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server-parent [install].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/bitto/Documents/java/spring-boot-oauth2-multi-tenant-auth-server&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.36588237&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application.executor": "Run",
+    "Application.Backend.executor": "Run",
+    "Docker.Dockerfile.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Docker.docker-compose_.yml: Compose Deployment.executor": "Run",
+    "Kotlin.ApplicationKt.executor": "Run",
+    "Kotlin.Gateway.executor": "Run",
+    "Maven.angular-frontend [clean].executor": "Run",
+    "Maven.angular-frontend [install].executor": "Run",
+    "Maven.api-gateway [clean].executor": "Run",
+    "Maven.api-gateway [install].executor": "Run",
+    "Maven.api-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
+    "Maven.app-gateway [clean].executor": "Run",
+    "Maven.app-gateway [install].executor": "Run",
+    "Maven.app-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
+    "Maven.app-gateway [spring-boot:run].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [clean].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [install].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-assembly-plugin:2.6:assembly].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-assembly-plugin:2.6:single].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:repackage].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:start].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [spring-boot:run].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server-parent [clean].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server-parent [install].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "corretto-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/bitto/Documents/java/spring-boot-oauth2-multi-tenant-auth-server",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.36588237",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/gateway/src/main/java/com/bittokazi/api/gateway/config" />
@@ -84,7 +90,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Backend">
+  <component name="RunManager" selected="Kotlin.Gateway">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -113,6 +119,14 @@
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.bittokazi.oauth2.auth.server.ApplicationKt" />
       <module name="spring-boot-oauth2-auth-server" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Gateway" type="JetRunConfigurationType">
+      <option name="MAIN_CLASS_NAME" value="com.bittokazi.api.gateway.ApplicationKt" />
+      <module name="app-gateway" />
+      <shortenClasspath name="NONE" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -229,6 +243,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.Backend" />
+      <item itemvalue="Kotlin.Gateway" />
       <item itemvalue="Maven.app-gateway [spring-boot:run]" />
       <item itemvalue="Maven.spring-boot-oauth2-auth-server [spring-boot:run]" />
     </list>
@@ -298,7 +313,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719484684568</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat(kotlin-convert): set start class kotlin :zap:">
+      <option name="closed" value="true" />
+      <created>1719485700862</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1719485700862</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -320,6 +343,7 @@
     <MESSAGE value="feat(config): Changed app configs :wrench:" />
     <MESSAGE value="feat(tenant): updated tenant context :building_construction:" />
     <MESSAGE value="feat(kotlin-convert): Converted the project to kotlin :art:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(kotlin-convert): Converted the project to kotlin :art:" />
+    <MESSAGE value="feat(kotlin-convert): set start class kotlin :zap:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(kotlin-convert): set start class kotlin :zap:" />
   </component>
 </project>
