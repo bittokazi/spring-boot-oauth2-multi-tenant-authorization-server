@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(kotlin-convert): fix jar main class not found problem :zap:">
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(auth): fix trusted device bug and logout bug :bug:">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/account-settings/user-security-settings/user-security-settings.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/account-settings/user-security-settings/user-security-settings.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomHttpStatusReturningLogoutSuccessHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomHttpStatusReturningLogoutSuccessHandler.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/utils/HttpReqRespUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/utils/HttpReqRespUtils.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +39,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Application.executor": "Run",
-    "Application.Backend.executor": "Run",
+    "Application.Backend.executor": "Debug",
     "Docker.Dockerfile.executor": "Run",
     "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
     "Docker.docker-compose_.yml: Compose Deployment.executor": "Run",
@@ -338,7 +334,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719506358380</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat(auth): fix trusted device bug and logout bug :bug:">
+      <option name="closed" value="true" />
+      <created>1719510784869</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1719510784869</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -362,6 +366,7 @@
     <MESSAGE value="feat(kotlin-convert): Converted the project to kotlin :art:" />
     <MESSAGE value="feat(kotlin-convert): set start class kotlin :zap:" />
     <MESSAGE value="feat(kotlin-convert): fix jar main class not found problem :zap:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(kotlin-convert): fix jar main class not found problem :zap:" />
+    <MESSAGE value="feat(auth): fix trusted device bug and logout bug :bug:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(auth): fix trusted device bug and logout bug :bug:" />
   </component>
 </project>

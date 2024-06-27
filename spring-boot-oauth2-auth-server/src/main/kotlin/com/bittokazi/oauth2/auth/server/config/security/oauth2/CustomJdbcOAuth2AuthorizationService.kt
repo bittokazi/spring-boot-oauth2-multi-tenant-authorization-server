@@ -208,7 +208,7 @@ open class CustomJdbcOAuth2AuthorizationService(
     }
 
     @Nullable
-    override fun findByToken(token: String, @Nullable tokenType: OAuth2TokenType): OAuth2Authorization? {
+    override fun findByToken(token: String, @Nullable tokenType: OAuth2TokenType?): OAuth2Authorization? {
         Assert.hasText(token, "token cannot be empty")
         val parameters: MutableList<SqlParameterValue> = mutableListOf()
         if (tokenType == null) {
