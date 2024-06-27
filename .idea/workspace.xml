@@ -4,100 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(tenant): updated tenant context :building_construction:">
-      <change afterPath="$PROJECT_DIR$/gateway/src/main/kotlin/com/bittokazi/api/gateway/Application.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gateway/src/main/kotlin/com/bittokazi/api/gateway/config/GatewayConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/menu/dashboard-verticle-nav-menu/dashboard-verticle-nav-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/menu/dashboard-verticle-nav-menu/dashboard-verticle-nav-menu.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/menu/dashboard-verticle-nav-menu/dashboard-verticle-nav-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@base/layout/components/menu/dashboard-verticle-nav-menu/dashboard-verticle-nav-menu.component.ts" afterDir="false" />
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(kotlin-convert): Converted the project to kotlin :art:">
       <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/bittokazi/api/gateway/Application.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/bittokazi/api/gateway/config/GatewayConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/Application.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/WebMvcConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/AngularFrontendController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/OauthClientController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/RoleController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/TenantController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/controllers/open/PublicTenantController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/base/BaseModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/base/Oauth2Response.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/base/RestAccessDenied.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/base/RestBadInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/base/RestErrorMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/base/RestNotFound.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/base/RestUnprocessableEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/master/Tenant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/master/TenantInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/tenant/OauthClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/tenant/OauthConsent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/tenant/Role.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/tenant/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/tenant/UserDetailsImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/tenant/mfa/TwoFASecretPayload.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/tenant/mfa/UserTrustedDevice.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/tenant/mfa/UserTwoFaSecret.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/tenant/security/RoleOauth.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/models/tenant/security/UserOauth.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/repositories/master/TenantRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/repositories/tenant/OauthClientRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/repositories/tenant/RegisteredClientRepositoryImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/repositories/tenant/RoleRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/repositories/tenant/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/repositories/tenant/mfa/UserTrustedDeviceRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/repositories/tenant/mfa/UserTwoFaSecretRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/CustomUserDetailsService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/OAuth2AuthorizationServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/base/BaseService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/base/RestResponseGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/client/ClientService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/mfa/TwoFaService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/role/RoleService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/role/RoleServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/role/helpers/RoleAddHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/role/helpers/RoleHelpers.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/role/helpers/RoleUpdateHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/user/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/user/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/user/helpers/UserAddHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/user/helpers/UserHelpers.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/app/services/user/helpers/UserUpdateHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/AppConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/TenantContext.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/interceptors/TenantContextListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/interceptors/TenantIdentifierInterceptorAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/LoginSuccessHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomHttpStatusReturningLogoutSuccessHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomJdbcOAuth2AuthorizationConsentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomJdbcOAuth2AuthorizationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomOAuth2TokenValidator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/config/security/oauth2/OauthAuthenticationEntryPoint.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/database/CurrentTenantResolverImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/database/DatabaseConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/database/MultiTenancyJpaConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/database/MultiTenantConnectionProviderImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/database/seed/SeedCompany.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/database/seed/SeedOauthClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/database/seed/SeedUserRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/utils/CookieActionsProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/utils/HttpReqRespUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/java/com/bittokazi/oauth2/auth/server/utils/Utils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-master.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-tenant-alter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-tenant-alter.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-tenant.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-tenant.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/seed/clients.csv" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/seed/clients.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,6 +23,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -127,45 +36,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Application.executor": "Run",
-    "Application.Backend.executor": "Run",
-    "Docker.Dockerfile.executor": "Run",
-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
-    "Docker.docker-compose_.yml: Compose Deployment.executor": "Run",
-    "Kotlin.ApplicationKt.executor": "Run",
-    "Maven.angular-frontend [clean].executor": "Run",
-    "Maven.angular-frontend [install].executor": "Run",
-    "Maven.api-gateway [clean].executor": "Run",
-    "Maven.api-gateway [install].executor": "Run",
-    "Maven.api-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
-    "Maven.app-gateway [clean].executor": "Run",
-    "Maven.app-gateway [install].executor": "Run",
-    "Maven.app-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
-    "Maven.app-gateway [spring-boot:run].executor": "Run",
-    "Maven.spring-boot-oauth2-auth-server [clean].executor": "Run",
-    "Maven.spring-boot-oauth2-auth-server [install].executor": "Run",
-    "Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor": "Run",
-    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:repackage].executor": "Run",
-    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
-    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:start].executor": "Run",
-    "Maven.spring-boot-oauth2-auth-server [spring-boot:run].executor": "Run",
-    "Maven.spring-boot-oauth2-auth-server-parent [clean].executor": "Run",
-    "Maven.spring-boot-oauth2-auth-server-parent [install].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "jdk.selected.JAVA_MODULE": "corretto-21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/bitto/Documents/java/spring-boot-oauth2-multi-tenant-auth-server",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.36588237",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Backend.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose_.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.ApplicationKt.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.angular-frontend [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.angular-frontend [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.api-gateway [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.api-gateway [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.api-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.app-gateway [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.app-gateway [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.app-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.app-gateway [spring-boot:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-oauth2-auth-server [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-oauth2-auth-server [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:repackage].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:start].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-oauth2-auth-server [spring-boot:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-oauth2-auth-server-parent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.spring-boot-oauth2-auth-server-parent [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/bitto/Documents/java/spring-boot-oauth2-multi-tenant-auth-server&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.36588237&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/gateway/src/main/java/com/bittokazi/api/gateway/config" />
@@ -381,8 +290,27 @@
       <option name="project" value="LOCAL" />
       <updated>1718990796090</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="feat(kotlin-convert): Converted the project to kotlin :art:">
+      <option name="closed" value="true" />
+      <created>1719484684567</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1719484684568</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:" />
@@ -391,6 +319,7 @@
     <MESSAGE value="feat(update-dockei): Updated docker files :sparkles:" />
     <MESSAGE value="feat(config): Changed app configs :wrench:" />
     <MESSAGE value="feat(tenant): updated tenant context :building_construction:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(tenant): updated tenant context :building_construction:" />
+    <MESSAGE value="feat(kotlin-convert): Converted the project to kotlin :art:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(kotlin-convert): Converted the project to kotlin :art:" />
   </component>
 </project>

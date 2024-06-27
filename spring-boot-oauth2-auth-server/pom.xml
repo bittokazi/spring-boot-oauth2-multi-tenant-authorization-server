@@ -22,6 +22,7 @@
         <maven.test.skip>true</maven.test.skip>
         <kotlin.version>2.0.0</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
+        <start-class>com.bittokazi.oauth2.auth.server.ApplicationKt</start-class>
     </properties>
 
     <dependencies>
