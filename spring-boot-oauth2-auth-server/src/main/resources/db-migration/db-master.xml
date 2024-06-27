@@ -27,6 +27,7 @@
             <column name="reset_password_link" type="varchar(1000)" />
             <column name="default_redirect_url" type="varchar(1000)" />
             <column name="signin_btn_color" type="varchar(128)" />
+            <column name="enable_config_panel" type="BOOLEAN" value="false" />
         </createTable>
 
         <!-- OAuth2 Tables -->

@@ -19,7 +19,7 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
-      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      naming-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
       use-new-id-generator-mappings: true
     properties:
       hibernate.cache.use_second_levelt_cache: false
@@ -38,4 +38,12 @@ liquibase:
 
 logging:
   level:
-    org.springframework.security: trace
+    org.springframework.security: info
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: "/swagger-ui.html"
+  api-docs:
+    enabled: true
+    path: "/api-docs"

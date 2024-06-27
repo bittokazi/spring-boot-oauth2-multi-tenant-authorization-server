@@ -63,9 +63,17 @@ export class TenantService {
         tenant ? tenant?.createAccountLink : '',
         []
       ),
-      enabled: new FormControl(tenant?.enabled, [Validators.required]),
-      defaultRedirectUrl: new FormControl(tenant?.defaultRedirectUrl, []),
-      enableConfigPanel: new FormControl(tenant?.enableConfigPanel, []),
+      enabled: new FormControl(tenant ? tenant?.enabled : false, [
+        Validators.required,
+      ]),
+      defaultRedirectUrl: new FormControl(
+        tenant ? tenant?.defaultRedirectUrl : '',
+        []
+      ),
+      enableConfigPanel: new FormControl(
+        tenant ? tenant?.enableConfigPanel : false,
+        []
+      ),
     };
     if (tenant?.id)
       form['id'] = new FormControl(tenant.id, [Validators.required]);

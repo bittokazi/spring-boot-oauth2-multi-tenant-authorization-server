@@ -1,13 +1,23 @@
-package com.bittokazi.api.gateway;
+package com.bittokazi.api.gateway
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.bittokazi.api.gateway.utils.logger
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.event.ApplicationReadyEvent
+import org.springframework.boot.runApplication
+import org.springframework.context.event.EventListener
 
 @SpringBootApplication
-public class Application {
-
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+class Application {
+    companion object {
+        val logger = logger()
     }
 
+    @EventListener(ApplicationReadyEvent::class)
+    fun afterStartup() {
+        logger.info("\uD83D\uDE80 Gateway Application started.")
+    }
+}
+
+fun main(args: Array<String>) {
+    runApplication<Application>(*args)
 }

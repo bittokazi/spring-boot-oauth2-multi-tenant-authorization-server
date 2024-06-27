@@ -4,6 +4,9 @@
     id="main-menu-navigation"
     data-menu="menu-navigation"
   >
+    <li class="navigation-header">
+      <span data-i18n="Management Tools">Management Tools</span>
+    </li>
     <ng-container *ngFor="let menu of accessMenu; let i = index">
       <ng-container
         *ngIf="
@@ -60,5 +63,22 @@
         </li>
       </ng-container>
     </ng-container>
+    <li class="navigation-header">
+      <span data-i18n="Development Guides">Development Guides</span>
+    </li>
+
+    <li
+      class="nav-item"
+      [class.active]="docuActive"
+      (click)="docuActive = true"
+    >
+      <a
+        class="d-flex align-items-center"
+        href="/swagger-ui.html"
+        target="_blank"
+        ><i data-feather="book"></i
+        ><span class="menu-title text-truncate">API Documentation</span></a
+      >
+    </li>
   </ul>
 </div>

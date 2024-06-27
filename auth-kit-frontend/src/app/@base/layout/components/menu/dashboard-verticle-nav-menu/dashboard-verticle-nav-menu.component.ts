@@ -11,6 +11,7 @@ import { CloseOpenMenu } from 'src/app/@base/shared/js/DashboardMenuToggle';
 export class DashboardVerticleNavMenuComponent implements OnInit {
   public accessMenu: any = [];
   public role: any = {};
+  public docuActive: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
     this.router.events.subscribe((val) => this.onRouteChange(val));
@@ -33,16 +34,16 @@ export class DashboardVerticleNavMenuComponent implements OnInit {
   }
 
   changeActiveMenu(url) {
-    console.log(this.accessMenu);
-
     this.accessMenu.map((menu) => {
       if (menu.path == url) {
+        this.docuActive = false;
         menu.active = true;
       } else {
         menu.active = false;
       }
       menu.subMenu.map((subMenu) => {
         if (subMenu.path == url) {
+          this.docuActive = false;
           subMenu.active = true;
         } else {
           subMenu.active = false;
