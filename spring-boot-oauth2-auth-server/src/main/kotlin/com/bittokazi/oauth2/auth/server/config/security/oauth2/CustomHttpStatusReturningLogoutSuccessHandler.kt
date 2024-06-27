@@ -20,7 +20,7 @@ class CustomHttpStatusReturningLogoutSuccessHandler(
     override fun onLogoutSuccess(
         request: HttpServletRequest,
         response: HttpServletResponse,
-        authentication: Authentication
+        authentication: Authentication?
     ) {
         response.status = HttpStatus.TEMPORARY_REDIRECT.value()
         val optionalOauthClient = oauthClientRepository.findOneByClientId(request.getParameter("id"))

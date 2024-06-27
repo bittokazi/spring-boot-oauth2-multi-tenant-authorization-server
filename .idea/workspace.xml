@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(kotlin-convert): fix jar main class not found problem :zap:">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/account-settings/user-security-settings/user-security-settings.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/account-settings/user-security-settings/user-security-settings.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomHttpStatusReturningLogoutSuccessHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/oauth2/CustomHttpStatusReturningLogoutSuccessHandler.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/utils/HttpReqRespUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/utils/HttpReqRespUtils.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +91,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.Gateway">
+  <component name="RunManager" selected="Application.Backend">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -329,7 +330,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719506202256</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat(kotlin-convert): fix jar main class not found problem :zap:">
+      <option name="closed" value="true" />
+      <created>1719506358380</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1719506358380</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

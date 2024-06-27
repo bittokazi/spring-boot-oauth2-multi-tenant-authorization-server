@@ -105,8 +105,6 @@ export class UserSecuritySettingsComponent
   }
 
   confirm2Fa() {
-    console.log(this.mfaCode);
-
     if (this.mfaCode.value == '') return;
     this.accountSettingsService
       .enable2Fa(this.otpPayload, this.mfaCode.value)
@@ -161,7 +159,7 @@ export class UserSecuritySettingsComponent
 
   regenrateScratchCode() {
     this.accountSettingsService.regenrateScratchCode().then((response: any) => {
-      this.scratchCodes = response.body.scratchCodes;
+      this.scratchCodes = response.body;
       this.sweetAlartService.successDialog(
         'Success',
         'Your 2FA scratch code regenerated.'

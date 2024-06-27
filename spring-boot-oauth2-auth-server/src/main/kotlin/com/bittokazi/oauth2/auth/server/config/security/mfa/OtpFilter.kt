@@ -55,12 +55,12 @@ class OtpFilter(
                                     code = httpServletRequest.getParameter("otp-code").toString().toInt()
                                 } catch (e: Exception) {
                                 }
-                                if (code != null &&
-                                    (twoFaService.validate2FA(code, httpServletRequest, httpServletResponse)
+                                if ((code != null &&
+                                    twoFaService.validate2FA(code, httpServletRequest, httpServletResponse))
                                     || twoFaService.validate2FAScratchCode(
                                         httpServletRequest.getParameter("otp-code"),
                                         httpServletRequest
-                                    ))
+                                    )
                                 ) {
                                     if (httpServletRequest.parameterMap.containsKey("trust-device")) {
                                         twoFaService.saveTrustedDevice(
