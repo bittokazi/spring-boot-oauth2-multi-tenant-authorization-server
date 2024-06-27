@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(kotlin-convert): set start class kotlin :zap:">
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(kotlin-convert): fix jar main class not found problem :zap:">
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/pom.xml" afterDir="false" />
@@ -321,7 +321,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719485700862</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat(kotlin-convert): fix jar main class not found problem :zap:">
+      <option name="closed" value="true" />
+      <created>1719506202256</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1719506202256</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -344,6 +352,7 @@
     <MESSAGE value="feat(tenant): updated tenant context :building_construction:" />
     <MESSAGE value="feat(kotlin-convert): Converted the project to kotlin :art:" />
     <MESSAGE value="feat(kotlin-convert): set start class kotlin :zap:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(kotlin-convert): set start class kotlin :zap:" />
+    <MESSAGE value="feat(kotlin-convert): fix jar main class not found problem :zap:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(kotlin-convert): fix jar main class not found problem :zap:" />
   </component>
 </project>
