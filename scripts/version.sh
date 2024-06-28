@@ -81,7 +81,7 @@ git commit -am "build: bump info.json version - v$VERSION_NEXT :bookmark:"
 # Create git tag for new version
 # ==================================
 
-if [ "$VERSION_TYPE" = "push" ]; then
+if [ "$PUSH_TAG" = "push" ]; then
   echo "syncing..."
   # Create an annotated tag
   #git tag -a -s "v$VERSION_NEXT" -m "Release: v$VERSION_NEXT"
