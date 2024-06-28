@@ -42,6 +42,7 @@ GIT_TAG_LATEST=$(echo "$GIT_TAG_LATEST" | sed 's/^v//')
  
 # Get version type from first argument passed to script
 VERSION_TYPE="${1-}"
+PUSH_TAG="${2-}"
 VERSION_NEXT=""
  
 if [ "$VERSION_TYPE" = "patch" ]; then
@@ -79,10 +80,13 @@ git commit -am "build: bump info.json version - v$VERSION_NEXT :bookmark:"
 # ==================================
 # Create git tag for new version
 # ==================================
- 
-# Create an annotated tag
-git tag -a -s "v$VERSION_NEXT" -m "Release: v$VERSION_NEXT"
 
-git push origin "v$VERSION_NEXT"
-# Optional: push commits and tag to remote 'main' branch
-#git push origin main --follow-tags
+if [ "$VERSION_TYPE" = "push" ]; then
+  echo "syncing..."
+  # Create an annotated tag
+  #git tag -a -s "v$VERSION_NEXT" -m "Release: v$VERSION_NEXT"
+
+  #git push origin "v$VERSION_NEXT"
+  # Optional: push commits and tag to remote 'main' branch
+  #git push origin main --follow-tags
+fi
