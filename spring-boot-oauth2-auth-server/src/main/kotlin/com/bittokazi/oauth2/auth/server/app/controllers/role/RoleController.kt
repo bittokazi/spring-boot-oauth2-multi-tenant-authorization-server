@@ -1,4 +1,4 @@
-package com.bittokazi.oauth2.auth.server.app.controllers
+package com.bittokazi.oauth2.auth.server.app.controllers.role
 
 import com.bittokazi.oauth2.auth.server.app.models.tenant.Role
 import com.bittokazi.oauth2.auth.server.app.services.role.RoleService
@@ -14,22 +14,22 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api")
 class RoleController(
     private val roleService: RoleService
-) {
+): RoleControllerApi {
 
     @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @GetMapping("/roles")
-    fun getRoles(
+    override fun getRoles(
         @RequestParam(value = "page", required = false, defaultValue = "0") page: Int,
         @RequestParam(value = "count", required = false, defaultValue = "10") count: Int
     ): Any = roleService.getRoles(page, count)
 
     @GetMapping("/roles/all")
     @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
-    fun allRoles(): Any = roleService.allRoles()
+    override fun allRoles(): Any = roleService.allRoles()
 
     @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @PostMapping("/roles")
-    fun addRole(
+    override fun addRole(
         @RequestBody role: Role,
         httpServletRequest: HttpServletRequest,
         httpServletResponse: HttpServletResponse
@@ -37,13 +37,13 @@ class RoleController(
 
     @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @GetMapping("/roles/{id}")
-    fun getRole(
+    override fun getRole(
         @PathVariable id: String
     ): Any = roleService.getRole(id)
 
     @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @PutMapping("/roles/{id}")
-    fun updateRole(
+    override fun updateRole(
         @PathVariable id: String,
         @RequestBody role: Role,
         response: HttpServletResponse
@@ -51,7 +51,7 @@ class RoleController(
 
     @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @PostMapping("/roles/search/name")
-    fun getRoleByName(
+    override fun getRoleByName(
         @RequestBody role: Role,
         httpServletRequest: HttpServletRequest,
         httpServletResponse: HttpServletResponse
