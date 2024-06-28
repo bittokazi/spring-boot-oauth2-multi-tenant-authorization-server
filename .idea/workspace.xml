@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(auth): git tag signing :lipstick:" />
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(auth): git ignores updated :fire:">
+      <change beforePath="$PROJECT_DIR$/scripts/version.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/version.sh" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -439,7 +441,31 @@
       <option name="project" value="LOCAL" />
       <updated>1719608155803</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="feat(auth): git tag signing :lipstick:">
+      <option name="closed" value="true" />
+      <created>1719610246678</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1719610246678</updated>
+    </task>
+    <task id="LOCAL-00024" summary="feat(auth): git tag signing :lipstick:">
+      <option name="closed" value="true" />
+      <created>1719610333467</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1719610333467</updated>
+    </task>
+    <task id="LOCAL-00025" summary="feat(auth): git ignores updated :fire:">
+      <option name="closed" value="true" />
+      <created>1719610400054</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1719610400054</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -469,6 +495,7 @@
     <MESSAGE value="feat(auth): update docker entrypoint file :pencil2:" />
     <MESSAGE value="feat(auth): favicon ico added :lipstick:" />
     <MESSAGE value="feat(auth): git tag signing :lipstick:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(auth): git tag signing :lipstick:" />
+    <MESSAGE value="feat(auth): git ignores updated :fire:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(auth): git ignores updated :fire:" />
   </component>
 </project>
