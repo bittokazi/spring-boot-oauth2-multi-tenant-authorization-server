@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(auth): updated swagger API for user and role :memo:">
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(auth): update docker entrypoint file :pencil2:">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker_entry_point.sh" beforeDir="false" afterPath="$PROJECT_DIR$/entrypoint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/_consent.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -365,7 +365,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719602901633</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feat(auth): update docker entrypoint file :pencil2:">
+      <option name="closed" value="true" />
+      <created>1719603269569</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1719603269569</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -392,6 +400,7 @@
     <MESSAGE value="feat(auth): fix trusted device bug and logout bug :bug:" />
     <MESSAGE value="feat(auth): fix custom jdbc auth service :bug:" />
     <MESSAGE value="feat(auth): updated swagger API for user and role :memo:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(auth): updated swagger API for user and role :memo:" />
+    <MESSAGE value="feat(auth): update docker entrypoint file :pencil2:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(auth): update docker entrypoint file :pencil2:" />
   </component>
 </project>
