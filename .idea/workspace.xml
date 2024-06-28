@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(auth): fix custom jdbc auth service :bug:">
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(auth): updated swagger API for user and role :memo:">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/RoleController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/role/RoleController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/UserController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/user/UserController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker_entry_point.sh" beforeDir="false" afterPath="$PROJECT_DIR$/entrypoint.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -357,7 +357,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719512893177</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat(auth): updated swagger API for user and role :memo:">
+      <option name="closed" value="true" />
+      <created>1719602901633</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1719602901633</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -383,6 +391,7 @@
     <MESSAGE value="feat(kotlin-convert): fix jar main class not found problem :zap:" />
     <MESSAGE value="feat(auth): fix trusted device bug and logout bug :bug:" />
     <MESSAGE value="feat(auth): fix custom jdbc auth service :bug:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(auth): fix custom jdbc auth service :bug:" />
+    <MESSAGE value="feat(auth): updated swagger API for user and role :memo:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(auth): updated swagger API for user and role :memo:" />
   </component>
 </project>

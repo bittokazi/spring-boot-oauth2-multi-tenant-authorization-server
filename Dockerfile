@@ -26,7 +26,7 @@ RUN npm run build:$DEPLOY_ENV
 
 
 WORKDIR /app
-COPY ./docker_entry_point.sh /app/docker_entry_point.sh
+COPY ./entrypoint.sh /app/entrypoint.sh
 
 EXPOSE 5020
-CMD ./docker_entry_point.sh
+CMD ./entrypoint.sh
