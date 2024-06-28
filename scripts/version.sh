@@ -42,7 +42,7 @@ GIT_TAG_LATEST=$(echo "$GIT_TAG_LATEST" | sed 's/^v//')
  
 # Get version type from first argument passed to script
 VERSION_TYPE="${1-}"
-PUSH_TAG="${2-}"
+
 VERSION_NEXT=""
  
 if [ "$VERSION_TYPE" = "patch" ]; then
