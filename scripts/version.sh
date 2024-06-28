@@ -27,6 +27,8 @@ GIT_TAGS=$(git tag --sort=version:refname)
 # Get last line of output which returns the
 # last tag (most recent version)
 GIT_TAG_LATEST=$(echo "$GIT_TAGS" | tail -n 1)
+
+echo "$GIT_TAG_LATEST"
  
 # If no tag found, default to v0.0.0
 if [ -z "$GIT_TAG_LATEST" ]; then
