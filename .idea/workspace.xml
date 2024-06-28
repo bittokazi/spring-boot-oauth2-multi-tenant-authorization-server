@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(auth): favicon ico added :lipstick:" />
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(auth): git tag signing :lipstick:">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/version.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/version.sh" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -394,7 +397,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719606783356</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="feat(auth): git tag signing :lipstick:">
+      <option name="closed" value="true" />
+      <created>1719607289728</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1719607289728</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -423,6 +434,7 @@
     <MESSAGE value="feat(auth): updated swagger API for user and role :memo:" />
     <MESSAGE value="feat(auth): update docker entrypoint file :pencil2:" />
     <MESSAGE value="feat(auth): favicon ico added :lipstick:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(auth): favicon ico added :lipstick:" />
+    <MESSAGE value="feat(auth): git tag signing :lipstick:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(auth): git tag signing :lipstick:" />
   </component>
 </project>
