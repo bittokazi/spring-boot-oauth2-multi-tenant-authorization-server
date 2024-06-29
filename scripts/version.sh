@@ -85,7 +85,7 @@ git commit -am "build: bump info.json version - v$VERSION_NEXT :bookmark:"
 # Create an annotated tag
 git tag -a -s "v$VERSION_NEXT" -m "Release: v$VERSION_NEXT"
 
-PUSH_TAG=""
+PUSH_TAG="${2-}"
 
 if [ "$PUSH_TAG" = "yes" ]; then
   git push origin tag "v$VERSION_NEXT"
