@@ -90,7 +90,7 @@ PUSH_TAG="${2-}"
 if [ "$PUSH_TAG" = "yes" ]; then
   git push origin tag "v$VERSION_NEXT"
   echo "Tag pushed."
-elif [ "$VERSION_TYPE" = "no" ]; then
+elif [ "$PUSH_TAG" = "no" ]; then
   echo "Tag not pushed."
 fi
 
