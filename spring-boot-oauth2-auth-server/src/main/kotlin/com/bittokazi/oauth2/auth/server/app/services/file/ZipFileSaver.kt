@@ -55,7 +55,7 @@ class ZipFileSaver: FileService {
             Files.write(path, bytes)
 
 
-            val destDir: File = File(absoluteFilePath)
+            val destDir: File = File(absoluteFilePath + newFileName)
             val buffer = ByteArray(1024)
             val zis = ZipInputStream(FileInputStream(fileZip))
             var zipEntry = zis.nextEntry
