@@ -12,7 +12,7 @@ class ThymeleafConfig {
     @Bean
     fun secondaryTemplateResolver(): FileTemplateResolver {
         val fileTemplateResolver = FileTemplateResolver()
-        fileTemplateResolver.prefix = AppConfig.LAYOUT_FOLDER_BASE
+        fileTemplateResolver.prefix = AppConfig.TEMPLATE_FOLDER_BASE
         fileTemplateResolver.suffix = ".html"
         fileTemplateResolver.templateMode = TemplateMode.HTML
         fileTemplateResolver.characterEncoding = "UTF-8"

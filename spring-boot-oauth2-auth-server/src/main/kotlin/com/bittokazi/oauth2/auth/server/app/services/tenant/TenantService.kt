@@ -95,7 +95,7 @@ class TenantService(
     }
 
     fun addTemplate(file: MultipartFile?, uploadObject: UploadObject): ResponseEntity<Any> {
-        val absoluteFilePath: String = AppConfig.LAYOUT_FOLDER_BASE
+        val absoluteFilePath: String = AppConfig.TEMPLATE_FOLDER_BASE
         return file?.let {
             FileInput(
                 file = it,
