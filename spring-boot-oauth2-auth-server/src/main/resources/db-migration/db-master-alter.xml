@@ -103,4 +103,28 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="10" author="bitto">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="tenant"
+                              columnName="enable_custom_template" />
+            </not>
+        </preConditions>
+        <addColumn tableName="tenant">
+            <column name="enable_custom_template" type="BOOLEAN" value="false" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="11" author="bitto">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="tenant"
+                              columnName="custom_template_location" />
+            </not>
+        </preConditions>
+        <addColumn tableName="tenant">
+            <column name="custom_template_location" type="varchar(255)" value="" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

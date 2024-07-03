@@ -48,8 +48,10 @@ class LoginController(
         @RequestParam(OAuth2ParameterNames.CLIENT_ID) clientId: String,
         @RequestParam(OAuth2ParameterNames.SCOPE) scope: String,
         @RequestParam(OAuth2ParameterNames.STATE) state: String,
-        @RequestParam(name = OAuth2ParameterNames.USER_CODE, required = false) userCode: String?
-    ): ModelAndView = loginService.consentPage(principal, model, clientId, scope, state, userCode)
+        @RequestParam(name = OAuth2ParameterNames.USER_CODE, required = false) userCode: String?,
+        request: HttpServletRequest,
+        response: HttpServletResponse
+    ): ModelAndView = loginService.consentPage(principal, model, clientId, scope, state, userCode, request, response)
 
     @GetMapping("/authorize_user")
     @Throws(IOException::class)

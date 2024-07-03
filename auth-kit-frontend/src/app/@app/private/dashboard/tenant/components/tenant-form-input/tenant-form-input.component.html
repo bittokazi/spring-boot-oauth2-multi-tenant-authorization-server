@@ -63,6 +63,31 @@
       >
       </app-verticle-text-input>
     </div>
+    <div class="col-md-6 col-12" *ngIf="edit">
+      <div class="mb-1">
+        <label class="form-label">Custom Template</label>
+        <div class="input-group mb-2">
+          <span
+            class="input-group-text"
+            *ngIf="form.value.customTemplateLocation == ''"
+            >Not Uploaded</span
+          >
+          <span
+            class="input-group-text"
+            *ngIf="form.value.customTemplateLocation != ''"
+            >Uploaded</span
+          >
+          <input
+            type="file"
+            class="form-control"
+            id="theme-file"
+            accept=".zip"
+            #themeFile
+          />
+        </div>
+      </div>
+    </div>
+
     <div class="col-md-2 col-12">
       <app-verticle-switch-input
         label="Enable Config Panel"
@@ -70,7 +95,14 @@
       >
       </app-verticle-switch-input>
     </div>
-    <div class="col-md-4 col-12">
+    <div class="col-md-2 col-12">
+      <app-verticle-switch-input
+        label="Enable Custom Template"
+        [control]="form.controls.enableCustomTemplate"
+      >
+      </app-verticle-switch-input>
+    </div>
+    <div class="col-md-2 col-12">
       <app-verticle-switch-input
         label="Enabled"
         [control]="form.controls.enabled"

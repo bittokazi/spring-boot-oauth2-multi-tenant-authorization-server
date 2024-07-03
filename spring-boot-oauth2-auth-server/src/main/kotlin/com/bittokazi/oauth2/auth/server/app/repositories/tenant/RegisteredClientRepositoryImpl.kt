@@ -1,6 +1,7 @@
 package com.bittokazi.oauth2.auth.server.app.repositories.tenant
 
 import com.bittokazi.oauth2.auth.server.app.models.tenant.OauthClient
+import com.bittokazi.oauth2.auth.server.config.TenantContext
 import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.security.oauth2.core.AuthorizationGrantType
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod

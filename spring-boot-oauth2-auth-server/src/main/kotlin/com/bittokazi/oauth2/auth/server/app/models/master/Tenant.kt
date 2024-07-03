@@ -50,4 +50,10 @@ class Tenant : Serializable {
 
     @Column(name = "enable_config_panel")
     var enableConfigPanel: Boolean? = null
+
+    @Column(name = "enable_custom_template")
+    var enableCustomTemplate: Boolean? = null
+
+    @Column(name = "custom_template_location")
+    var customTemplateLocation: String? = null
 }

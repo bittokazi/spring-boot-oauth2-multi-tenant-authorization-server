@@ -24,4 +24,5 @@ object AppConfig {
         .getOrDefault("DEFAULT_APP_NAME", "AuthKit IDP")
     var DEFAULT_RESET_PASSWORD_LINK: String = System.getenv()
         .getOrDefault("DEFAULT_RESET_PASSWORD_LINK", "")
+    var LAYOUT_FOLDER_BASE: String = System.getenv().getOrDefault("LAYOUT_FOLDER_BASE", "")
 }

@@ -39,6 +39,12 @@ export class TenantService {
       .toPromise();
   }
 
+  public uploadTemplate(data) {
+    return this.http
+      .post<any>(`${environment.baseUrl}/api/tenants/templates`, data)
+      .toPromise();
+  }
+
   generateForm(tenant: any) {
     let form = {
       name: new FormControl(tenant?.name, [
@@ -72,6 +78,14 @@ export class TenantService {
       ),
       enableConfigPanel: new FormControl(
         tenant ? tenant?.enableConfigPanel : false,
+        []
+      ),
+      enableCustomTemplate: new FormControl(
+        tenant ? tenant?.enableCustomTemplate : false,
+        []
+      ),
+      customTemplateLocation: new FormControl(
+        tenant ? tenant?.customTemplateLocation : '',
         []
       ),
     };

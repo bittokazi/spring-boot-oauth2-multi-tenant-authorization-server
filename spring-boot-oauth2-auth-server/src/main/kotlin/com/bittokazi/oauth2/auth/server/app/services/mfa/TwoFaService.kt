@@ -110,10 +110,11 @@ open class TwoFaService(
     }
 
     fun validate2FA(
-        code: Int?, httpServletRequest: HttpServletRequest,
+        code: Int?,
+        name: String,
         httpServletResponse: HttpServletResponse?
     ): Boolean {
-        val userOptional = userRepository!!.findOneByUsername(httpServletRequest.getParameter("username"))
+        val userOptional = userRepository!!.findOneByUsername(name)
         if (userOptional.isPresent && code != null) {
             val faSecret = userTwoFaSecretRepository!!.findByUserId(userOptional.get().id)
             return validate2FA(code, faSecret.get().secret)
@@ -121,8 +122,8 @@ open class TwoFaService(
         return false
     }
 
-    fun validate2FAScratchCode(code: String?, httpServletRequest: HttpServletRequest): Boolean {
-        val userOptional = userRepository!!.findOneByUsername(httpServletRequest.getParameter("username"))
+    fun validate2FAScratchCode(code: String?, name: String): Boolean {
+        val userOptional = userRepository!!.findOneByUsername(name)
         if (userOptional.isPresent) {
             val faSecret = userTwoFaSecretRepository!!.findByUserId(userOptional.get().id)
             if (faSecret.isPresent) {

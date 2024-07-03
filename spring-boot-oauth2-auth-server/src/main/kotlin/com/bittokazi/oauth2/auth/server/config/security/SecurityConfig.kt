@@ -149,7 +149,7 @@ open class SecurityConfig(
                         .requestMatchers(
                             "/oauth2/login", "/oauth2/refresh/token",
                             "/authorize_user", "/login", "/assets/**", "/otp-login",
-                            "/app/**", "/public/api/tenants/info"
+                            "/app/**", "/public/api/tenants/info", "/tenant-assets/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 }

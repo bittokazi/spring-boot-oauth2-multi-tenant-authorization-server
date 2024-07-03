@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -20,6 +28,8 @@ export class TenantFormInputComponent implements OnInit {
   public edit: Boolean = false;
 
   @Output() onSubmitEvent = new EventEmitter<FormGroup>();
+
+  @ViewChild('themeFile') public themeFile: ElementRef;
 
   constructor() {}
 

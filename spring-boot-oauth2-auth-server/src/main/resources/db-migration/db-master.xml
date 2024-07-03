@@ -28,6 +28,8 @@
             <column name="default_redirect_url" type="varchar(1000)" />
             <column name="signin_btn_color" type="varchar(128)" />
             <column name="enable_config_panel" type="BOOLEAN" value="false" />
+            <column name="enable_custom_template" type="BOOLEAN" />
+            <column name="custom_template_location" type="varchar(255)" />
         </createTable>
 
         <!-- OAuth2 Tables -->

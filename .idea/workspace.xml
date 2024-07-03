@@ -5,7 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(auth): git tagging script update :fire:">
-      <change beforePath="$PROJECT_DIR$/scripts/version.sh" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/version.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/components/tenant-form-input/tenant-form-input.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/components/tenant-form-input/tenant-form-input.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/components/tenant-form-input/tenant-form-input.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/components/tenant-form-input/tenant-form-input.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/tenant.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/update-tenant/update-tenant.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/update-tenant/update-tenant.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/update-tenant/update-tenant.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/app/@app/private/dashboard/tenant/update-tenant/update-tenant.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/WebMvcConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/WebMvcConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/TenantController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/TenantController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/models/master/Tenant.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/models/master/Tenant.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/repositories/tenant/RegisteredClientRepositoryImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/repositories/tenant/RegisteredClientRepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/mfa/TwoFaService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/mfa/TwoFaService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/tenant/TenantService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/AppConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/AppConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-master-alter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-master-alter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/db-master.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/consent.html" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/consent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/otp-login.html" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/otp-login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +38,10 @@
       <list>
         <option value="Class" />
         <option value="Dockerfile" />
+        <option value="Kotlin Interface" />
         <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Data Class" />
       </list>
     </option>
   </component>
@@ -42,48 +65,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Backend.executor&quot;: &quot;Debug&quot;,
-    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose_.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.ApplicationKt.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.Gateway.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.angular-frontend [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.angular-frontend [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.api-gateway [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.api-gateway [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.api-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.app-gateway [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.app-gateway [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.app-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.app-gateway [spring-boot:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-assembly-plugin:2.6:assembly].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-assembly-plugin:2.6:single].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:repackage].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:start].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server [spring-boot:run].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server-parent [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.spring-boot-oauth2-auth-server-parent [install].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/bitto/Documents/java/spring-boot-oauth2-multi-tenant-auth-server/.idea&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.36588237&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application.executor": "Run",
+    "Application.Backend.executor": "Run",
+    "Docker.Dockerfile.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Docker.docker-compose_.yml: Compose Deployment.executor": "Run",
+    "Kotlin.ApplicationKt.executor": "Run",
+    "Kotlin.Gateway.executor": "Run",
+    "Maven.angular-frontend [clean].executor": "Run",
+    "Maven.angular-frontend [install].executor": "Run",
+    "Maven.api-gateway [clean].executor": "Run",
+    "Maven.api-gateway [install].executor": "Run",
+    "Maven.api-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
+    "Maven.app-gateway [clean].executor": "Run",
+    "Maven.app-gateway [install].executor": "Run",
+    "Maven.app-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
+    "Maven.app-gateway [spring-boot:run].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [clean].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [install].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-assembly-plugin:2.6:assembly].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-assembly-plugin:2.6:single].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:repackage].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:start].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [spring-boot:run].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server-parent [clean].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server-parent [install].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "corretto-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/bitto/Documents/java/portfolio-resume-site-builder-java-spring-angular/portfolio-resume-site-java-spring",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.36588237",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/.idea" />
@@ -122,7 +145,9 @@
         <env name="DB_PORT" value="5432" />
         <env name="DB_USERNAME" value="postgres" />
         <env name="HTTP_SCHEMA" value="http://" />
+        <env name="LAYOUT_FOLDER_BASE" value="$PROJECT_DIR$/../thymeleaf/assets/" />
         <env name="REMEMBER_ME_KEY" value="secretkey" />
+        <env name="KID" value="aa38fff5-54c8-49c6-99a4-fca942a158aa" />
       </envs>
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.bittokazi.oauth2.auth.server.ApplicationKt" />
@@ -569,7 +594,23 @@
       <option name="project" value="LOCAL" />
       <updated>1719694327987</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="feat(auth): git tagging script update :fire:">
+      <option name="closed" value="true" />
+      <created>1719694422999</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1719694422999</updated>
+    </task>
+    <task id="LOCAL-00040" summary="feat(auth): git tagging script update :fire:">
+      <option name="closed" value="true" />
+      <created>1719694474079</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1719694474079</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

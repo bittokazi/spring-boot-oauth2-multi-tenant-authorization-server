@@ -26,6 +26,9 @@ spring:
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
       hibernate.hbm2ddl.auto: validate
+  servlet:
+    multipart:
+      max-file-size: 5MB
 
 
 
@@ -38,7 +41,7 @@ liquibase:
 
 logging:
   level:
-    org.springframework.security: info
+    org.springframework.security: trace
 
 springdoc:
   swagger-ui:

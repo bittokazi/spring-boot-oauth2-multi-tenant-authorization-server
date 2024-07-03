@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames
 import org.springframework.security.oauth2.core.oidc.OidcScopes
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache
+import org.springframework.security.web.savedrequest.SavedRequest
 import org.springframework.stereotype.Service
 import org.springframework.ui.Model
 import org.springframework.util.LinkedMultiValueMap
@@ -31,9 +32,11 @@ import org.springframework.web.client.HttpStatusCodeException
 import org.springframework.web.client.RestClientException
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.servlet.ModelAndView
+import org.springframework.web.util.UriComponentsBuilder
 import java.io.IOException
 import java.security.Principal
 import java.util.*
+
 
 @Service
 class LoginService(
@@ -91,7 +94,11 @@ class LoginService(
         if (Objects.nonNull(request.getParameter("otp"))) {
             model.addAttribute("otpError", request.getParameter("otp"))
         }
-        val modelAndView = ModelAndView("login", model as Map<String, *>)
+        val viewName: String = when(tenantOptional.isPresent && tenantOptional.get().enableCustomTemplate == true) {
+            true -> "${tenantOptional.get().companyKey}/login"
+            else -> "login"
+        }
+        val modelAndView = ModelAndView(viewName, model as Map<String, *>)
         return modelAndView
     }
 
@@ -117,7 +124,39 @@ class LoginService(
         setOtpParam(model, session, "otpRequiredTrustDevice")
         setOtpParam(model, session, "otpRequired")
         setOtpParam(model, session, "message")
-        val modelAndView = ModelAndView("otp-login", model as Map<String, *>)
+        //setOtpParam(model, session, "clientId")
+
+        val savedRequest: SavedRequest? = HttpSessionRequestCache().getRequest(request, response)
+        if (null != savedRequest) {
+            val redirectUrl: String = savedRequest.redirectUrl
+            val parameters: MultiValueMap<*, *> = UriComponentsBuilder.fromUriString(redirectUrl).build().queryParams
+            if (parameters.containsKey("client_id")) {
+                val clientId: String = parameters["client_id"]!![0].toString()
+                model.addAttribute(
+                    "logoutUrl",
+                    "/logout?id="+clientId
+                )
+            }  else {
+                model.addAttribute(
+                    "logoutUrl",
+                    "/logout"
+                )
+            }
+        } else {
+            model.addAttribute(
+                "logoutUrl",
+                "/logout"
+            )
+        }
+        model.addAttribute(
+            "tenantName",
+            if (tenantOptional.isPresent) tenantOptional.get().name else AppConfig.DEFAULT_APP_NAME
+        )
+        val viewName: String = when(tenantOptional.isPresent && tenantOptional.get().enableCustomTemplate == true) {
+            true -> "${tenantOptional.get().companyKey}/otp-login"
+            else -> "otp-login"
+        }
+        val modelAndView = ModelAndView(viewName, model as Map<String, *>)
         return modelAndView
     }
 
@@ -126,9 +165,12 @@ class LoginService(
         @RequestParam(OAuth2ParameterNames.CLIENT_ID) clientId: String,
         @RequestParam(OAuth2ParameterNames.SCOPE) scope: String,
         @RequestParam(OAuth2ParameterNames.STATE) state: String,
-        @RequestParam(name = OAuth2ParameterNames.USER_CODE, required = false) userCode: String?
+        @RequestParam(name = OAuth2ParameterNames.USER_CODE, required = false) userCode: String?,
+        request: HttpServletRequest,
+        response: HttpServletResponse
     ): ModelAndView {
         // Remove scopes that were already approved
+        val tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant()!!)
 
         val scopesToApprove: MutableSet<String> = HashSet()
         val previouslyApprovedScopes: MutableSet<String> = HashSet()
@@ -151,6 +193,34 @@ class LoginService(
             }
         }
 
+        model.addAttribute(
+            "tenantName",
+            if (tenantOptional.isPresent) tenantOptional.get().name else AppConfig.DEFAULT_APP_NAME
+        )
+
+        val savedRequest: SavedRequest? = HttpSessionRequestCache().getRequest(request, response)
+        if (null != savedRequest) {
+            val redirectUrl: String = savedRequest.redirectUrl
+            val parameters: MultiValueMap<*, *> = UriComponentsBuilder.fromUriString(redirectUrl).build().queryParams
+            if (parameters.containsKey("client_id")) {
+                val clientId: String = parameters["client_id"]!![0].toString()
+                model.addAttribute(
+                    "logoutUrl",
+                    "/logout?id="+clientId
+                )
+            }  else {
+                model.addAttribute(
+                    "logoutUrl",
+                    "/logout"
+                )
+            }
+        } else {
+            model.addAttribute(
+                "logoutUrl",
+                "/logout"
+            )
+        }
+
         model.addAttribute("clientId", clientId)
         model.addAttribute("state", state)
         model.addAttribute("scopes", withDescription(scopesToApprove))
@@ -162,8 +232,11 @@ class LoginService(
         } else {
             model.addAttribute("requestURI", "/oauth2/authorize")
         }
-
-        val modelAndView = ModelAndView("consent", model as Map<String, *>)
+        val viewName: String = when(tenantOptional.isPresent && tenantOptional.get().enableCustomTemplate == true) {
+            true -> "${tenantOptional.get().companyKey}/consent"
+            else -> "consent"
+        }
+        val modelAndView = ModelAndView(viewName, model as Map<String, *>)
         return modelAndView
     }
 
