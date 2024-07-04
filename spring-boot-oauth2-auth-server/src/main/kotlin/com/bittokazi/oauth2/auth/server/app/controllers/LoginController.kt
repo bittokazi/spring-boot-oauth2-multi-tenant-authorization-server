@@ -51,7 +51,7 @@ class LoginController(
         @RequestParam(name = OAuth2ParameterNames.USER_CODE, required = false) userCode: String?,
         request: HttpServletRequest,
         response: HttpServletResponse
-    ): ModelAndView = loginService.consentPage(principal, model, clientId, scope, state, userCode, request, response)
+    ): Any = loginService.consentPage(principal, model, clientId, scope, state, userCode, request, response)
 
     @GetMapping("/authorize_user")
     @Throws(IOException::class)
@@ -86,4 +86,9 @@ class LoginController(
     fun logout(
         httpServletResponse: HttpServletResponse
     ) = loginService.logout(httpServletResponse)
+
+    @GetMapping("/tenant-assets/**/*.html")
+    fun blockHtmlFiles(): String {
+        return "{}"
+    }
 }

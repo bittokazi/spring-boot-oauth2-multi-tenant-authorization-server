@@ -26,6 +26,9 @@ spring:
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
       hibernate.hbm2ddl.auto: validate
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
   servlet:
     multipart:
       max-file-size: 5MB
