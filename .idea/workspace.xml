@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="bugfix(zip): Zip extraction problem fixed ⚡️">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/WebMvcConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/WebMvcConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/thymeleaf/ThymeleafConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/thymeleaf/ThymeleafConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(html): html file fetch blocker ⚡️" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -656,7 +647,23 @@
       <option name="project" value="LOCAL" />
       <updated>1720039741009</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="bugfix(file-location): file location not found problem fixed ⚡️">
+      <option name="closed" value="true" />
+      <created>1720123108922</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1720123108922</updated>
+    </task>
+    <task id="LOCAL-00046" summary="feat(html): html file fetch blocker ⚡️">
+      <option name="closed" value="true" />
+      <created>1720123189871</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1720123189871</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -691,6 +698,8 @@
     <MESSAGE value="feat(custom-template): custom template feature added ✨ " />
     <MESSAGE value="feat(custom-template): Update docker compose and template folder name ⚡️" />
     <MESSAGE value="bugfix(zip): Zip extraction problem fixed ⚡️" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfix(zip): Zip extraction problem fixed ⚡️" />
+    <MESSAGE value="bugfix(file-location): file location not found problem fixed ⚡️" />
+    <MESSAGE value="feat(html): html file fetch blocker ⚡️" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(html): html file fetch blocker ⚡️" />
   </component>
 </project>
