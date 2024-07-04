@@ -8,6 +8,7 @@ import com.bittokazi.oauth2.auth.server.app.repositories.tenant.OauthClientRepos
 import com.bittokazi.oauth2.auth.server.config.AppConfig
 import com.bittokazi.oauth2.auth.server.config.TenantContext
 import com.bittokazi.oauth2.auth.server.utils.CookieActionsProvider
+import com.bittokazi.oauth2.auth.server.utils.logger
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -44,6 +45,8 @@ class LoginService(
     private val tenantRepository: TenantRepository,
     private val customJdbcOAuth2AuthorizationConsentService: OAuth2AuthorizationConsentService
 ) {
+
+    val logger = logger()
 
     @Throws(IOException::class)
     fun loginPage(
@@ -90,6 +93,10 @@ class LoginService(
         model.addAttribute(
             "createAccountLink",
             if (tenantOptional.isPresent) tenantOptional.get().createAccountLink else ""
+        )
+        model.addAttribute(
+            "tenantKey",
+            if (tenantOptional.isPresent) tenantOptional.get().companyKey else "public"
         )
         if (Objects.nonNull(request.getParameter("otp"))) {
             model.addAttribute("otpError", request.getParameter("otp"))
@@ -152,6 +159,11 @@ class LoginService(
             "tenantName",
             if (tenantOptional.isPresent) tenantOptional.get().name else AppConfig.DEFAULT_APP_NAME
         )
+
+        model.addAttribute(
+            "tenantKey",
+            if (tenantOptional.isPresent) tenantOptional.get().companyKey else "public"
+        )
         val viewName: String = when(tenantOptional.isPresent && tenantOptional.get().enableCustomTemplate == true) {
             true -> "${tenantOptional.get().companyKey}/otp-login"
             else -> "otp-login"
@@ -196,6 +208,11 @@ class LoginService(
         model.addAttribute(
             "tenantName",
             if (tenantOptional.isPresent) tenantOptional.get().name else AppConfig.DEFAULT_APP_NAME
+        )
+
+        model.addAttribute(
+            "tenantKey",
+            if (tenantOptional.isPresent) tenantOptional.get().companyKey else "public"
         )
 
         val savedRequest: SavedRequest? = HttpSessionRequestCache().getRequest(request, response)

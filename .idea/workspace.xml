@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(custom-template): Update docker compose and template folder name ⚡️">
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="bugfix(zip): Zip extraction problem fixed ⚡️">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/WebMvcConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/WebMvcConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/login/LoginService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/thymeleaf/ThymeleafConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/thymeleaf/ThymeleafConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +58,8 @@
     "Docker.Dockerfile.executor": "Run",
     "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
     "Docker.docker-compose_.yml: Compose Deployment.executor": "Run",
+    "JAR Application.BackendJar.executor": "Run",
+    "JAR Application.Unnamed.executor": "Run",
     "Kotlin.ApplicationKt.executor": "Run",
     "Kotlin.Gateway.executor": "Run",
     "Maven.angular-frontend [clean].executor": "Run",
@@ -62,14 +71,17 @@
     "Maven.app-gateway [install].executor": "Run",
     "Maven.app-gateway [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
     "Maven.app-gateway [spring-boot:run].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [clean...].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server [clean].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server [install].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [mvn...].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-assembly-plugin:2.6:assembly].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-assembly-plugin:2.6:single].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server [org.apache.maven.plugins:maven-install-plugin:3.1.2:install].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:repackage].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:run].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server [org.springframework.boot:spring-boot-maven-plugin:3.1.1:start].executor": "Run",
+    "Maven.spring-boot-oauth2-auth-server [package].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server [spring-boot:run].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server-parent [clean].executor": "Run",
     "Maven.spring-boot-oauth2-auth-server-parent [install].executor": "Run",
@@ -79,7 +91,7 @@
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "corretto-21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/bitto/Documents/java/portfolio-resume-site-builder-java-spring-angular/portfolio-resume-site-java-spring",
+    "last_opened_file_path": "/home/bitto/Documents/java/spring-boot-oauth2-multi-tenant-auth-server/spring-boot-oauth2-auth-server",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.36588237",
@@ -124,15 +136,37 @@
         <env name="DB_PORT" value="5432" />
         <env name="DB_USERNAME" value="postgres" />
         <env name="HTTP_SCHEMA" value="http://" />
-        <env name="LAYOUT_FOLDER_BASE" value="$PROJECT_DIR$/../thymeleaf/assets/" />
-        <env name="REMEMBER_ME_KEY" value="secretkey" />
         <env name="KID" value="aa38fff5-54c8-49c6-99a4-fca942a158aa" />
+        <env name="TEMPLATE_FOLDER_BASE" value="$PROJECT_DIR$/../thymeleaf/assets/" />
+        <env name="REMEMBER_ME_KEY" value="secretkey" />
       </envs>
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.bittokazi.oauth2.auth.server.ApplicationKt" />
       <module name="spring-boot-oauth2-auth-server" />
       <method v="2">
         <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BackendJar" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/spring-boot-oauth2-auth-server/target/spring-boot-oauth2-auth-server-1.0-SNAPSHOT.jar" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <envs>
+        <env name="APPLICATION_BACKEND_URL" value="http://localhost:5020" />
+        <env name="CERT_PRIVATE_KEY_FILE" value="$USER_HOME$/certs/authkit_private_key_pkcs8.pem" />
+        <env name="CERT_PUBLIC_KEY_FILE" value="$USER_HOME$/certs/authkit_public_key.pem" />
+        <env name="DB_HOSTNAME" value="0.0.0.0" />
+        <env name="DB_NAME" value="auth_server_db" />
+        <env name="DB_PASSWORD" value="password" />
+        <env name="DB_PORT" value="5432" />
+        <env name="DB_USERNAME" value="postgres" />
+        <env name="HTTP_SCHEMA" value="http://" />
+        <env name="KID" value="aa38fff5-54c8-49c6-99a4-fca942a158aa" />
+        <env name="REMEMBER_ME_KEY" value="secretkey" />
+        <env name="TEMPLATE_FOLDER_BASE" value="/template-assets" />
+      </envs>
+      <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/spring-boot-oauth2-auth-server/pom.xml" goal="clean install" />
       </method>
     </configuration>
     <configuration name="Gateway" type="JetRunConfigurationType">
@@ -255,6 +289,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.Backend" />
+      <item itemvalue="JAR Application.BackendJar" />
       <item itemvalue="Kotlin.Gateway" />
       <item itemvalue="Maven.app-gateway [spring-boot:run]" />
       <item itemvalue="Maven.spring-boot-oauth2-auth-server [spring-boot:run]" />
@@ -613,7 +648,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720037805334</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="bugfix(zip): Zip extraction problem fixed ⚡️">
+      <option name="closed" value="true" />
+      <created>1720039741009</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1720039741009</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -647,6 +690,7 @@
     <MESSAGE value="feat(auth): git tagging script update :fire:" />
     <MESSAGE value="feat(custom-template): custom template feature added ✨ " />
     <MESSAGE value="feat(custom-template): Update docker compose and template folder name ⚡️" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(custom-template): Update docker compose and template folder name ⚡️" />
+    <MESSAGE value="bugfix(zip): Zip extraction problem fixed ⚡️" />
+    <option name="LAST_COMMIT_MESSAGE" value="bugfix(zip): Zip extraction problem fixed ⚡️" />
   </component>
 </project>

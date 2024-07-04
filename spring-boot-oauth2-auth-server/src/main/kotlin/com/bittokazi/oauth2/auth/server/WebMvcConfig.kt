@@ -16,7 +16,7 @@ open class WebMvcConfig : WebMvcConfigurer {
         if(!registry.hasMappingForPattern("/tenant-assets/**")) {
             registry
                 .addResourceHandler("/tenant-assets/**")
-                .addResourceLocations("file:///${AppConfig.TEMPLATE_FOLDER_BASE}")
+                .addResourceLocations("file://${AppConfig.TEMPLATE_FOLDER_BASE}/")
                 .setCachePeriod(0)
         }
     }
