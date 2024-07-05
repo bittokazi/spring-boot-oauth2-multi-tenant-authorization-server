@@ -34,63 +34,86 @@ class OtpFilter(
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         val httpServletRequest = request as HttpServletRequest
         val httpServletResponse = response as HttpServletResponse
-        val initial = SecurityContextHolder.getContext().authentication
-        val session: HttpSession = httpServletRequest.getSession(true)
-
-        if (initial?.isAuthenticated == true && session.getAttribute("otp") == null) {
+        if (request.getContentType() != null && httpServletRequest.servletPath == "/login") {
             val user = userRepository
-                .findOneByUsernameIgnoreCase(initial.name)
+                .findOneByUsernameIgnoreCase(httpServletRequest.getParameter("username"))
             if (user.isPresent) {
-                val cookies = httpServletRequest.cookies
-                val deviceId = Arrays.stream(cookies).filter { cookie: Cookie -> cookie.name == "deviceId" }
-                    .findFirst()
-                if (deviceId.isPresent) {
-                    if (Objects.nonNull(user.get().twoFaEnabled) &&
-                        user.get().twoFaEnabled == true &&
-                        !twoFaService.isTrustedDevice(deviceId.get().value, user.get())
-                    ) {
-                        if (httpServletRequest.parameterMap.containsKey("otp-code")) {
-                            var code: Int? = null
-                            try {
-                                code = httpServletRequest.getParameter("otp-code").toString().toInt()
-                            } catch (e: Exception) {
-                            }
-                            if ((code != null &&
-                                twoFaService.validate2FA(code, initial.name, httpServletResponse))
-                                || twoFaService.validate2FAScratchCode(
-                                    httpServletRequest.getParameter("otp-code"),
-                                    initial.name
-                                )
-                            ) {
-                                if (httpServletRequest.parameterMap.containsKey("trust-device")) {
-                                    twoFaService.saveTrustedDevice(
-                                        deviceId.get().value, user.get(),
-                                        HttpReqRespUtils.getUserAgent(httpServletRequest), HttpReqRespUtils
-                                            .getClientIpAddressIfServletRequestExist(httpServletRequest)
-                                    )
+                val bCryptPasswordEncoder = BCryptPasswordEncoder()
+                if (bCryptPasswordEncoder.matches(
+                        httpServletRequest.getParameter("password"),
+                        user.get().password
+                    )
+                ) {
+                    val cookies = httpServletRequest.cookies
+                    val deviceId = Arrays.stream(cookies).filter { cookie: Cookie -> cookie.name == "deviceId" }
+                        .findFirst()
+                    if (deviceId.isPresent) {
+                        if (Objects.nonNull(user.get().twoFaEnabled) &&
+                            user.get().twoFaEnabled == true &&
+                            !twoFaService.isTrustedDevice(deviceId.get().value, user.get())
+                        ) {
+                            if (httpServletRequest.parameterMap.containsKey("otp-code")) {
+                                var code: Int? = null
+                                try {
+                                    code = httpServletRequest.getParameter("otp-code").toString().toInt()
+                                } catch (e: Exception) {
                                 }
-                                session.setAttribute("otp", true);
-                                chain.doFilter(request, response)
-                                return
-                            } else {
-                                session.setAttribute("otpRequired", true)
-                                session.setAttribute("message", "Invalid OTP")
-                                session.setAttribute("clientId", TenantContext.getCurrentClient())
-                                httpServletResponse.sendRedirect(httpServletRequest.contextPath + "/otp-login")
-                                return
+                                if ((code != null &&
+                                            twoFaService.validate2FA(code, user.get().username!!, httpServletResponse))
+                                    || twoFaService.validate2FAScratchCode(
+                                        httpServletRequest.getParameter("otp-code"),
+                                        user.get().username!!
+                                    )
+                                ) {
+                                    if (httpServletRequest.parameterMap.containsKey("trust-device")) {
+                                        twoFaService.saveTrustedDevice(
+                                            deviceId.get().value, user.get(),
+                                            HttpReqRespUtils.getUserAgent(httpServletRequest), HttpReqRespUtils
+                                                .getClientIpAddressIfServletRequestExist(httpServletRequest)
+                                        )
+                                    }
+                                    chain.doFilter(request, response)
+                                    return
+                                } else {
+                                    val session = httpServletRequest.getSession(true)
+                                    session.setAttribute(
+                                        "otpRequiredUsername",
+                                        httpServletRequest.getParameter("username")
+                                    )
+                                    session.setAttribute(
+                                        "otpRequiredPassword",
+                                        httpServletRequest.getParameter("password")
+                                    )
+                                    session.setAttribute(
+                                        "otpRequiredRememberMe",
+                                        httpServletRequest.getParameter("remember-me")
+                                    )
+                                    session.setAttribute(
+                                        "otpRequiredTrustDevice",
+                                        httpServletRequest.getParameter("trust-device")
+                                    )
+                                    session.setAttribute("otpRequired", true)
+                                    session.setAttribute("message", "Invalid OTP")
+                                    httpServletResponse.sendRedirect(httpServletRequest.contextPath + "/otp-login")
+                                    return
+                                }
                             }
-                        }
-                        if(httpServletRequest.servletPath != "/otp-login" &&
-                            !httpServletRequest.servletPath.contains("/assets") &&
-                            !httpServletRequest.servletPath.contains("/tenant-assets")) {
+                            val session = httpServletRequest.getSession(true)
+                            session.setAttribute("otpRequiredUsername", httpServletRequest.getParameter("username"))
+                            session.setAttribute("otpRequiredPassword", httpServletRequest.getParameter("password"))
+                            session.setAttribute(
+                                "otpRequiredRememberMe",
+                                httpServletRequest.getParameter("remember-me")
+                            )
+                            session.setAttribute(
+                                "otpRequiredTrustDevice",
+                                httpServletRequest.getParameter("trust-device")
+                            )
                             session.setAttribute("otpRequired", true)
                             session.setAttribute("message", "Please Enter OTP")
-                            session.setAttribute("clientId", TenantContext.getCurrentClient())
                             httpServletResponse.sendRedirect(httpServletRequest.contextPath + "/otp-login")
                             return
                         }
-                    } else {
-                        session.setAttribute("otp", true);
                     }
                 }
             }

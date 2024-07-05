@@ -131,7 +131,6 @@ class LoginService(
         setOtpParam(model, session, "otpRequiredTrustDevice")
         setOtpParam(model, session, "otpRequired")
         setOtpParam(model, session, "message")
-        //setOtpParam(model, session, "clientId")
 
         val savedRequest: SavedRequest? = HttpSessionRequestCache().getRequest(request, response)
         if (null != savedRequest) {

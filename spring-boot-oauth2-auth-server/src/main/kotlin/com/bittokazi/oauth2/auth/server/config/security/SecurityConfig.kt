@@ -6,7 +6,6 @@ import com.bittokazi.oauth2.auth.server.app.repositories.tenant.OauthClientRepos
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.RegisteredClientRepositoryImpl
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.UserRepository
 import com.bittokazi.oauth2.auth.server.app.services.CustomUserDetailsService
-import com.bittokazi.oauth2.auth.server.app.services.mfa.TwoFaService
 import com.bittokazi.oauth2.auth.server.config.AppConfig
 import com.bittokazi.oauth2.auth.server.config.TenantContext
 import com.bittokazi.oauth2.auth.server.config.interceptors.TenantContextListener
@@ -26,9 +25,7 @@ import org.springframework.context.annotation.Primary
 import org.springframework.core.annotation.Order
 import org.springframework.http.MediaType
 import org.springframework.jdbc.core.JdbcTemplate
-import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.Customizer
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -37,7 +34,6 @@ import org.springframework.security.config.annotation.web.configurers.FormLoginC
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer
 import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer
-import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -57,12 +53,10 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.oidc.OidcProviderConfiguration
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings
 import org.springframework.security.oauth2.server.authorization.token.*
-import org.springframework.security.oauth2.server.authorization.web.OAuth2AuthorizationServerMetadataEndpointFilter
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
 import org.springframework.security.web.authentication.RememberMeServices
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.springframework.security.web.authentication.logout.LogoutFilter
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices.RememberMeTokenAlgorithm
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher
@@ -95,8 +89,7 @@ open class SecurityConfig(
     private val multiTenantConnectionProviderImpl: MultiTenantConnectionProviderImpl,
     private val tenantRepository: TenantRepository,
     private val customHttpStatusReturningLogoutSuccessHandler: CustomHttpStatusReturningLogoutSuccessHandler,
-    private val otpFilter: OtpFilter,
-    private val twoFaService: TwoFaService
+    private val otpFilter: OtpFilter
 ) {
 
     @Bean
@@ -162,14 +155,10 @@ open class SecurityConfig(
                 }
             )
             .addFilterBefore(otpFilter, UsernamePasswordAuthenticationFilter::class.java)
-            //.addFilterBefore(otpFilter, OAuth2AuthorizationServerMetadataEndpointFilter::class.java)
             .formLogin { form: FormLoginConfigurer<HttpSecurity?> ->
                 form
                     .loginPage("/login")
-                    .successHandler(LoginSuccessHandler(
-                        userRepository,
-                        twoFaService
-                    ))
+                    .successHandler(LoginSuccessHandler())
             }
             .logout { logout: LogoutConfigurer<HttpSecurity?> ->
                 logout.logoutSuccessHandler(
@@ -187,17 +176,6 @@ open class SecurityConfig(
 
         return http.build()
     }
-
-/*    @Bean("UsernamePasswordAuthenticationFilter")
-    open fun usernamePasswordAuthenticationFilter(
-        authenticationConfiguration: AuthenticationConfiguration
-    ) : UsernamePasswordAuthenticationFilter {
-        val usernamePasswordAuthenticationFilter = UsernamePasswordAuthenticationFilter(
-            authenticationConfiguration.authenticationManager
-        )
-        usernamePasswordAuthenticationFilter.setContinueChainBeforeSuccessfulAuthentication(true)
-        return usernamePasswordAuthenticationFilter
-    }*/
 
     @Bean
     open fun userDetailsService(): UserDetailsService {
