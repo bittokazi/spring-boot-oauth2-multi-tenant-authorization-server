@@ -5,7 +5,6 @@ import com.bittokazi.oauth2.auth.server.app.repositories.master.TenantRepository
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.OauthClientRepository
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.RegisteredClientRepositoryImpl
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.UserRepository
-import com.bittokazi.oauth2.auth.server.app.services.CustomUserDetailsService
 import com.bittokazi.oauth2.auth.server.config.AppConfig
 import com.bittokazi.oauth2.auth.server.config.TenantContext
 import com.bittokazi.oauth2.auth.server.config.interceptors.TenantContextListener
@@ -180,16 +179,6 @@ open class SecurityConfig(
 
         return http.build()
     }
-
-/*    @Bean
-    open fun userDetailsService(): UserDetailsService {
-        return CustomUserDetailsService(
-            userRepository,
-            oauthClientRepository,
-            multiTenantConnectionProviderImpl,
-            registeredClientRepository()
-        )
-    }*/
 
     @Bean
     open fun registeredClientRepository(): RegisteredClientRepository {

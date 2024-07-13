@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(refactor): refactor otp code 🔥">
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(refactor): refactor template 🔥">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/consent.html" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/consent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/otp-login.html" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/otp-login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/WebMvcConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/WebMvcConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -299,14 +299,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
-    </task>
-    <task id="LOCAL-00008" summary="feat(kotlin-convert): set start class kotlin :zap:">
-      <option name="closed" value="true" />
-      <created>1719485700862</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1719485700862</updated>
     </task>
     <task id="LOCAL-00009" summary="feat(kotlin-convert): fix jar main class not found problem :zap:">
       <option name="closed" value="true" />
@@ -692,7 +684,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720872607276</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="feat(refactor): refactor template 🔥">
+      <option name="closed" value="true" />
+      <created>1720882732344</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1720882732344</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -707,7 +707,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat(gateway): added application gateway and ui updates :sparkles: :lipstick:" />
     <MESSAGE value="feat(version): added versioning :lipstick: :triangular_flag_on_post:" />
     <MESSAGE value="feat(version): Change docker files for local :sparkles:" />
     <MESSAGE value="feat(update-dockei): Updated docker files :sparkles:" />
@@ -732,6 +731,7 @@
     <MESSAGE value="bugfix(otp): otp bug fix ⚡️" />
     <MESSAGE value="feat(otp): otp improve ⚡️" />
     <MESSAGE value="feat(refactor): refactor otp code " />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(refactor): refactor otp code " />
+    <MESSAGE value="feat(refactor): refactor template " />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(refactor): refactor template " />
   </component>
 </project>
