@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(refactor): refactor code 🔥" />
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(refactor): refactor code 🔥">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -294,14 +296,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
-    </task>
-    <task id="LOCAL-00011" summary="feat(auth): fix trusted device bug and logout bug :bug:">
-      <option name="closed" value="true" />
-      <created>1719510784869</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1719510784869</updated>
     </task>
     <task id="LOCAL-00012" summary="feat(auth): fix custom jdbc auth service :bug:">
       <option name="closed" value="true" />
@@ -687,7 +681,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720883788807</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="feat(refactor): refactor code 🔥">
+      <option name="closed" value="true" />
+      <created>1720885773684</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1720885773684</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
