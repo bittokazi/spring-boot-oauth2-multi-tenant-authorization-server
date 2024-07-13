@@ -295,14 +295,6 @@
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
     </task>
-    <task id="LOCAL-00010" summary="feat(kotlin-convert): fix jar main class not found problem :zap:">
-      <option name="closed" value="true" />
-      <created>1719506358380</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1719506358380</updated>
-    </task>
     <task id="LOCAL-00011" summary="feat(auth): fix trusted device bug and logout bug :bug:">
       <option name="closed" value="true" />
       <created>1719510784869</created>
@@ -687,7 +679,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720883589547</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="feat(refactor): refactor code 🔥">
+      <option name="closed" value="true" />
+      <created>1720883788806</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1720883788807</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
