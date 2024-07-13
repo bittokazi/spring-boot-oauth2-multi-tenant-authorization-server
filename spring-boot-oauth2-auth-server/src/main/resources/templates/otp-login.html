@@ -77,18 +77,6 @@
             </div>
           </div>
           <input
-            type="hidden"
-            name="username"
-            placeholder="Username"
-            th:value="${otpRequiredUsername}"
-          />
-          <input
-            type="hidden"
-            name="password"
-            placeholder="Password"
-            th:value="${otpRequiredPassword}"
-          />
-          <input
             type="text"
             id="otp-input"
             name="otp-code"
@@ -103,15 +91,6 @@
               th:checked="${otpRequiredTrustDevice}"
             />
             Trust this device
-          </div>
-          <div style="text-align: left; display: none">
-            <input
-              type="checkbox"
-              name="remember-me"
-              style="width: 13px"
-              th:checked="${otpRequiredRememberMe}"
-            />
-            Remember me
           </div>
           <button type="submit" th:style="${'background: ' + signInBtnColor}">
             login
