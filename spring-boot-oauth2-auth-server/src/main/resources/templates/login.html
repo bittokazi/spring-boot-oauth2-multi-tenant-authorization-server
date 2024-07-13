@@ -12,13 +12,6 @@
     <div class="login-page">
       <h1 class="title" th:text="${tenantName}+' Login'"></h1>
       <div class="form">
-        <form class="register-form">
-<!--          <input type="text" placeholder="name" />-->
-<!--          <input type="password" placeholder="password" />-->
-<!--          <input type="text" placeholder="email address" />-->
-<!--          <button>create</button>-->
-<!--          <p class="message">Already registered? <a href="#">Sign In</a></p>-->
-        </form>
         <form class="login-form" th:action="@{/login}" method="post">
           <div th:if="${param.error}" style="margin-bottom: 10px">
             Invalid username and password.</div>
