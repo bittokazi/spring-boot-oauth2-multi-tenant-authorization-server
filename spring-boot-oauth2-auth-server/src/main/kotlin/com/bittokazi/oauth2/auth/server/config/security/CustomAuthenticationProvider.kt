@@ -4,7 +4,6 @@ import com.bittokazi.oauth2.auth.server.app.models.tenant.User
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.UserRepository
 import com.bittokazi.oauth2.auth.server.app.services.CustomUserDetailsService
 import com.bittokazi.oauth2.auth.server.app.services.mfa.TwoFaService
-import com.bittokazi.oauth2.auth.server.utils.HttpReqRespUtils
 import jakarta.servlet.http.Cookie
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
