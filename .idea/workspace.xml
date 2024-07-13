@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="bugfix(otp): otp bug fix ⚡️">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/controllers/LoginController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/CustomUserDetailsService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/app/services/CustomUserDetailsService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/LoginSuccessHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/LoginSuccessHandler.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/mfa/OtpFilter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/otp-login.html" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/templates/otp-login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +25,8 @@
         <option value="Dockerfile" />
         <option value="Kotlin Interface" />
         <option value="Kotlin File" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Data Class" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -48,7 +53,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Application.executor": "Run",
-    "Application.Backend.executor": "Run",
+    "Application.Backend.executor": "Debug",
     "Docker.Dockerfile.executor": "Run",
     "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
     "Docker.docker-compose_.yml: Compose Deployment.executor": "Run",
@@ -106,7 +111,7 @@
       <recent name="com.bittokazi.oauth2.auth.server.app.controllers.user" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.Gateway">
+  <component name="RunManager" selected="Application.Backend">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -297,14 +302,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
-    </task>
-    <task id="LOCAL-00002" summary="feat(version): added versioning :lipstick: :triangular_flag_on_post:">
-      <option name="closed" value="true" />
-      <created>1718304969023</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1718304969023</updated>
     </task>
     <task id="LOCAL-00003" summary="feat(version): Change docker files for local :sparkles:">
       <option name="closed" value="true" />
@@ -690,7 +687,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720191909969</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="bugfix(otp): otp bug fix ⚡️">
+      <option name="closed" value="true" />
+      <created>1720192665064</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1720192665064</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

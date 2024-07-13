@@ -25,7 +25,9 @@ import org.springframework.context.annotation.Primary
 import org.springframework.core.annotation.Order
 import org.springframework.http.MediaType
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.Customizer
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -79,6 +81,7 @@ import java.util.function.Consumer
 import java.util.stream.Collectors
 import javax.sql.DataSource
 
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
@@ -89,7 +92,8 @@ open class SecurityConfig(
     private val multiTenantConnectionProviderImpl: MultiTenantConnectionProviderImpl,
     private val tenantRepository: TenantRepository,
     private val customHttpStatusReturningLogoutSuccessHandler: CustomHttpStatusReturningLogoutSuccessHandler,
-    private val otpFilter: OtpFilter
+    private val otpFilter: OtpFilter,
+    private val authProvider: CustomAuthenticationProvider
 ) {
 
     @Bean
@@ -154,7 +158,7 @@ open class SecurityConfig(
                         .anyRequest().authenticated()
                 }
             )
-            .addFilterBefore(otpFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterAfter(otpFilter, UsernamePasswordAuthenticationFilter::class.java)
             .formLogin { form: FormLoginConfigurer<HttpSecurity?> ->
                 form
                     .loginPage("/login")
@@ -177,7 +181,7 @@ open class SecurityConfig(
         return http.build()
     }
 
-    @Bean
+/*    @Bean
     open fun userDetailsService(): UserDetailsService {
         return CustomUserDetailsService(
             userRepository,
@@ -185,7 +189,7 @@ open class SecurityConfig(
             multiTenantConnectionProviderImpl,
             registeredClientRepository()
         )
-    }
+    }*/
 
     @Bean
     open fun registeredClientRepository(): RegisteredClientRepository {
@@ -213,6 +217,15 @@ open class SecurityConfig(
         val jwtDecoder = OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource) as NimbusJwtDecoder
         jwtDecoder.setJwtValidator(validator)
         return jwtDecoder
+    }
+
+    @Bean
+    @Throws(java.lang.Exception::class)
+    fun authManager(http: HttpSecurity): AuthenticationManager {
+        val authenticationManagerBuilder =
+            http.getSharedObject(AuthenticationManagerBuilder::class.java)
+        authenticationManagerBuilder.authenticationProvider(authProvider)
+        return authenticationManagerBuilder.build()
     }
 
     @Bean

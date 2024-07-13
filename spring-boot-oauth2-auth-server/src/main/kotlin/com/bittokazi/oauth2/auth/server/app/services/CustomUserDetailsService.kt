@@ -13,16 +13,16 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
+import org.springframework.stereotype.Component
 import java.util.stream.Collectors
 
 /**
  * @author Bitto Kazi
  */
 @Transactional
+@Component
 open class CustomUserDetailsService(
-    private val userRepository: UserRepository, private val oauthClientRepository: OauthClientRepository,
-    private val multiTenantConnectionProviderImpl: MultiTenantConnectionProviderImpl,
-    private val registeredClientRepository: RegisteredClientRepository
+    private val userRepository: UserRepository
 ) : UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails? {

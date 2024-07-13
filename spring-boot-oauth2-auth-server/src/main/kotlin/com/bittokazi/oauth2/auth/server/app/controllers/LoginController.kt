@@ -42,6 +42,14 @@ class LoginController(
         response: HttpServletResponse
     ): Any = loginService.otpLoginPage(model, request, response)
 
+    @PostMapping("/otp-login")
+    @Throws(IOException::class)
+    fun otpLoginPagePost(
+        model: Model,
+        request: HttpServletRequest,
+        response: HttpServletResponse
+    ): Any = loginService.otpLoginPage(model, request, response)
+
     @GetMapping(value = ["/oauth2/consent"])
     fun consent(
         principal: Principal, model: Model,

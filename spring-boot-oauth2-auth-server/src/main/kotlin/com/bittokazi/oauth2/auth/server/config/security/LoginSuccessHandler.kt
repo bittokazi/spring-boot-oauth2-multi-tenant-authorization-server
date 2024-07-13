@@ -23,6 +23,10 @@ class LoginSuccessHandler : SimpleUrlAuthenticationSuccessHandler() {
         response: HttpServletResponse,
         authentication: Authentication
     ) {
+        if(request.session.getAttribute("otp") !=null  && request.session.getAttribute("otp") as Boolean) {
+            response.sendRedirect(request.contextPath + "/otp-login")
+            return
+        }
         val savedRequest = requestCache.getRequest(request, response)
         if (savedRequest == null) {
             super.onAuthenticationSuccess(request, response, authentication)
