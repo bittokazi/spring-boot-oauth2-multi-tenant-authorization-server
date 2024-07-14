@@ -299,14 +299,6 @@
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
     </task>
-    <task id="LOCAL-00018" summary="feat(auth): git tag signing :lipstick:">
-      <option name="closed" value="true" />
-      <created>1719607289728</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1719607289728</updated>
-    </task>
     <task id="LOCAL-00019" summary="feat(auth): git tag signing :lipstick:">
       <option name="closed" value="true" />
       <created>1719607317376</created>
@@ -691,7 +683,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720947835985</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="feat(refactor): remove unwanted files 🔥">
+      <option name="closed" value="true" />
+      <created>1720948869154</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1720948869154</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
