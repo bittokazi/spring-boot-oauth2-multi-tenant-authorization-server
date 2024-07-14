@@ -296,14 +296,6 @@
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
     </task>
-    <task id="LOCAL-00016" summary="feat(auth): favicon ico added :lipstick:">
-      <option name="closed" value="true" />
-      <created>1719606659707</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1719606659707</updated>
-    </task>
     <task id="LOCAL-00017" summary="feat(auth): favicon ico added :lipstick:">
       <option name="closed" value="true" />
       <created>1719606783356</created>
@@ -688,7 +680,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720947368130</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="feat(refactor): remove unwanted files 🔥">
+      <option name="closed" value="true" />
+      <created>1720947385434</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1720947385434</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
