@@ -5,104 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(refactor): remove unwanted files 🔥">
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/banner/banner.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/banner/upgrade.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/amazon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/angular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/apple-safari.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/book.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/bootstrap.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brands/event-label.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brands/figma-label.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brands/html-label.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brands/react-label.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brands/sketch-label.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brands/social-label.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brands/support-label.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brands/twitter-label.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brands/vue-label.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brands/xd-label.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/brush.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/database.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/doc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/drive.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/dropbox.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/figma.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/file-icons/doc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/file-icons/onedrive.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/file-icons/pdf.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/file-icons/psd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/file-icons/sketch.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/google-chrome.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/google.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/icloud-1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/icloud.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/internet-explorer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/internet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/jpg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/js.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/json.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/mozila-firefox.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/onedrive.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/onedrivenew.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/opera.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/parachute.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/american-ex.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/amex-cc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/diners-cc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/discover-cc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/jcb-cc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/maestro-cc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/mastercard-cc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/mastercard.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/uatp-cc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/visa-cc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/payments/visa.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/pdf.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/psd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/qrcode.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/react.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/rocket.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/sketch.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/asana.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/behance.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/dribbble.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/facebook.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/github.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/google.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/instagram.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/linkedin.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/mailchimp.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/slack.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/social/twitter.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/speaker.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/star.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/technology/angular.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/technology/laravel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/technology/react.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/technology/vue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/toolbox.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/txt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/unknown.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/vuejs.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/icons/xls.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/Pot1.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/Pot2.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/Pot3.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/api.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/badge.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/create-account.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/demand.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/email.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/faq-illustrations.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/marketing.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/personalization.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/pricing-Illustration.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/sales.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/two-steps-verification-illustration-dark.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/two-steps-verification-illustration.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/verify-email-illustration-dark.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/images/illustration/verify-email-illustration.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/css/core/menu/menu-types/vertical-menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/app-assets/css/core/menu/menu-types/vertical-menu.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/assets/js/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/assets/dashboard-assets/assets/js/scripts.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -394,14 +300,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
-    </task>
-    <task id="LOCAL-00021" summary="feat(auth): git tag signing :lipstick:">
-      <option name="closed" value="true" />
-      <created>1719607650924</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1719607650924</updated>
     </task>
     <task id="LOCAL-00022" summary="feat(auth): git tag signing :lipstick:">
       <option name="closed" value="true" />
@@ -787,7 +685,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720949998900</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="feat(refactor): remove unwanted files 🔥">
+      <option name="closed" value="true" />
+      <created>1720950306836</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1720950306836</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

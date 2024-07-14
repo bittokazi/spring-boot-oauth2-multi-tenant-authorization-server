@@ -1,13 +1,3 @@
-/*=========================================================================================
-    File Name: vertical-menu.scss
-    Description: A classic vertical modern style menu with expand and collops support. It support
-    light & dark version, flipped layout, right side icons, native scroll and borders menu
-    item separation.
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
 .vertical-layout.vertical-menu-modern .main-menu {
   transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background 0s;
   transform: translate3d(0, 0, 0);
