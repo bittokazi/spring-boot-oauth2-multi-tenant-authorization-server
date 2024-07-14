@@ -8,7 +8,7 @@ services:
         DEPLOY_ENV: "test-ci-cd"
     image: "spring-boot-oauth2-auth-server:latest"
     restart: unless-stopped
-    env_file: spring-boot-oauth2-auth-server/ci-cd-test.env
+    env_file: docker.env
     volumes:
       - /home/bitto/certs:/certs
       - /home/bitto/Documents/java/thymeleaf/assets:/template-assets
