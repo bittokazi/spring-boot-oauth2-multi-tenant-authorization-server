@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(refactor): remove unwanted files 🔥" />
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(refactor): remove unwanted files 🔥">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-kit-frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/auth-kit-frontend/src/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,7 +107,7 @@
       <recent name="com.bittokazi.oauth2.auth.server.app.controllers.user" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.Gateway">
+  <component name="RunManager" selected="Application.Backend">
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -295,14 +298,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
-    </task>
-    <task id="LOCAL-00017" summary="feat(auth): favicon ico added :lipstick:">
-      <option name="closed" value="true" />
-      <created>1719606783356</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1719606783356</updated>
     </task>
     <task id="LOCAL-00018" summary="feat(auth): git tag signing :lipstick:">
       <option name="closed" value="true" />
@@ -688,7 +683,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720947385434</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="feat(refactor): remove unwanted files 🔥">
+      <option name="closed" value="true" />
+      <created>1720947835985</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1720947835985</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
