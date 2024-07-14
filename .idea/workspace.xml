@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(refactor): remove unwanted code 🔥">
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(client-seed): change client seed ✨">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/seed/clients.csv" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/seed/clients.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/seed/clients_tenant.csv" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/db-migration/seed/clients_tenant.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -299,14 +298,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
-    </task>
-    <task id="LOCAL-00023" summary="feat(auth): git tag signing :lipstick:">
-      <option name="closed" value="true" />
-      <created>1719610246678</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1719610246678</updated>
     </task>
     <task id="LOCAL-00024" summary="feat(auth): git tag signing :lipstick:">
       <option name="closed" value="true" />
@@ -692,7 +683,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720950514731</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="feat(client-seed): change client seed ✨">
+      <option name="closed" value="true" />
+      <created>1720953578496</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1720953578496</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -707,7 +706,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat(config): Changed app configs :wrench:" />
     <MESSAGE value="feat(tenant): updated tenant context :building_construction:" />
     <MESSAGE value="feat(kotlin-convert): Converted the project to kotlin :art:" />
     <MESSAGE value="feat(kotlin-convert): set start class kotlin :zap:" />
@@ -732,6 +730,7 @@
     <MESSAGE value="feat(refactor): refactor code " />
     <MESSAGE value="feat(refactor): remove unwanted files " />
     <MESSAGE value="feat(refactor): remove unwanted code " />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(refactor): remove unwanted code " />
+    <MESSAGE value="feat(client-seed): change client seed ✨" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(client-seed): change client seed ✨" />
   </component>
 </project>
