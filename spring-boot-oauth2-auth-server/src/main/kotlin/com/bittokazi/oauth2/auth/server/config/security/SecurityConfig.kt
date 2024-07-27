@@ -288,6 +288,7 @@ open class SecurityConfig(
                             userOptional.get().roles.forEach(Consumer { role: Role ->
                                 scopes.add(role.name?.replace("ROLE_", ""))
                             })
+                            claims["email"] = userOptional.get().email!!
                         }
                         claims["scope"] = scopes
                     }
