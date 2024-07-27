@@ -1,6 +1,7 @@
 package com.bittokazi.oauth2.auth.server.config.security
 
 import com.bittokazi.oauth2.auth.server.app.models.tenant.Role
+import com.bittokazi.oauth2.auth.server.app.models.tenant.User
 import com.bittokazi.oauth2.auth.server.app.repositories.master.TenantRepository
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.OauthClientRepository
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.RegisteredClientRepositoryImpl
@@ -40,6 +41,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator
 import org.springframework.security.oauth2.core.OAuth2TokenValidator
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames
 import org.springframework.security.oauth2.jwt.*
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService
@@ -52,8 +54,11 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OidcConfigurer
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OidcProviderConfigurationEndpointConfigurer
 import org.springframework.security.oauth2.server.authorization.oidc.OidcProviderConfiguration
+import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationContext
+import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationToken
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings
 import org.springframework.security.oauth2.server.authorization.token.*
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
 import org.springframework.security.web.authentication.RememberMeServices
@@ -61,6 +66,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices.RememberMeTokenAlgorithm
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher
+import org.springframework.security.web.util.matcher.RequestMatcher
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.TransactionDefinition
 import org.springframework.transaction.TransactionException
@@ -99,8 +105,15 @@ open class SecurityConfig(
     @Order(1)
     @Throws(Exception::class)
     open fun authorizationServerSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http)
-        http.getConfigurer(OAuth2AuthorizationServerConfigurer::class.java)
+        val authorizationServerConfigurer =
+            OAuth2AuthorizationServerConfigurer()
+
+        val endpointsMatcher: RequestMatcher = authorizationServerConfigurer
+            .getEndpointsMatcher()
+
+        http
+            .securityMatcher(endpointsMatcher)
+            .apply(authorizationServerConfigurer)
             .authorizationEndpoint { authorizationEndpoint: OAuth2AuthorizationEndpointConfigurer ->
                 authorizationEndpoint.consentPage(
                     "/oauth2/consent"
@@ -124,14 +137,31 @@ open class SecurityConfig(
                                     .build()
                             }
                     }
+                    .userInfoEndpoint {
+                        it.userInfoMapper { context ->
+                            val authentication: OidcUserInfoAuthenticationToken = context.getAuthentication()
+                            val principal = authentication.principal as JwtAuthenticationToken
+                            val user: User = userRepository.findOneByUsernameIgnoreCase(principal.name).get()
+                            OidcUserInfo.builder()
+                                .subject(user.username)
+                                .email(user.email)
+                                .build()
+                        }
+                    }
             }
         http
+            .authorizeHttpRequests {
+                it.anyRequest().authenticated()
+            }
             .exceptionHandling { exceptions: ExceptionHandlingConfigurer<HttpSecurity?> ->
                 exceptions
                     .defaultAuthenticationEntryPointFor(
                         LoginUrlAuthenticationEntryPoint("/login"),
                         MediaTypeRequestMatcher(MediaType.TEXT_HTML)
                     )
+            }
+            .csrf {
+                it.ignoringRequestMatchers(endpointsMatcher)
             }
             .oauth2ResourceServer { resourceServer: OAuth2ResourceServerConfigurer<HttpSecurity?> ->
                 resourceServer
@@ -152,8 +182,7 @@ open class SecurityConfig(
                         .requestMatchers(
                             "/oauth2/login", "/oauth2/refresh/token",
                             "/authorize_user", "/login", "/assets/**", "/otp-login",
-                            "/app/**", "/public/api/tenants/info", "/tenant-assets/**",
-                            "/userinfo"
+                            "/app/**", "/public/api/tenants/info", "/tenant-assets/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 }
