@@ -327,6 +327,12 @@ open class SecurityConfig(
             if (OidcParameterNames.ID_TOKEN == context.tokenType.value) {
                 context.claims.claims { claims: MutableMap<String?, Any?> ->
                     claims["iss"] = TenantContext.getCurrentIssuer()
+                    if (claims["sub"].toString() != context.registeredClient.clientId) {
+                        val userOptional = userRepository.findOneByUsername(claims["sub"].toString())
+                        userOptional.get().roles.forEach(Consumer { role: Role ->
+                            claims["email"] = userOptional.get().email
+                        })
+                    }
                 }
             }
         }
