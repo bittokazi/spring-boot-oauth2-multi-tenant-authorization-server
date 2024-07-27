@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(log): change auth logging level ✨">
+    <list default="true" id="6a79f91a-8990-4bf1-9ff9-a0dd927e90eb" name="Changes" comment="feat(token-claim): added email to token claim 🛂✨">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-boot-oauth2-auth-server/src/main/kotlin/com/bittokazi/oauth2/auth/server/config/security/SecurityConfig.kt" afterDir="false" />
     </list>
@@ -298,14 +298,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708880425592</updated>
-    </task>
-    <task id="LOCAL-00025" summary="feat(auth): git ignores updated :fire:">
-      <option name="closed" value="true" />
-      <created>1719610400054</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1719610400054</updated>
     </task>
     <task id="LOCAL-00026" summary="feat(auth): git tagging script update :fire:">
       <option name="closed" value="true" />
@@ -691,7 +683,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720954418126</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="feat(token-claim): added email to token claim 🛂✨">
+      <option name="closed" value="true" />
+      <created>1722076074065</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1722076074066</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -706,7 +706,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat(kotlin-convert): Converted the project to kotlin :art:" />
     <MESSAGE value="feat(kotlin-convert): set start class kotlin :zap:" />
     <MESSAGE value="feat(kotlin-convert): fix jar main class not found problem :zap:" />
     <MESSAGE value="feat(auth): fix trusted device bug and logout bug :bug:" />
@@ -731,6 +730,7 @@
     <MESSAGE value="feat(refactor): remove unwanted code " />
     <MESSAGE value="feat(client-seed): change client seed ✨" />
     <MESSAGE value="feat(log): change auth logging level ✨" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(log): change auth logging level ✨" />
+    <MESSAGE value="feat(token-claim): added email to token claim ✨" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(token-claim): added email to token claim ✨" />
   </component>
 </project>

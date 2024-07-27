@@ -152,7 +152,8 @@ open class SecurityConfig(
                         .requestMatchers(
                             "/oauth2/login", "/oauth2/refresh/token",
                             "/authorize_user", "/login", "/assets/**", "/otp-login",
-                            "/app/**", "/public/api/tenants/info", "/tenant-assets/**"
+                            "/app/**", "/public/api/tenants/info", "/tenant-assets/**",
+                            "/userinfo"
                         ).permitAll()
                         .anyRequest().authenticated()
                 }
@@ -288,7 +289,6 @@ open class SecurityConfig(
                             userOptional.get().roles.forEach(Consumer { role: Role ->
                                 scopes.add(role.name?.replace("ROLE_", ""))
                             })
-                            claims["email"] = userOptional.get().email!!
                         }
                         claims["scope"] = scopes
                     }
