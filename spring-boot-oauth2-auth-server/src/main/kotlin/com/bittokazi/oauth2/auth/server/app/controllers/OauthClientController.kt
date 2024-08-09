@@ -31,6 +31,7 @@ class OauthClientController(private val oauthService: ClientService) {
     ): Any = oauthService.getOauthClient(id, httpServletResponse)
 
     @PutMapping("/clients/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_client:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     fun updateOauthClient(
         @RequestBody oauthClient: OauthClient,
         httpServletResponse: HttpServletResponse

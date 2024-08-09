@@ -21,28 +21,28 @@ class TenantController(
     @PreAuthorize("hasAuthority('SCOPE_tenant:read') and hasAuthority('SCOPE_SUPER_ADMIN')")
     fun allTenants(): ResponseEntity<*> = tenantService.allTenants()
 
-    @PreAuthorize("hasAuthority('SCOPE_tenant:write') and hasAuthority('SCOPE_SUPER_ADMIN')")
     @PostMapping("/tenants")
+    @PreAuthorize("hasAuthority('SCOPE_tenant:write') and hasAuthority('SCOPE_SUPER_ADMIN')")
     fun addTenant(@RequestBody tenant: Tenant): ResponseEntity<*> = tenantService.addTenant(tenant!!)
 
-    @PreAuthorize("hasAuthority('SCOPE_tenant:read') and hasAuthority('SCOPE_SUPER_ADMIN')")
     @GetMapping("/tenants/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_tenant:read') and hasAuthority('SCOPE_SUPER_ADMIN')")
     fun getTenant(
         @PathVariable id: String?,
         httpServletRequest: HttpServletRequest?,
         httpServletResponse: HttpServletResponse?
     ): ResponseEntity<*> = tenantService.getTenant(httpServletRequest, httpServletResponse, id!!)
 
-    @PreAuthorize("hasAuthority('SCOPE_tenant:write') and hasAuthority('SCOPE_SUPER_ADMIN')")
     @PutMapping("/tenants/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_tenant:write') and hasAuthority('SCOPE_SUPER_ADMIN')")
     fun updateCompany(
         @RequestBody tenant: Tenant?,
         httpServletRequest: HttpServletRequest?,
         httpServletResponse: HttpServletResponse?
     ): ResponseEntity<*> = tenantService.updateTenant(tenant!!, httpServletRequest, httpServletResponse)
 
-    @PreAuthorize("hasAuthority('SCOPE_tenant:write') and hasAuthority('SCOPE_SUPER_ADMIN')")
     @PostMapping("/tenants/templates")
+    @PreAuthorize("hasAuthority('SCOPE_tenant:write') and hasAuthority('SCOPE_SUPER_ADMIN')")
     fun addTemplate(
         @RequestPart(value = "file", required = false) file: MultipartFile,
         @RequestPart uploadObject: UploadObject

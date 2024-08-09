@@ -16,8 +16,8 @@ class RoleController(
     private val roleService: RoleService
 ): RoleControllerApi {
 
-    @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @GetMapping("/roles")
+    @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     override fun getRoles(
         @RequestParam(value = "page", required = false, defaultValue = "0") page: Int,
         @RequestParam(value = "count", required = false, defaultValue = "10") count: Int
@@ -27,30 +27,30 @@ class RoleController(
     @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     override fun allRoles(): Any = roleService.allRoles()
 
-    @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @PostMapping("/roles")
+    @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     override fun addRole(
         @RequestBody role: Role,
         httpServletRequest: HttpServletRequest,
         httpServletResponse: HttpServletResponse
     ): Any = roleService.addRole(role, httpServletRequest, httpServletResponse)
 
-    @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @GetMapping("/roles/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     override fun getRole(
         @PathVariable id: String
     ): Any = roleService.getRole(id)
 
-    @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @PutMapping("/roles/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     override fun updateRole(
         @PathVariable id: String,
         @RequestBody role: Role,
         response: HttpServletResponse
     ): Any = roleService.updateRole(role, id, response)
 
-    @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     @PostMapping("/roles/search/name")
+    @PreAuthorize("hasAuthority('SCOPE_role:all') or hasAuthority('SCOPE_SUPER_ADMIN')")
     override fun getRoleByName(
         @RequestBody role: Role,
         httpServletRequest: HttpServletRequest,
