@@ -10,6 +10,7 @@ import com.bittokazi.oauth2.auth.server.config.AppConfig
 import com.bittokazi.oauth2.auth.server.config.TenantContext
 import com.bittokazi.oauth2.auth.server.config.interceptors.TenantContextListener
 import com.bittokazi.oauth2.auth.server.config.security.mfa.OtpFilter
+import com.bittokazi.oauth2.auth.server.config.security.mfa.OtpOauthFilter
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomHttpStatusReturningLogoutSuccessHandler
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationConsentService
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationService
@@ -54,7 +55,6 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OidcConfigurer
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OidcProviderConfigurationEndpointConfigurer
 import org.springframework.security.oauth2.server.authorization.oidc.OidcProviderConfiguration
-import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationContext
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationToken
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings
 import org.springframework.security.oauth2.server.authorization.token.*
@@ -63,6 +63,7 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
 import org.springframework.security.web.authentication.RememberMeServices
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices.RememberMeTokenAlgorithm
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher
@@ -98,6 +99,7 @@ open class SecurityConfig(
     private val tenantRepository: TenantRepository,
     private val customHttpStatusReturningLogoutSuccessHandler: CustomHttpStatusReturningLogoutSuccessHandler,
     private val otpFilter: OtpFilter,
+    private val otpOauthFilter: OtpOauthFilter,
     private val authProvider: CustomAuthenticationProvider
 ) {
 
@@ -153,6 +155,7 @@ open class SecurityConfig(
             .authorizeHttpRequests {
                 it.anyRequest().authenticated()
             }
+            .addFilterBefore(otpOauthFilter, AbstractPreAuthenticatedProcessingFilter::class.java)
             .exceptionHandling { exceptions: ExceptionHandlingConfigurer<HttpSecurity?> ->
                 exceptions
                     .defaultAuthenticationEntryPointFor(

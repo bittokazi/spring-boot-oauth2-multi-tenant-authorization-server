@@ -39,6 +39,7 @@ class OtpFilter(
         if (request.userPrincipal != null
             && request.session.getAttribute("otp") !=null
             && (request.session.getAttribute("otp") as Boolean)
+            && !httpServletRequest.servletPath.contains("/public/api")
             && !httpServletRequest.servletPath.contains("/assets")
             && !httpServletRequest.servletPath.contains("/template-assets")) {
             val user = userRepository
