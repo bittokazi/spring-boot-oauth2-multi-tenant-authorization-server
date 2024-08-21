@@ -76,6 +76,7 @@ class ClientService(
     }
 
     fun deleteOauthClient(id: String, httpServletResponse: HttpServletResponse): ResponseEntity<*> {
+        val res: MutableMap<String, Any> = mutableMapOf()
         val clientEntityOptional = oauthClientRepository.findById(id)
         if (clientEntityOptional.isPresent) {
             if (clientEntityOptional.get().additionalInformationMap() != null &&
@@ -83,7 +84,8 @@ class ClientService(
                     .containsKey("client")
                 && (clientEntityOptional.get().additionalInformationMap()["client"] == "default")
             ) {
-                return ResponseEntity.status(403).body("Delete Not Permitted")
+                res["message"] = "Delete Not Permitted"
+                return ResponseEntity.status(403).body(res)
             } else {
                 oauthClientRepository.deleteById(id)
                 return ResponseEntity.ok(clientEntityOptional.get())
