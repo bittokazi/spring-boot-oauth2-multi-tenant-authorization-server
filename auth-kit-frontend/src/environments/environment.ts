@@ -5,9 +5,6 @@
 export const environment = {
   production: false,
   baseUrl: '',
-  domain: '',
-  http: 'http://',
-  captchaSiteKey: '6LeHVPIiAAAAAMMLBBCpY1ayvL5jWyvkUEF5uLlB',
 };
 
 /*

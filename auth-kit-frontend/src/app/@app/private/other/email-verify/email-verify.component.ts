@@ -49,24 +49,24 @@ export class EmailVerifyComponent implements OnInit, EmailVerifyView {
       DashboardAppMenu();
       DashboardApp();
       DashboardCustom();
-      this.loadCaptcha();
+      // this.loadCaptcha();
     }
   }
 
   loadCaptcha() {
-    if (window['grecaptcha'] && window['grecaptcha'].render) {
-      let captchaCallback = (response) => {
-        this.captchaCallback(response);
-      };
-      window['grecaptcha'].render('recaptcha', {
-        sitekey: environment.captchaSiteKey,
-        callback: captchaCallback,
-      });
-    } else {
-      setTimeout(() => {
-        this.loadCaptcha();
-      }, 100);
-    }
+    // if (window['grecaptcha'] && window['grecaptcha'].render) {
+    //   let captchaCallback = (response) => {
+    //     this.captchaCallback(response);
+    //   };
+    //   window['grecaptcha'].render('recaptcha', {
+    //     sitekey: environment.captchaSiteKey,
+    //     callback: captchaCallback,
+    //   });
+    // } else {
+    //   setTimeout(() => {
+    //     this.loadCaptcha();
+    //   }, 100);
+    // }
   }
 
   captchaCallback(response) {
@@ -81,8 +81,8 @@ export class EmailVerifyComponent implements OnInit, EmailVerifyView {
 
   sendValidationEmailError(error: any): void {
     if (error.status == 403 && error.error?.message == 'INVALID_CAPTCHA') {
-      window['grecaptcha'].reset();
-      this.sweetAlartService.errorDialog('Error', 'Invalid Captcha');
+      // window['grecaptcha'].reset();
+      // this.sweetAlartService.errorDialog('Error', 'Invalid Captcha');
     }
   }
 

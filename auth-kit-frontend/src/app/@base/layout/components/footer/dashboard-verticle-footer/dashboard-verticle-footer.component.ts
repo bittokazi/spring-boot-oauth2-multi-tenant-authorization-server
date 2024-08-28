@@ -9,7 +9,7 @@ import info from './../../../../../../../../info.json';
   styleUrls: ['./dashboard-verticle-footer.component.css'],
 })
 export class DashboardVerticleFooterComponent implements OnInit {
-  public domain = environment.http + environment.domain;
+  public domain = window.location.protocol + '//' + window.location.host;
   public name: String = '';
   public version = info.version;
 

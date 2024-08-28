@@ -34,25 +34,25 @@ export class ForgetPasswordComponent implements OnInit, ForgetPasswordView {
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.loadCaptcha();
-    }, 1000);
+    // setTimeout(() => {
+    //   this.loadCaptcha();
+    // }, 1000);
   }
 
   loadCaptcha() {
-    if (window['grecaptcha'] && window['grecaptcha'].render) {
-      let captchaCallback = (response) => {
-        this.captchaCallback(response);
-      };
-      window['grecaptcha'].render('recaptcha', {
-        sitekey: environment.captchaSiteKey,
-        callback: captchaCallback,
-      });
-    } else {
-      setTimeout(() => {
-        this.loadCaptcha();
-      }, 100);
-    }
+    // if (window['grecaptcha'] && window['grecaptcha'].render) {
+    //   let captchaCallback = (response) => {
+    //     this.captchaCallback(response);
+    //   };
+    //   window['grecaptcha'].render('recaptcha', {
+    //     sitekey: environment.captchaSiteKey,
+    //     callback: captchaCallback,
+    //   });
+    // } else {
+    //   setTimeout(() => {
+    //     this.loadCaptcha();
+    //   }, 100);
+    // }
   }
 
   captchaCallback(response) {
