@@ -18,11 +18,9 @@ COPY ./auth-kit-frontend/package.json /app/frontend
 COPY ./auth-kit-frontend/package-lock.json /app/frontend
 COPY ./auth-kit-frontend /app/frontend
 COPY ./info.json /app/
-ARG DEPLOY_ENV
-ENV DEPLOY_ENV=$DEPLOY_ENV
 RUN npm install -g @angular/cli
 RUN npm install
-RUN npm run build:$DEPLOY_ENV
+RUN npm run build
 
 
 WORKDIR /app
