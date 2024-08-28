@@ -1,0 +1,6 @@
+*
+!.gitignore
+!default_authkit_private_key.pem
+!default_authkit_private_key_pkcs8.pem
+!default_authkit_public_key.pem
+!important_delete_default_certs_and_create_your_own_instruction_in_this_file.txt

@@ -10,8 +10,8 @@ services:
     restart: unless-stopped
     env_file: docker.env
     volumes:
-      - /home/bitto/certs:/certs
-      - /home/bitto/Documents/java/thymeleaf/assets:/template-assets
+      - ./certificates:/certs
+      - ./templates:/template-assets
     networks:
       - authservernetwork
     ports:

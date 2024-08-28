@@ -1,0 +1,21 @@
+Follow these instructions to create your own certificates.
+1. Open terminal and execute the command listed in second point. you can set your desired filenames here.
+RECOMMENDED that You save/create these certificate files in a different directory rather than in this repository
+directory, please put the absolute path to the certificate folder in docker-compose.yml file in the volumes property.
+
+example:
+    volumes:
+      - /path/to/certificates/directory:/certs
+
+
+2. Command to create new certificate for oauth2 authorization server:
+
+openssl genrsa -out authkit_private_key.pem 4096 &&
+openssl rsa -pubout -in authkit_private_key.pem -out authkit_public_key.pem &&
+openssl pkcs8 -topk8 -in authkit_private_key.pem -inform pem -out authkit_private_key_pkcs8.pem -outform pem -nocrypt
+
+3. Please specify the correct name of the public key and pkcs8 private key name in the "docker.env" file
+replace the below environment variable value with your filename:
+
+CERT_PRIVATE_KEY_FILE=authkit_private_key_pkcs8.pem
+CERT_PUBLIC_KEY_FILE=authkit_public_key.pem

@@ -73,6 +73,7 @@ import org.springframework.transaction.TransactionDefinition
 import org.springframework.transaction.TransactionException
 import org.springframework.transaction.TransactionStatus
 import org.springframework.transaction.support.ResourceTransactionManager
+import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.security.KeyFactory
@@ -386,8 +387,10 @@ open class SecurityConfig(
                     keyPairGenerator.initialize(2048)
                     keyPair = keyPairGenerator.generateKeyPair()
                 } else {
-                    var privateKeyContent = String(Files.readAllBytes(Paths.get(AppConfig.CERT_PRIVATE_KEY_FILE)))
-                    var publicKeyContent = String(Files.readAllBytes(Paths.get(AppConfig.CERT_PUBLIC_KEY_FILE)))
+                    var privateKeyContent = String(Files.readAllBytes(Paths.get(AppConfig.CERT_FOLDER_BASE
+                            + File.separator + AppConfig.CERT_PRIVATE_KEY_FILE)))
+                    var publicKeyContent = String(Files.readAllBytes(Paths.get(AppConfig.CERT_FOLDER_BASE
+                            + File.separator + AppConfig.CERT_PUBLIC_KEY_FILE)))
 
                     privateKeyContent = privateKeyContent.replace("\\n".toRegex(), "")
                         .replace("-----BEGIN PRIVATE KEY-----", "")

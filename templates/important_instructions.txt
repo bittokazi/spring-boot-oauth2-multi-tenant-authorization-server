@@ -1,0 +1,5 @@
+RECOMMENDED: Please create a folder in your system somewhere else rather than this repository directory and mount it as
+a volume in the docker-compose.yml file. Example:
+
+    volumes:
+      - /path/to/templates/folder:/template-assets
