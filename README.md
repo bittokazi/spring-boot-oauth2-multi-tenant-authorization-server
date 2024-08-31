@@ -95,12 +95,16 @@ Follow these instructions to create your own certificates.
 
 2. Command to create new certificate for oauth2 authorization server, run them one by one:
 
+Create private key
 
-    > openssl genrsa -out authkit_private_key.pem 4096   
+    openssl genrsa -out authkit_private_key.pem 4096  
+Create Public from private key
 
-    > openssl rsa -pubout -in authkit_private_key.pem -out authkit_public_key.pem   
+    openssl rsa -pubout -in authkit_private_key.pem -out authkit_public_key.pem  
+Create private key in pkcs8 format
 
-    > openssl pkcs8 -topk8 -in authkit_private_key.pem -inform pem -out authkit_private_key_pkcs8.pem -outform pem -nocrypt  
+    openssl pkcs8 -topk8 -in authkit_private_key.pem -inform pem -out authkit_private_key_pkcs8.pem -outform pem -nocrypt 
+
 
 
 3. Please specify the correct name of the public key and pkcs8 private key name in the "**docker.env**" file  replace the below environment variable value with your filename:
