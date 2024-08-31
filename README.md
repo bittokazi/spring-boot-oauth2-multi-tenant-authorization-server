@@ -113,3 +113,12 @@ CERT_PUBLIC_KEY_FILE=authkit_public_key.pem
 - Run **spring-boot-oauth2-auth-server** as Kotlin application with the environment variables listed above
 - Run **auth-kit-frontend** as an angular app instructions are found in **auth-kit-frontend** folder
 
+
+## Contributing
+
+Contributions are always welcome!
+
+See `contributing.md` for ways to get started.
+
+Please adhere to this project's `code of conduct`.
+
