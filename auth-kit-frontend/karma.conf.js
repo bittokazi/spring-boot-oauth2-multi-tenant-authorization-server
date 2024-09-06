@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/internet-politie-admin-panel'),
+      dir: require('path').join(__dirname, './coverage/authkit-admin-panel'),
       subdir: '.',
       reporters: [
         { type: 'html' },

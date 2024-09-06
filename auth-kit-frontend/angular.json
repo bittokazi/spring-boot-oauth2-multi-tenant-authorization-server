@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "internet-politie-admin-panel": {
+    "authkit-admin-panel": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -111,19 +111,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "internet-politie-admin-panel:build",
+            "browserTarget": "authkit-admin-panel:build",
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "internet-politie-admin-panel:build:production"
+              "browserTarget": "authkit-admin-panel:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "internet-politie-admin-panel:build"
+            "browserTarget": "authkit-admin-panel:build"
           }
         },
         "test": {
@@ -153,16 +153,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "internet-politie-admin-panel:serve"
+            "devServerTarget": "authkit-admin-panel:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "internet-politie-admin-panel:serve:production"
+              "devServerTarget": "authkit-admin-panel:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "internet-politie-admin-panel"
+  "defaultProject": "authkit-admin-panel"
 }
