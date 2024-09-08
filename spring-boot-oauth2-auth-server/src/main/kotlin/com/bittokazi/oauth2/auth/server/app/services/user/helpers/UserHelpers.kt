@@ -15,7 +15,7 @@ import java.util.stream.Collectors
 object UserHelpers {
     fun getUsers(page: Int, count: Int, userRepository: UserRepository): Any {
         val json: MutableMap<String, Any> = HashMap()
-        val reqCount: Pageable = PageRequest.of(page, count, Sort.by(Sort.Direction.DESC, "id"))
+        val reqCount: Pageable = PageRequest.of(page, count, Sort.by(Sort.Direction.DESC, "createdDate"))
         val pages = userRepository.findAll(reqCount)
         json["users"] = setUsersImage(pages.content)
         json["pages"] = pages.totalPages
