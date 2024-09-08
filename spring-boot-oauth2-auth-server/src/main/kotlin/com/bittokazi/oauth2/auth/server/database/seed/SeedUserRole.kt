@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.bcrypt.BCrypt
 import java.io.InputStreamReader
 import java.io.Reader
+import java.sql.Date
+import java.time.LocalDate
 import java.util.*
 import java.util.stream.Collectors
 
@@ -61,7 +63,7 @@ class SeedUserRole : CustomTaskChange {
             var userId = 1L
             for (record in records) {
                 var sql =
-                    "INSERT INTO users (id,first_name,last_name,user_name,password,email,enabled,change_password,email_verified) VALUES(?,?,?,?,?,?,?,?,?)"
+                    "INSERT INTO users (id,first_name,last_name,user_name,password,email,enabled,change_password,email_verified,created_date) VALUES(?,?,?,?,?,?,?,?,?,?)"
 
                 var statement = databaseConnection.prepareStatement(sql)
                 statement.setString(1, UUID.randomUUID().toString())
@@ -73,6 +75,7 @@ class SeedUserRole : CustomTaskChange {
                 statement.setBoolean(7, true)
                 statement.setBoolean(8, false)
                 statement.setBoolean(9, true)
+                statement.setDate(10, Date.valueOf(LocalDate.now()))
 
                 statement.executeUpdate()
                 databaseConnection.commit()
