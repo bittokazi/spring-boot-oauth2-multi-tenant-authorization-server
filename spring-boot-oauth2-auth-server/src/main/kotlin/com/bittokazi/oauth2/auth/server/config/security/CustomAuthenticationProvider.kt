@@ -51,9 +51,6 @@ class CustomAuthenticationProvider(
             val deviceId = Arrays.stream(cookies).filter { cookie: Cookie -> cookie.name == "deviceId" }
                 .findFirst()
             if (deviceId.isPresent) {
-                println(TenantContext.getCurrentDataTenant())
-                println(user.get().username)
-                println(user.get().twoFaEnabled)
                 if (Objects.nonNull(user.get().twoFaEnabled) &&
                     user.get().twoFaEnabled == true
                 ) {
