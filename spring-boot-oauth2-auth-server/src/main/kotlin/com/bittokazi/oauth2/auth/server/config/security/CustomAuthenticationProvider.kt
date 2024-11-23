@@ -4,7 +4,10 @@ import com.bittokazi.oauth2.auth.server.app.models.tenant.User
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.UserRepository
 import com.bittokazi.oauth2.auth.server.app.services.CustomUserDetailsService
 import com.bittokazi.oauth2.auth.server.app.services.mfa.TwoFaService
+import com.bittokazi.oauth2.auth.server.config.TenantContext
+import com.bittokazi.oauth2.auth.server.utils.logger
 import jakarta.servlet.http.Cookie
+import lombok.extern.slf4j.Slf4j
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -46,6 +49,7 @@ class CustomAuthenticationProvider(
             val deviceId = Arrays.stream(cookies).filter { cookie: Cookie -> cookie.name == "deviceId" }
                 .findFirst()
             if (deviceId.isPresent) {
+                logger().info("{}, {}, {}", TenantContext.clearCurrentDataTenant(), user.get(), user.get().twoFaEnabled)
                 if (Objects.nonNull(user.get().twoFaEnabled) &&
                     user.get().twoFaEnabled == true
                 ) {
