@@ -27,6 +27,8 @@ class CustomAuthenticationProvider(
     private val twoFaService: TwoFaService
 ): AuthenticationProvider {
 
+    val logger = logger()
+
     @Throws(AuthenticationException::class)
     override fun authenticate(authentication: Authentication): Authentication? {
         val servletRequest = RequestContextHolder.currentRequestAttributes() as ServletRequestAttributes
@@ -49,7 +51,9 @@ class CustomAuthenticationProvider(
             val deviceId = Arrays.stream(cookies).filter { cookie: Cookie -> cookie.name == "deviceId" }
                 .findFirst()
             if (deviceId.isPresent) {
-                logger().info("{}, {}, {}", TenantContext.clearCurrentDataTenant(), user.get(), user.get().twoFaEnabled)
+                println(TenantContext.getCurrentDataTenant())
+                println(user.get().username)
+                println(user.get().twoFaEnabled)
                 if (Objects.nonNull(user.get().twoFaEnabled) &&
                     user.get().twoFaEnabled == true
                 ) {
