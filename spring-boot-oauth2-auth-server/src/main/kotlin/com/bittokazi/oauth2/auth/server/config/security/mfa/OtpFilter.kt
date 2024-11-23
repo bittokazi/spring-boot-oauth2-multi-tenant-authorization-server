@@ -111,11 +111,11 @@ class OtpFilter(
                         if(!httpServletRequest.servletPath.contains("/otp-login")) {
                             httpServletResponse.sendRedirect(httpServletRequest.contextPath + "/otp-login")
                             return
-                                }
-                            }
-
                         }
                     }
+
+                }
+            }
         }
         chain.doFilter(request, response)
     }

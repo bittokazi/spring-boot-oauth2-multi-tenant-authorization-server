@@ -47,10 +47,11 @@ class CustomAuthenticationProvider(
                 .findFirst()
             if (deviceId.isPresent) {
                 if (Objects.nonNull(user.get().twoFaEnabled) &&
-                    user.get().twoFaEnabled == true &&
-                    !twoFaService.isTrustedDevice(deviceId.get().value, user.get())
+                    user.get().twoFaEnabled == true
                 ) {
-                    session.setAttribute("otp", true)
+                    if(!twoFaService.isTrustedDevice(deviceId.get().value, user.get())) {
+                        session.setAttribute("otp", true)
+                    }
                 }
                 val authenticated: Authentication = UsernamePasswordAuthenticationToken(
                     userDetails, password, userDetails.authorities
