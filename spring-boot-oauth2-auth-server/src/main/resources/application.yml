@@ -44,7 +44,7 @@ liquibase:
 
 logging:
   level:
-    org.springframework.security: info
+    org.springframework.security: TRACE
 
 springdoc:
   swagger-ui:
