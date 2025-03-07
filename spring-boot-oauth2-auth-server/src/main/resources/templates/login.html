@@ -12,7 +12,7 @@
     <div class="login-page">
       <h1 class="title" th:text="${tenantName}+' Login'"></h1>
       <div class="form">
-        <form class="login-form" th:action="@{/login}" method="post">
+        <form class="login-form" th:action="@{/login}" method="post" onsubmit="submitLogin();" >
           <div th:if="${param.error}" style="margin-bottom: 10px">
             Invalid username and password.</div>
           <div th:if="${param.logout}" style="margin-bottom: 10px">
@@ -24,7 +24,7 @@
           <div style="text-align: left;">
               <input type="checkbox" name="remember-me" style="width: 13px;"/> Remember me
           </div>
-          <button type="submit" th:style="${'background: ' + signInBtnColor}">login</button>
+          <button type="submit" id="submitBtn" th:style="${'background: ' + signInBtnColor}">login</button>
           <p class="message" th:if="${resetPasswordLink != ''}">Forget Password? <a th:href="${resetPasswordLink}">Reset Here</a></p>
           <p class="message" th:if="${createAccountLink != ''}">Not registered? <a th:href="${createAccountLink}">Create an account</a></p>
         </form>

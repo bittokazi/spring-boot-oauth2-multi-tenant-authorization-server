@@ -36,6 +36,12 @@ inputs.addEventListener("keyup", function (e) {
 	}
 });
 
+function submitLogin() {
+  if ($("#submitBtn")) $("#submitBtn").prop("disabled", true);
+  if ($("#submit-consent")) $("submit-consent").prop("disabled", true);
+  return true;
+}
+
 function submitOtp() {
     if(!otpInputShow) {
         var otp = "";
@@ -44,6 +50,7 @@ function submitOtp() {
         }
         document.getElementById("otp-input").value = otp;
     }
+    $("#submitBtn").prop("disabled", true);
     return true;
 }
 
