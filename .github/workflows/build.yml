@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build Backend App
+        run: cd spring-boot-oauth2-auth-server && mvn clean package && cd ../
+
+      - name: Build Gateway App
+        run: cd gateway && mvn clean package && cd ../
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14.x'
+
+      - name: Build Admin Panel SPA
+      - run: cd auth-kit-frontend
+      - run: npm ci
+      - run: npm run build
