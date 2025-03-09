@@ -31,9 +31,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '12.x'
+          node-version: '14.x'
 
       - name: Build Admin Panel SPA
-      - run: cd auth-kit-frontend
-      - run: npm ci
-      - run: npm run build
+        run: cd auth-kit-frontend && npm ci && npm run build
