@@ -19,7 +19,6 @@ fun Container.dashboardContent(
                 AppEngine.dashboardContentContainerTypeObserver.subscribe { contentContainerType ->
                     removeAll()
                     h1(className = "h3 mb-3", content = "Dashboard")
-                    console.log(contentContainerType)
                     when (contentContainerType) {
                         ContentContainerType.CARD -> {
                             add(

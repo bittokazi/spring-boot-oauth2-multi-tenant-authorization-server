@@ -8,6 +8,7 @@ import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AuthHolderType
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AuthInformationHolder
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.DefaultAuthHolder
 import com.bittokazi.oauth2.auth.frontend.frontend.base.components.spinner.spinnerComponent
+import com.bittokazi.oauth2.auth.frontend.frontend.base.layouts.errorPage
 import com.bittokazi.oauth2.auth.frontend.frontend.base.services.AuthService
 import com.bittokazi.oauth2.auth.frontend.frontend.base.services.FileService
 import com.bittokazi.oauth2.auth.frontend.frontend.base.services.RestService
@@ -100,20 +101,32 @@ class App : Application() {
                     }
                     false -> {
                         div {
-                            content = "\uD83D\uDEAB Access Denied"
+                            errorPage(
+                                titleText = "403",
+                                bodyText = "Access Denied"
+                            )
                         }
+                        AppEngine.pageTitleObserver.setState("403")
                     }
                 }
             }.catch { throwable ->
                 if(throwable is RemoteRequestException) {
                     if(throwable.code.toInt() == 404) {
                         div {
-                            content = "404 | Not Found"
+                            errorPage(
+                                titleText = "404",
+                                bodyText = "Resource Not Found"
+                            )
                         }
+                        AppEngine.pageTitleObserver.setState("404")
                     } else {
                         div {
-                            content = "503 | Service Unavailable"
+                            errorPage(
+                                titleText = "Error",
+                                bodyText = "Service Unavailable"
+                            )
                         }
+                        AppEngine.pageTitleObserver.setState("Service Unavailable")
                     }
                     AppEngine.globalSpinnerObservable.setState(false)
                 }

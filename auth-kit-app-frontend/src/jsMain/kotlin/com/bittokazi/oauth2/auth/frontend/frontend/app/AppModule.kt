@@ -52,26 +52,38 @@ fun Container.appModule(parentContainer: Container) {
             }
         })
         .on("/app/dashboard/*", {
-            parentContainer.removeAll()
-            when(authHolder.getAuth()) {
-                null -> AppEngine.routing.navigate(AppEngine.APP_LOGIN_ROUTE)
-                else -> {
-                    if (AppEngine.authService.user == null || !AppEngine.authObserver.value) {
-                        AppEngine.globalSpinnerObservable.setState(true)
-                        AppEngine.authService.whoAmI().then {
-                            AppEngine.authService.user = it.data
-                            AppEngine.authService.authObservableValue.setState(it.data)
-                            window.setTimeout({
-                                AppEngine.globalSpinnerObservable.setState(false)
-                                window["feather"].replace()
-                                window["sidebarInit"]()
-                            }, 1000)
-                            AppEngine.authObserver.setState(true)
-                        }.catch {
-                            AppEngine.authService.logout()
+            ObservableManager.setSubscriber("appModuleTenantInfoListener") {
+                tenantInfoObserver.subscribe { tenantInfo ->
+                    if (tenantInfo != null && tenantInfo.enabledConfigPanel) {
+                        parentContainer.removeAll()
+                        when(authHolder.getAuth()) {
+                            null -> AppEngine.routing.navigate(AppEngine.APP_LOGIN_ROUTE)
+                            else -> {
+                                if (AppEngine.authService.user == null || !AppEngine.authObserver.value) {
+                                    AppEngine.globalSpinnerObservable.setState(true)
+                                    AppEngine.authService.whoAmI().then {
+                                        AppEngine.authService.user = it.data
+                                        AppEngine.authService.authObservableValue.setState(it.data)
+                                        window.setTimeout({
+                                            AppEngine.globalSpinnerObservable.setState(false)
+                                            window["feather"].replace()
+                                            window["sidebarInit"]()
+                                        }, 1000)
+                                        AppEngine.authObserver.setState(true)
+                                    }.catch { throwable ->
+                                        console.log(throwable)
+                                        AppEngine.authService.logout()
+                                    }
+                                } else {
+                                    AppEngine.authObserver.setState(true)
+                                }
+                            }
                         }
                     } else {
-                        AppEngine.authObserver.setState(true)
+                        window.setTimeout({
+                            AppEngine.globalSpinnerObservable.setState(false)
+                        }, 1000)
+                        AppEngine.authObserver.setState(false)
                     }
                 }
             }
