@@ -28,6 +28,13 @@ class TenantService(
     fun addTenant(tenant: Tenant): ResponseEntity<*> {
         var tenant = tenant
         if (getCurrentDataTenant() != "public") return ResponseEntity.status(HttpStatus.FORBIDDEN).build<Any>()
+
+        val errors = validate(tenant, null)
+
+        if (!errors.isEmpty()) {
+            return ResponseEntity.status(400).body(errors)
+        }
+
         tenant = tenantRepository.save(tenant)
         multiTenantConnectionProvider.singleTenantCreation(tenant)
         return ResponseEntity.ok(tenant)
@@ -67,6 +74,19 @@ class TenantService(
         httpServletResponse: HttpServletResponse?
     ): ResponseEntity<*> {
         if (getCurrentDataTenant() != "public") return ResponseEntity.status(HttpStatus.FORBIDDEN).build<Any>()
+
+        val dbTenantOptional = tenantRepository.findById(tenant.id!!)
+
+        if (dbTenantOptional.isEmpty) {
+            return ResponseEntity.status(404).build<Any>()
+        }
+
+        val errors = validate(tenant, dbTenantOptional.get())
+
+        if (!errors.isEmpty()) {
+            return ResponseEntity.status(400).body(errors)
+        }
+
         return ResponseEntity.ok(tenantRepository.save(tenant))
     }
 
@@ -103,13 +123,41 @@ class TenantService(
                 fileName = uploadObject.filename
             )
         }?.let {
-            ResponseEntity.ok(
-                fileStorageProvider.upload(
+            fileStorageProvider.upload(
+                it
+            )?.let {
+                ResponseEntity.ok(
                     it
                 )
-            )
+            } ?: run {
+                ResponseEntity.badRequest().build<Any>()
+            }
         }?: run {
             ResponseEntity.badRequest().build()
         }
+    }
+
+    fun validate(tenant: Tenant, dbTenant: Tenant?): MutableMap<String, MutableList<String>> {
+        val errors: MutableMap<String, MutableList<String>> = mutableMapOf()
+
+        if (dbTenant == null || tenant.companyKey != dbTenant.companyKey) {
+            if (tenantRepository.findOneByCompanyKey(tenant.companyKey!!).isPresent) {
+                errors.put("key", mutableListOf("exist"))
+            }
+        }
+
+        if (dbTenant == null || tenant.domain != dbTenant.domain) {
+            if (tenantRepository.findOneByDomain(tenant.domain!!).isPresent) {
+                errors.put("domain", mutableListOf("exist"))
+            }
+        }
+
+        if (dbTenant == null || tenant.name != dbTenant.name) {
+            if (tenantRepository.findOneByName(tenant.name!!).isPresent) {
+                errors.put("name", mutableListOf("exist"))
+            }
+        }
+
+        return errors
     }
 }

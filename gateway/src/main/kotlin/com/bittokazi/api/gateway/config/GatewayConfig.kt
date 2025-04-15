@@ -18,7 +18,7 @@ class GatewayConfig {
             .route { r: PredicateSpec ->
                 r.path("/app/**")
                     .filters { f: GatewayFilterSpec -> f.preserveHostHeader() }
-                    .uri(System.getenv().getOrDefault("GATEWAY_FRONTEND_SERVICE", "http://127.0.0.1:4200"))
+                    .uri(System.getenv().getOrDefault("GATEWAY_FRONTEND_SERVICE", "http://127.0.0.1:3002"))
             }
             .route { r: PredicateSpec ->
                 r.path("/**")
