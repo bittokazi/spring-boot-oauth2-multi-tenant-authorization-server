@@ -12,7 +12,7 @@ fun Container.dashboardHeader() {
     val nav = Nav(className = "sidebar js-sidebar collapsed") {
         id="sidebar"
         div(className = "sidebar-content js-simplebar") {
-            link("", "/dashboard", className = "sidebar-brand") {
+            link("", AppEngine.APP_DASHBOARD_ROUTE, className = "sidebar-brand", dataNavigo = true) {
                 add(span(className = "align-middle", content = TenantService.tenantInfo.name))
             }
             dashboardMenuBar()
