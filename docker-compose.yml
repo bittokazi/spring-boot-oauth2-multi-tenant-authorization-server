@@ -10,7 +10,6 @@ services:
     volumes:
       - ./certificates:/certs
       - ./templates:/template-assets
-      - ./info.json:/info.json
     networks:
       - authservernetwork
     ports:
