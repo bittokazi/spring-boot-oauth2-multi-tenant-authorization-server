@@ -32,13 +32,13 @@ jobs:
         uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
       - name: Build Admin Panel SPA
-        run: cd auth-kit-app-frontend && gradle clean zip --no-daemon && cd ../
+        run: cd auth-kit-app-frontend && gradle buildFrontend && cd ../
 
-      - name: Move cpanel.hbs into Backend
+      - name: Move cpanel.hbs into Frontend Server
         run: mv auth-kit-app-frontend/build/dist/js/productionExecutable/index.html frontend-server/src/main/resources/templates/cpanel.hbs
 
       - name: Move cpanel build into Frontend Server
-        run: cp -r auth-kit-app-frontend/build/dist/js/productionExecutable/app frontend-server/src/main/resources/static/cpanel
+        run: cp -r auth-kit-app-frontend/build/dist/js/productionExecutable/static frontend-server/src/main/resources
 
       - name: Build Frontend Server
-        run: gradle buildFatJar --no-daemon
+        run: gradle buildFatJar
