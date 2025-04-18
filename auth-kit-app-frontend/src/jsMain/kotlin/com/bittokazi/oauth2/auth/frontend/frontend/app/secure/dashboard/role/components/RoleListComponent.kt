@@ -3,6 +3,7 @@ package com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.role.co
 import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.role.RoleService
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine
 import io.kvision.core.Container
+import io.kvision.html.div
 import io.kvision.html.link
 import io.kvision.html.span
 import io.kvision.html.table
@@ -13,7 +14,8 @@ import io.kvision.html.thead
 import io.kvision.html.tr
 
 fun Container.roleListComponent(): Container {
-    return table(className = "table table-hover my-0") {
+    return div(className = "table-responsive") {
+        table(className = "table table-hover my-0") {
         thead {
             tr {
                 th {
@@ -63,5 +65,6 @@ fun Container.roleListComponent(): Container {
                 AppEngine.routing.updatePageLinks()
             }
         }
+    }
     }
 }
