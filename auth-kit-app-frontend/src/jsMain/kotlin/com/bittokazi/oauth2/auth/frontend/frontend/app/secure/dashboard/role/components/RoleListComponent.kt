@@ -12,6 +12,8 @@ import io.kvision.html.td
 import io.kvision.html.th
 import io.kvision.html.thead
 import io.kvision.html.tr
+import kotlinx.browser.window
+import org.w3c.dom.get
 
 fun Container.roleListComponent(): Container {
     return div(className = "table-responsive") {
@@ -62,6 +64,10 @@ fun Container.roleListComponent(): Container {
                     }
                 }
             }.then {
+                window.setTimeout({
+                    window["feather"].replace()
+                }, 100)
+
                 AppEngine.routing.updatePageLinks()
             }
         }

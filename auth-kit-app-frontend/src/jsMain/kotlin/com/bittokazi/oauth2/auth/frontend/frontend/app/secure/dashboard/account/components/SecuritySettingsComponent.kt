@@ -323,6 +323,10 @@ fun Container.securitySettingsComponent(): Container {
                                         }
                                     }
                                 }
+                            }.then {
+                                window.setTimeout({
+                                    window["feather"].replace()
+                                }, 100)
                             }.catch {
                                 window["Swal"].fire(
                                     Json.encodeToDynamic(

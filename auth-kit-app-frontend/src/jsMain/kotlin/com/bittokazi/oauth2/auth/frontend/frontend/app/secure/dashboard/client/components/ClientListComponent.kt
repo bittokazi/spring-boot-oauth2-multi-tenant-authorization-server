@@ -134,6 +134,10 @@ fun Container.clientListComponent(): Container {
                             }
                         }
                     }.then {
+                        window.setTimeout({
+                            window["feather"].replace()
+                        }, 100)
+
                         AppEngine.routing.updatePageLinks()
                     }
                 }
