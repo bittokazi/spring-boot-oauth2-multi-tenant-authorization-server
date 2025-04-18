@@ -39,66 +39,68 @@ fun Container.userListComponent(): Container {
 
     fun tableContent(userList: UserList): Div {
         return Div(className = "row mb-3") {
-            table(className = "table table-hover my-0") {
-                thead {
-                    tr {
-                        th {
-                            content = "#"
-                        }
-                        th {
-                            content = "Firstname"
-                        }
-                        th {
-                            content = "Lastname"
-                        }
-                        th {
-                            content = "Username"
-                        }
-                        th {
-                            content = "Email"
-                        }
-                        th {
-                            content = "Role"
-                        }
-                        th {
-                            content = "Actions"
+            div(className = "table-responsive") {
+                table(className = "table table-hover my-0") {
+                    thead {
+                        tr {
+                            th {
+                                content = "#"
+                            }
+                            th {
+                                content = "Firstname"
+                            }
+                            th {
+                                content = "Lastname"
+                            }
+                            th {
+                                content = "Username"
+                            }
+                            th {
+                                content = "Email"
+                            }
+                            th {
+                                content = "Role"
+                            }
+                            th {
+                                content = "Actions"
+                            }
                         }
                     }
-                }
 
-                tbody {
-                    userList.users.forEachIndexed { index, user ->
-                        tr {
-                            td {
-                                content = user.id
-                            }
-                            td {
-                                content = user.firstName
-                            }
-                            td {
-                                content = user.lastName
-                            }
-                            td {
-                                content = user.username
-                            }
-                            td {
-                                content = user.email
-                            }
-                            td {
-                                content = user.roles?.firstOrNull()?.title ?: ""
-                            }
-                            td {
-                                link(
-                                    "",
-                                    AppEngine.APP_DASHBOARD_USER_UPDATE_ROUTE(
-                                        user.id!!
-                                    ),
-                                    dataNavigo = true
-                                ) {
-                                    span(className = "feather-sm me-1") {
-                                        setAttribute("data-feather", "edit")
+                    tbody {
+                        userList.users.forEachIndexed { index, user ->
+                            tr {
+                                td {
+                                    content = user.id
+                                }
+                                td {
+                                    content = user.firstName
+                                }
+                                td {
+                                    content = user.lastName
+                                }
+                                td {
+                                    content = user.username
+                                }
+                                td {
+                                    content = user.email
+                                }
+                                td {
+                                    content = user.roles?.firstOrNull()?.title ?: ""
+                                }
+                                td {
+                                    link(
+                                        "",
+                                        AppEngine.APP_DASHBOARD_USER_UPDATE_ROUTE(
+                                            user.id!!
+                                        ),
+                                        dataNavigo = true
+                                    ) {
+                                        span(className = "feather-sm me-1") {
+                                            setAttribute("data-feather", "edit")
+                                        }
+                                        +" Edit"
                                     }
-                                    +" Edit"
                                 }
                             }
                         }

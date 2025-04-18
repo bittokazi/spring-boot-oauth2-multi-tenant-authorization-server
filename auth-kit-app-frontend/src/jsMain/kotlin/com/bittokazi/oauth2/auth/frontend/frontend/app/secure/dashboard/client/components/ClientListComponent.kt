@@ -8,6 +8,7 @@ import io.kvision.core.Container
 import io.kvision.core.Cursor
 import io.kvision.core.onClick
 import io.kvision.html.Tbody
+import io.kvision.html.div
 import io.kvision.html.link
 import io.kvision.html.span
 import io.kvision.html.table
@@ -54,97 +55,99 @@ fun Container.clientListComponent(): Container {
         }
     }
 
-    return table(className = "table table-hover my-0") {
-        thead {
-            tr {
-                th {
-                    content = "#"
-                }
-                th {
-                    content = "Client ID"
-                }
-                th {
-                    content = "Resource IDs"
-                }
-                th {
-                    content = "Client Authentication Method"
-                }
-                th {
-                    content = "Authentication Grant Types"
-                }
-                th {
-                    content = "Actions"
+    return div(className = "table-responsive") {
+        table(className = "table table-hover my-0") {
+            thead {
+                tr {
+                    th {
+                        content = "#"
+                    }
+                    th {
+                        content = "Client ID"
+                    }
+                    th {
+                        content = "Resource IDs"
+                    }
+                    th {
+                        content = "Client Authentication Method"
+                    }
+                    th {
+                        content = "Authentication Grant Types"
+                    }
+                    th {
+                        content = "Actions"
+                    }
                 }
             }
-        }
 
-        fun tableBody(): Tbody {
-            return tbody {
-                ClientService.getAll().then {
-                    it.data.forEachIndexed {  index, client ->
-                        tr {
-                            td {
-                                content = client.id
-                            }
-                            td {
-                                content = client.clientId
-                            }
-                            td {
-                                content = client.resourceIds
-                            }
-                            td {
-                                content = client.clientAuthenticationMethod
-                            }
-                            td {
-                                content = client.authorizedGrantTypes?.joinToString(",")
-                            }
-                            td {
-                                link(
-                                    "",
-                                    AppEngine.APP_DASHBOARD_CLIENT_UPDATE_ROUTE(
-                                        client.id!!
-                                    ),
-                                    dataNavigo = true
-                                ) {
-                                    span(className = "feather-sm me-1") {
-                                        setAttribute("data-feather", "edit")
-                                    }
-                                    + " Edit"
+            fun tableBody(): Tbody {
+                return tbody {
+                    ClientService.getAll().then {
+                        it.data.forEachIndexed {  index, client ->
+                            tr {
+                                td {
+                                    content = client.id
                                 }
-                                span {
-                                    content = " | "
+                                td {
+                                    content = client.clientId
                                 }
-                                span {
-                                    color = Color.name(
-                                        Col.RED
-                                    )
-                                    cursor = Cursor.POINTER
-                                    onClick {
-                                        delete(client.id)
-                                        hide()
+                                td {
+                                    content = client.resourceIds
+                                }
+                                td {
+                                    content = client.clientAuthenticationMethod
+                                }
+                                td {
+                                    content = client.authorizedGrantTypes?.joinToString(",")
+                                }
+                                td {
+                                    link(
+                                        "",
+                                        AppEngine.APP_DASHBOARD_CLIENT_UPDATE_ROUTE(
+                                            client.id!!
+                                        ),
+                                        dataNavigo = true
+                                    ) {
+                                        span(className = "feather-sm me-1") {
+                                            setAttribute("data-feather", "edit")
+                                        }
+                                        + " Edit"
                                     }
-                                    span(className = "feather-sm me-1") {
-                                        setAttribute("data-feather", "trash")
+                                    span {
+                                        content = " | "
                                     }
-                                    + "Delete"
+                                    span {
+                                        color = Color.name(
+                                            Col.RED
+                                        )
+                                        cursor = Cursor.POINTER
+                                        onClick {
+                                            delete(client.id)
+                                            hide()
+                                        }
+                                        span(className = "feather-sm me-1") {
+                                            setAttribute("data-feather", "trash")
+                                        }
+                                        + "Delete"
+                                    }
                                 }
                             }
                         }
+                    }.then {
+                        AppEngine.routing.updatePageLinks()
                     }
-                }.then {
-                    AppEngine.routing.updatePageLinks()
                 }
             }
-        }
-        add(tableBody())
+            add(tableBody())
 
-        deleteObserver.subscribe {
-            if(it !=null && it) {
-                removeAt(1)
-                add(tableBody())
-                window.setTimeout({
-                    window["feather"].replace()
-                }, 100)
+            deleteObserver.subscribe {
+                if(it !=null && it) {
+                    removeAt(1)
+                    add(tableBody())
+                    window.setTimeout({
+                        window["feather"].replace()
+                    }, 100)
+                }
             }
         }
     }
