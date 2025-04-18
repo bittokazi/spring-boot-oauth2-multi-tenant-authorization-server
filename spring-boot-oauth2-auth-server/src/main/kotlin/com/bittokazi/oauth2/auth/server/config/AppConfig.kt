@@ -27,4 +27,7 @@ object AppConfig {
     var TEMPLATE_FOLDER_BASE: String = System.getenv()
         .getOrDefault("TEMPLATE_FOLDER_BASE", "/template-assets")
     var CERT_FOLDER_BASE: String = System.getenv().getOrDefault("CERT_FOLDER_BASE", "/certs")
+    var VERSION_FILE: String = System.getenv()
+        .getOrDefault("VERSION_FILE", "info.json")
+    var VERSION: String = ""
 }

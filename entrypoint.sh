@@ -1,6 +1,6 @@
 #!/bin/bash
 
-node ./frontend/server.js &
+java -jar /app/frontend-server.jar &
 java -jar /app/gateway.jar &
 java -jar /app/app.jar &
 

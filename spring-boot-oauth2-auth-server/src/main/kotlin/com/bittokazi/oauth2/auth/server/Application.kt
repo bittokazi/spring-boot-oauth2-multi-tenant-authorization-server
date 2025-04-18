@@ -1,5 +1,7 @@
 package com.bittokazi.oauth2.auth.server
 
+import com.bittokazi.oauth2.auth.server.config.AppConfig
+import com.bittokazi.oauth2.auth.server.utils.Utils
 import com.bittokazi.oauth2.auth.server.utils.logger
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.event.ApplicationReadyEvent
@@ -14,7 +16,8 @@ class Application {
 
     @EventListener(ApplicationReadyEvent::class)
     fun afterStartup() {
-        logger.info("\uD83D\uDE80 Application started.")
+        AppConfig.VERSION = Utils.readVersion()
+        logger.info("\uD83D\uDE80 Application started [${AppConfig.VERSION}]")
     }
 }
 

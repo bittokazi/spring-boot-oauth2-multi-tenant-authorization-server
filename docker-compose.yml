@@ -4,14 +4,13 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-      args:
-        DEPLOY_ENV: "test-ci-cd"
     image: "spring-boot-oauth2-auth-server:latest"
     restart: unless-stopped
     env_file: docker.env
     volumes:
       - ./certificates:/certs
       - ./templates:/template-assets
+      - ./info.json:/info.json
     networks:
       - authservernetwork
     ports:

@@ -86,8 +86,8 @@ class OauthClient: Serializable {
     fun getterScope() = scopeAsSet()
 
     @JsonSetter("scope")
-    fun setterScope(data: String) {
-        scope = data
+    fun setterScope(data: MutableSet<String>) {
+        scope = data.joinToString(",")
     }
 
     fun authorizedGrantTypesAsSet(): MutableSet<String> {
@@ -104,8 +104,8 @@ class OauthClient: Serializable {
     fun getterAuthorizedGrantTypes() = authorizedGrantTypesAsSet()
 
     @JsonSetter("authorizedGrantTypes")
-    fun setterAuthorizedGrantTypes(data: String) {
-        authorizedGrantTypes = data
+    fun setterAuthorizedGrantTypes(data: MutableSet<String>) {
+        authorizedGrantTypes = data.joinToString(",")
     }
 
     fun additionalInformationMap(): Map<*, *> = Gson().fromJson(additionalInformation, HashMap::class.java)
@@ -135,8 +135,8 @@ class OauthClient: Serializable {
     fun getterWebServerRedirectUri() = webServerRedirectUriAsSet()
 
     @JsonSetter("webServerRedirectUri")
-    fun setterWebServerRedirectUri(data: String) {
-        webServerRedirectUri = data
+    fun setterWebServerRedirectUri(data: MutableSet<String>) {
+        webServerRedirectUri = data.joinToString(",")
     }
 
     companion object {

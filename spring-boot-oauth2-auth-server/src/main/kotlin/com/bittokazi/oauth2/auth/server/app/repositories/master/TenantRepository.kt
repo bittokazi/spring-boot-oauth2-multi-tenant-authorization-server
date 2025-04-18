@@ -12,4 +12,6 @@ interface TenantRepository : JpaRepository<Tenant, String> {
     fun findOneByLogo(logo: String): Optional<Tenant>
 
     fun findOneByDomain(domain: String): Optional<Tenant>
+
+    fun findOneByName(name: String): Optional<Tenant>
 }

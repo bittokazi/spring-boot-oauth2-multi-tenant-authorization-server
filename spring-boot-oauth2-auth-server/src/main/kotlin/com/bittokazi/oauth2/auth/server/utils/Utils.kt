@@ -1,11 +1,17 @@
 package com.bittokazi.oauth2.auth.server.utils
 
+import com.bittokazi.oauth2.auth.server.config.AppConfig
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.zaxxer.hikari.HikariConfig
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.jpa.domain.Specification
 import java.io.*
 import java.lang.reflect.Method
+import java.nio.charset.StandardCharsets
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.text.ParseException
@@ -14,6 +20,7 @@ import java.time.LocalDate
 import java.util.*
 import java.util.regex.Pattern
 import java.util.stream.Collectors
+
 
 /**
  * @author Bitto Kazi
@@ -195,5 +202,15 @@ object Utils {
     fun getResourceFileAsInputStream(fileName: String?): InputStream {
         val classLoader = Utils::class.java.classLoader
         return classLoader.getResourceAsStream(fileName)
+    }
+
+    fun readVersion(): String {
+        try {
+            val content: String? = Files.readString(Paths.get(AppConfig.VERSION_FILE), StandardCharsets.UTF_8)
+            val version = Gson().fromJson(content!!, JsonObject::class.java).get("version").asString
+            return "v$version"
+        } catch (e: Exception) {
+            return "v0.0.0_DEV"
+        }
     }
 }
