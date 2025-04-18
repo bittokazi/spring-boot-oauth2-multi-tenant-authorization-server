@@ -52,7 +52,7 @@ class AuthService {
         block?.invoke() ?: run {
             AppEngine.routing.navigate(APP_LOGIN_ROUTE)
         }
-        block = null
+        block = {}
     }
 
     fun switchTenant(tenant: String?) {

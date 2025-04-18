@@ -2,6 +2,7 @@ FROM maven:3.9.9-amazoncorretto-21-debian AS maven_build
 LABEL maintainer=bitto.kazi@gmail.com
 COPY ./spring-boot-oauth2-auth-server /tmp/app
 COPY ./gateway /tmp/gateway
+COPY ./info.json /tmp/info.json
 WORKDIR /tmp/app
 RUN mvn clean package
 WORKDIR /tmp/gateway
@@ -24,6 +25,7 @@ FROM eclipse-temurin:21-jdk-jammy
 WORKDIR /app
 COPY --from=maven_build /tmp/app/target/spring-boot-oauth2-auth-server-1.0-SNAPSHOT.jar /app/app.jar
 COPY --from=maven_build /tmp/gateway/target/app-gateway-1.0-SNAPSHOT.jar /app/gateway.jar
+COPY --from=maven_build /tmp/info.json /app/info.json
 COPY --from=gradle_build /tmp/frontend-server/build/libs/*.jar /app/frontend-server.jar
 
 WORKDIR /app

@@ -76,6 +76,9 @@
     // not needed to change      
     TEMPLATE_FOLDER_BASE=/template-assets
 
+    // not needed to change
+    VERSION_FILE=/app/info.json
+
 
 #### if you run the application in the intellije then you need to set this environment variables as well.
 
