@@ -42,7 +42,7 @@
     GATEWAY_BACKEND_SERVICE=http://127.0.0.1:5010 
     
     // not needed to change    
-    GATEWAY_FRONTEND_SERVICE=http://127.0.0.1:4200 
+    GATEWAY_FRONTEND_SERVICE=http://127.0.0.1:3002 
     
     // change it with your db settings    
     DB_HOSTNAME=authserverdb    
@@ -74,10 +74,7 @@
     CERT_FOLDER_BASE=/certs    
     
     // not needed to change      
-    TEMPLATE_FOLDER_BASE=/template-assets  
-      
-    // not needed to change 
-    FE_PORT=4200  
+    TEMPLATE_FOLDER_BASE=/template-assets
 
 
 #### if you run the application in the intellije then you need to set this environment variables as well.
@@ -122,7 +119,7 @@ Create private key in pkcs8 format
 
 - Run **gateway** as kotlin application
 - Run **spring-boot-oauth2-auth-server** as Kotlin application with the environment variables listed above
-- Run **auth-kit-frontend** as an angular app instructions are found in **auth-kit-frontend** folder
+- Run **auth-kit-app-frontend** as a KVISION app instructions are found in **auth-kit-app-frontend** folder
 
 
 ## When creating new tenant

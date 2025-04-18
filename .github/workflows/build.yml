@@ -33,3 +33,12 @@ jobs:
 
       - name: Build Admin Panel SPA
         run: cd auth-kit-app-frontend && gradle clean zip --no-daemon && cd ../
+
+      - name: Move cpanel.hbs into Backend
+        run: mv auth-kit-app-frontend/build/dist/js/productionExecutable/index.html frontend-server/src/main/resources/templates/cpanel.hbs
+
+      - name: Move cpanel build into Frontend Server
+        run: cp -r auth-kit-app-frontend/build/dist/js/productionExecutable/app frontend-server/src/main/resources/static/cpanel
+
+      - name: Build Frontend Server
+        run: gradle buildFatJar --no-daemon

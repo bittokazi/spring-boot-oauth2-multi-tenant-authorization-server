@@ -1,4 +1,4 @@
-FROM maven:3.9.9-amazoncorretto-21-debian AS MAVEN_TOOL_CHAIN
+FROM maven:3.9.9-amazoncorretto-21-debian AS maven_build
 LABEL maintainer=bitto.kazi@gmail.com
 COPY ./spring-boot-oauth2-auth-server /tmp/app
 COPY ./gateway /tmp/gateway
@@ -7,26 +7,24 @@ RUN mvn clean package
 WORKDIR /tmp/gateway
 RUN mvn clean package
 
+FROM gradle:jdk21-corretto AS gradle_build
+COPY ./auth-kit-app-frontend /tmp/auth-kit-app-frontend
+COPY ./frontend-server /tmp/frontend-server
+
+WORKDIR /tmp/auth-kit-app-frontend
+RUN gradle buildFrontend --no-daemon
+
+RUN mv /tmp/auth-kit-app-frontend/build/dist/js/productionExecutable/index.html /tmp/frontend-server/src/main/resources/templates/cpanel.hbs
+RUN cp -r /tmp/auth-kit-app-frontend/build/dist/js/productionExecutable/static /tmp/frontend-server/src/main/resources
+
+WORKDIR /tmp/frontend-server
+RUN gradle clean buildFatJar --no-daemon
+
 FROM eclipse-temurin:21-jdk-jammy
 WORKDIR /app
-COPY --from=MAVEN_TOOL_CHAIN /tmp/app/target/spring-boot-oauth2-auth-server-1.0-SNAPSHOT.jar /app/app.jar
-COPY --from=MAVEN_TOOL_CHAIN /tmp/gateway/target/app-gateway-1.0-SNAPSHOT.jar /app/gateway.jar
-
-#FROM node:14
-RUN apt-get update && apt-get install -y gnupg2
-RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN sh -c "echo deb https://deb.nodesource.com/node_14.x jammy main > /etc/apt/sources.list.d/nodesource.list"
-RUN apt-get update
-RUN apt-get install -y nodejs
-WORKDIR /app/frontend
-COPY ./auth-kit-frontend/package.json /app/frontend
-COPY ./auth-kit-frontend/package-lock.json /app/frontend
-COPY ./auth-kit-frontend /app/frontend
-COPY ./info.json /app/
-RUN npm install -g @angular/cli
-RUN npm install
-RUN npm run build
-
+COPY --from=maven_build /tmp/app/target/spring-boot-oauth2-auth-server-1.0-SNAPSHOT.jar /app/app.jar
+COPY --from=maven_build /tmp/gateway/target/app-gateway-1.0-SNAPSHOT.jar /app/gateway.jar
+COPY --from=gradle_build /tmp/frontend-server/build/libs/*.jar /app/frontend-server.jar
 
 WORKDIR /app
 COPY ./entrypoint.sh /app/entrypoint.sh

@@ -14,7 +14,7 @@ class AuthService {
     var user: User? = null
     val authObservableValue: ObservableValue<User?> = ObservableValue(null)
     private val restService: RestService = AppEngine.restService
-    var block: ()-> Unit = {}
+    var block: (()-> Unit)? = null
 
     fun whoAmI(): Promise<RestResponse<User>> {
         return AppEngine.restService.createAuthCall {
@@ -49,8 +49,10 @@ class AuthService {
     }
 
     fun open() {
-        block()
-        block = {}
+        block?.invoke() ?: run {
+            AppEngine.routing.navigate(APP_LOGIN_ROUTE)
+        }
+        block = null
     }
 
     fun switchTenant(tenant: String?) {

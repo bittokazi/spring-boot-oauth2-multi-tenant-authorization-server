@@ -1,0 +1,6 @@
+ktor:
+    application:
+        modules:
+            - com.bittokazi.oauth2.auth.cdn.ApplicationKt.module
+    deployment:
+        port: 3002

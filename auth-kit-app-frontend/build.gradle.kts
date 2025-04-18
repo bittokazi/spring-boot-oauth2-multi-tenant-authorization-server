@@ -59,3 +59,13 @@ kotlin {
         implementation("io.kvision:kvision-testutils:$kvisionVersion")
     }
 }
+
+tasks.register<Copy>("copy") {
+    dependsOn("clean", "zip")
+    from("build/dist/libs")
+    into("build/dist/js/productionExecutable/static")
+}
+
+tasks.register("buildFrontend") {
+    dependsOn("copy")
+}

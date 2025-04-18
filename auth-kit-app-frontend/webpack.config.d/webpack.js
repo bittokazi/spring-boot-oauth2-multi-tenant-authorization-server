@@ -21,12 +21,12 @@ config.output = {
             ? "main.bundle.js"
             : "main.bundle-[name].js";
     },
-    publicPath: "/app/static",
+    publicPath: "/static",
     library: "project",
     libraryTarget: "umd",
     globalObject: "this"
 };
-config.output.path = require('path').resolve(__dirname, "../../../dist/js/productionExecutable/app/static")
+config.output.path = require('path').resolve(__dirname, "../../../dist/libs")
 
 // disable bundle size warning
 config.performance = {
