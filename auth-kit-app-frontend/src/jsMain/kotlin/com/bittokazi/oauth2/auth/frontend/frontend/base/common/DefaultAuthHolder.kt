@@ -47,7 +47,7 @@ class AuthInformationHolder : AuthHolder, TenantHolder {
 
     override fun getTenant(): String? {
         localStorage.getItem("tenant")?.let {
-            if(it.isEmpty() || it.isBlank()) return null
+            if(it.isEmpty() || it.isBlank() || it == "null") return null
             return it
         }
         return null
