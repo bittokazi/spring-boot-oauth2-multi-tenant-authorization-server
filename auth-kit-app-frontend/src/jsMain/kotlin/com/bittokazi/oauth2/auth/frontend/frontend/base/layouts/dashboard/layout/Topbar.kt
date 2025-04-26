@@ -1,11 +1,14 @@
 package com.bittokazi.oauth2.auth.frontend.frontend.base.layouts.dashboard.layout
 
+import com.bittokazi.oauth2.auth.frontend.frontend.App
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.APP_DASHBOARD_ACCOUNT_SECURITY_ROUTE
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.APP_DASHBOARD_ACCOUNT_SETTINGS_ROUTE
 import io.kvision.core.Container
 import io.kvision.html.*
 import io.kvision.state.bind
+import kotlinx.browser.window
+import kotlinx.dom.removeClass
 
 fun Container.dashboardTopBar() {
     nav(className = "navbar navbar-expand navbar-light navbar-bg") {
@@ -34,7 +37,10 @@ fun Container.dashboardTopBar() {
                             content = "${AppEngine.authService.user?.email}"
                         })
                     }
-                    div(className = "dropdown-menu dropdown-menu-end") {
+                    div(className = "dropdown-menu dropdown-menu-end").bind(AppEngine.dashboardPageChangeObserver) {
+                        setAttribute("id", "topBarDropdownMenu")
+                        window.document.getElementById("topBarDropdownMenu")?.removeClass("show")
+
                         link("", APP_DASHBOARD_ACCOUNT_SETTINGS_ROUTE, className = "dropdown-item", dataNavigo = true) {
                             add(i(className = "align-middle me-1") {
                                 setAttribute("data-feather", "user")
