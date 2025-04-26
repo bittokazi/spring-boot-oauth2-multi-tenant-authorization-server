@@ -167,6 +167,11 @@ class LoginService(
             true -> "${tenantOptional.get().companyKey}/otp-login"
             else -> "otp-login"
         }
+
+        if (Objects.nonNull(session.getAttribute("otpRequired")) && !(session.getAttribute("otpRequired") as Boolean)) {
+            response.sendRedirect(request.contextPath + "/oauth2/login")
+            return ""
+        }
         val modelAndView = ModelAndView(viewName, model as Map<String, *>)
         return modelAndView
     }

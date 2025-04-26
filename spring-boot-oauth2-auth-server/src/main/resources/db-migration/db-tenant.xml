@@ -157,6 +157,8 @@
             <column name="instance_id" type="varchar(255)" />
             <column name="device_ip" type="varchar(255)" />
             <column name="user_agent" type="varchar(10000)" />
+            <column name="created_date" type="TIMESTAMP" />
+            <column name="updated_date" type="TIMESTAMP" />
         </createTable>
 
         <createSequence cycle="true" incrementBy="1"

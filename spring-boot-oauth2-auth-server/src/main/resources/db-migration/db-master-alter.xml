@@ -127,4 +127,17 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="12" author="bitto">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="user_trusted_device"
+                              columnName="created_date" />
+            </not>
+        </preConditions>
+        <addColumn tableName="user_trusted_device">
+            <column name="created_date" type="TIMESTAMP" />
+            <column name="updated_date" type="TIMESTAMP" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -4,6 +4,7 @@ import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.restSer
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.User
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.UserList
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.TwoFASecretPayload
+import com.bittokazi.oauth2.auth.frontend.frontend.base.models.UserTrustedDevice
 import io.kvision.rest.HttpMethod
 import io.kvision.rest.RestResponse
 import io.kvision.rest.request
@@ -112,6 +113,22 @@ object UserService {
         return restService.createAuthCall {
             restService.getClient().request<List<String>>("$userBaseUrl/whoami/mfa/generate-scratch-codes") {
                 method = HttpMethod.GET
+            }
+        }
+    }
+
+    fun getTrustedDevices(): Promise<RestResponse<List<UserTrustedDevice>>> {
+        return restService.createAuthCall {
+            restService.getClient().request<List<UserTrustedDevice>>("$userBaseUrl/whoami/mfa/trusted-devices") {
+                method = HttpMethod.GET
+            }
+        }
+    }
+
+    fun deleteTrustedDevice(id: Long): Promise<RestResponse<UserTrustedDevice>> {
+        return restService.createAuthCall {
+            restService.getClient().request<UserTrustedDevice>("$userBaseUrl/whoami/mfa/trusted-devices/$id") {
+                method = HttpMethod.DELETE
             }
         }
     }
