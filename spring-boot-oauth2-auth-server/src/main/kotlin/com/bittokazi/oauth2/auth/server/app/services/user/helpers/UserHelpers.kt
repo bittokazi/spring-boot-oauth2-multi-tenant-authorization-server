@@ -1,6 +1,7 @@
 package com.bittokazi.oauth2.auth.server.app.services.user.helpers
 
 import com.bittokazi.oauth2.auth.server.app.models.tenant.User
+import com.bittokazi.oauth2.auth.server.app.models.tenant.UserList
 import com.bittokazi.oauth2.auth.server.app.repositories.tenant.UserRepository
 import com.bittokazi.oauth2.auth.server.utils.Utils.getMD5
 import org.springframework.data.domain.PageRequest
@@ -14,13 +15,13 @@ import java.util.stream.Collectors
  */
 object UserHelpers {
     fun getUsers(page: Int, count: Int, userRepository: UserRepository): Any {
-        val json: MutableMap<String, Any> = HashMap()
         val reqCount: Pageable = PageRequest.of(page, count, Sort.by(Sort.Direction.DESC, "createdDate"))
         val pages = userRepository.findAll(reqCount)
-        json["users"] = setUsersImage(pages.content)
-        json["pages"] = pages.totalPages
-        json["records"] = pages.totalElements
-        return json
+        return UserList(
+            pages = pages.totalPages,
+            records = pages.totalElements,
+            users = setUsersImage(pages.content)
+        )
     }
 
     fun setUserImage(user: User?): User? {

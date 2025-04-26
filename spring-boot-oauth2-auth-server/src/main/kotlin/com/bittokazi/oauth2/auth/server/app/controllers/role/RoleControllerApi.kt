@@ -1,7 +1,7 @@
 package com.bittokazi.oauth2.auth.server.app.controllers.role
 
 import com.bittokazi.oauth2.auth.server.app.models.tenant.Role
-import io.swagger.v3.oas.annotations.media.ArraySchema
+import com.bittokazi.oauth2.auth.server.app.models.tenant.RoleList
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -19,9 +19,7 @@ interface RoleControllerApi {
                 content = [
                     Content(
                         mediaType = "application/json",
-                        array = ArraySchema(
-                            schema = Schema(implementation = Role::class)
-                        )
+                        schema = Schema(implementation = RoleList::class)
                     )
                 ]
             )
@@ -39,9 +37,7 @@ interface RoleControllerApi {
                 content = [
                     Content(
                         mediaType = "application/json",
-                        array = ArraySchema(
-                            schema = Schema(implementation = Role::class)
-                        )
+                        schema = Schema(implementation = RoleList::class)
                     )
                 ]
             )
