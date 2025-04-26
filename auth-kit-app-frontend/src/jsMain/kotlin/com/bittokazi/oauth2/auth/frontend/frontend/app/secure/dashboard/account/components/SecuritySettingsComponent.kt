@@ -17,14 +17,26 @@ import com.bittokazi.oauth2.auth.frontend.frontend.base.components.modal.bootstr
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.User
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.TwoFASecretPayload
 import com.bittokazi.oauth2.auth.frontend.frontend.base.services.QrCodeService
+import io.kvision.core.Col
+import io.kvision.core.Color
 import io.kvision.core.Container
+import io.kvision.core.Cursor
+import io.kvision.core.onClick
 import io.kvision.html.Div
+import io.kvision.html.Tbody
 import io.kvision.html.button
 import io.kvision.html.div
+import io.kvision.html.h2
 import io.kvision.html.h4
 import io.kvision.html.link
 import io.kvision.html.nav
 import io.kvision.html.span
+import io.kvision.html.table
+import io.kvision.html.tbody
+import io.kvision.html.td
+import io.kvision.html.th
+import io.kvision.html.thead
+import io.kvision.html.tr
 import io.kvision.rest.RemoteRequestException
 import io.kvision.state.ObservableValue
 import kotlinx.browser.window
@@ -40,6 +52,7 @@ fun Container.securitySettingsComponent(): Container {
     lateinit var twoFASecretPayload: TwoFASecretPayload
     val pageRefreshListner = ObservableValue<Boolean>(false)
     val twoFaModalChangeListner = ObservableValue<Boolean>(false)
+    val deleteObserver = ObservableValue<Boolean?>(null)
     val twoFaCodeInput = FormTextInput("", "Enter the code shown in 2FA App",
         defaultInvalidFeedback = "Only numbers allowed") {
         if(it == null) {
@@ -140,6 +153,114 @@ fun Container.securitySettingsComponent(): Container {
             onFinish()
         }.catch {
             onFinish()
+        }
+    }
+
+    fun delete(id: Long) {
+        UserService.deleteTrustedDevice(id).then {
+            window.get("Swal").fire(
+                Json.encodeToDynamic(
+                    mapOf(
+                        "title" to "Success",
+                        "text" to "Removed device with ID [$id]",
+                        "icon" to "success"
+                    )
+                )
+            )
+            deleteObserver.setState(true)
+        }.catch {
+            window.get("Swal").fire(
+                Json.encodeToDynamic(
+                    mapOf(
+                        "title" to "Error",
+                        "text" to "Unable to delete",
+                        "icon" to "error"
+                    )
+                )
+            )
+            deleteObserver.setState(true)
+        }
+    }
+
+    fun trustedDevicesTable(): Div {
+        return div(className = "table-responsive") {
+            table(className = "table table-hover my-0") {
+                thead {
+                    tr {
+                        th {
+                            content = "#"
+                        }
+                        th {
+                            content = "IP"
+                        }
+                        th {
+                            content = "User Agent"
+                        }
+                        th {
+                            content = "Logged On"
+                        }
+                        th {
+                            content = "Actions"
+                        }
+                    }
+                }
+
+                fun tableBody(): Tbody {
+                    return tbody {
+                        UserService.getTrustedDevices().then { response ->
+                            response.data.forEachIndexed {  index, device ->
+                                tr {
+                                    td {
+                                        content = device.id.toString()
+                                    }
+                                    td {
+                                        content = device.deviceIp
+                                    }
+                                    td {
+                                        content = device.userAgent
+                                    }
+                                    td {
+                                        content = device.createdDate
+                                    }
+                                    td {
+                                        span {
+                                            color = Color.name(
+                                                Col.RED
+                                            )
+                                            cursor = Cursor.POINTER
+                                            onClick {
+                                                delete(device.id!!)
+                                                hide()
+                                            }
+                                            span(className = "feather-sm me-1") {
+                                                setAttribute("data-feather", "trash")
+                                            }
+                                            + "Delete"
+                                        }
+                                    }
+                                }
+                            }
+                        }.then {
+                            window.setTimeout({
+                                window["feather"].replace()
+                            }, 100)
+
+                            AppEngine.routing.updatePageLinks()
+                        }
+                    }
+                }
+                add(tableBody())
+
+                deleteObserver.subscribe {
+                    if(it !=null && it) {
+                        removeAt(1)
+                        add(tableBody())
+                        window.setTimeout({
+                            window["feather"].replace()
+                        }, 100)
+                    }
+                }
+            }
         }
     }
 
@@ -322,6 +443,34 @@ fun Container.securitySettingsComponent(): Container {
                                             }
                                         }
                                     }
+                                }
+                                when (user.twoFaEnabled) {
+                                    true -> {
+                                        div(className = "row mt-4") {
+                                            div(className = "col-md-6") {
+                                                div(className = "accordion") {
+                                                    div(className = "accordion-item") {
+                                                        h2(className = "accordion-header") {
+                                                            button("Trusted Devices", className = "accordion-button") {
+                                                                setAttribute("data-bs-toggle", "collapse")
+                                                                setAttribute("data-bs-target", "#panelsStayOpen-collapseOne")
+                                                                setAttribute("aria-expanded", "true")
+                                                                setAttribute("aria-controls", "panelsStayOpen-collapseOne")
+                                                            }
+                                                        }
+                                                        div(className = "accordion-collapse collapse") {
+                                                            setAttribute("id", "panelsStayOpen-collapseOne")
+                                                            div(className = "accordion-body") {
+                                                                add(trustedDevicesTable())
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    else -> {}
                                 }
                             }.then {
                                 window.setTimeout({

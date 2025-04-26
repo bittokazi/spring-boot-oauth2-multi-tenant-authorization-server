@@ -11,7 +11,10 @@ import lombok.Setter
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 import org.hibernate.annotations.Proxy
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
 import java.io.Serializable
+import java.time.LocalDateTime
 
 @Entity
 @Setter
@@ -46,6 +49,14 @@ class UserTrustedDevice : Serializable {
 
     @Column(name = "user_agent")
     var userAgent: String? = null
+
+    @CreatedDate
+    @Column(name = "created_date", nullable = false, updatable = false)
+    var createdDate: LocalDateTime? = LocalDateTime.now()
+
+    @LastModifiedDate
+    @Column(name = "updated_date", nullable = true)
+    var updatedDate: LocalDateTime? = LocalDateTime.now()
 
     companion object {
         const val serialVersionUID = 1L

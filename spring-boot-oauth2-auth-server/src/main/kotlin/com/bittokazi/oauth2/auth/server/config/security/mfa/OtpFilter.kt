@@ -65,6 +65,8 @@ class OtpFilter(
                                 user.get().username!!
                             )
                         ) {
+                            httpServletRequest.session.removeAttribute("otp")
+                            clearAuthenticationAttributes(request)
                             if (httpServletRequest.parameterMap.containsKey("trust-device")) {
                                 twoFaService.saveTrustedDevice(
                                     deviceId.get().value, user.get(),
@@ -85,8 +87,6 @@ class OtpFilter(
                                 super.onAuthenticationSuccess(request, response, SecurityContextHolder.getContext().authentication)
                                 return
                             }
-                            httpServletRequest.session.removeAttribute("otp")
-                            clearAuthenticationAttributes(request)
                             // Use the DefaultSavedRequest URL
                             val targetUrl = savedRequest.redirectUrl
                             redirectStrategy.sendRedirect(request, response, targetUrl)
@@ -113,7 +113,10 @@ class OtpFilter(
                             return
                         }
                     }
-
+                } else {
+                    val session = httpServletRequest.getSession(true)
+                    session.setAttribute("otpRequired", false)
+                    httpServletRequest.session.removeAttribute("otp")
                 }
             }
         }
