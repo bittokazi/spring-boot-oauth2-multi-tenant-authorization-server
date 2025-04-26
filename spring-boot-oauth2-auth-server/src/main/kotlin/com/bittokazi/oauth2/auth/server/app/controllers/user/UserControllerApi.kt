@@ -1,7 +1,9 @@
 package com.bittokazi.oauth2.auth.server.app.controllers.user
 
 import com.bittokazi.oauth2.auth.server.app.models.tenant.User
+import com.bittokazi.oauth2.auth.server.app.models.tenant.UserList
 import com.bittokazi.oauth2.auth.server.app.models.tenant.mfa.TwoFASecretPayload
+import com.bittokazi.oauth2.auth.server.app.models.tenant.mfa.UserTrustedDevice
 import io.swagger.v3.oas.annotations.media.ArraySchema
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
@@ -20,9 +22,7 @@ interface UserControllerApi {
                 content = [
                     Content(
                         mediaType = "application/json",
-                        array = ArraySchema(
-                            schema = Schema(implementation = User::class)
-                        )
+                        schema = Schema(implementation = UserList::class)
                     )
                 ]
             )
@@ -214,30 +214,114 @@ interface UserControllerApi {
         httpServletRequest: HttpServletRequest
     ): Any
 
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = TwoFASecretPayload::class)
+                    )
+                ]
+            )
+        ]
+    )
     fun userGenerateOtpSecret(
         httpServletRequest: HttpServletRequest
     ): Any
 
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = User::class)
+                    )
+                ],
+                description = "twoFaEnabled property will be true if code verification is successful"
+            )
+        ]
+    )
     fun userEnableOtpSecret(
         @RequestBody twoFASecretPayload: TwoFASecretPayload,
         httpServletRequest: HttpServletRequest,
         httpServletResponse: HttpServletResponse
     ): Any
 
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = User::class)
+                    )
+                ],
+                description = "twoFaEnabled property will be false if disabled successful"
+            )
+        ]
+    )
     fun disable2FA(
         httpServletRequest: HttpServletRequest
     ): Any
 
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        array = ArraySchema(
+                            schema = Schema(implementation = UserTrustedDevice::class)
+                        )
+                    )
+                ]
+            )
+        ]
+    )
     fun user2FaTrustedDeviceList(
         httpServletRequest: HttpServletRequest
     ): Any
 
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        schema = Schema(implementation = UserTrustedDevice::class)
+                    )
+                ],
+            )
+        ]
+    )
     fun user2FaTrustedDeviceDeleteByID(
         @PathVariable id: Long,
         httpServletRequest: HttpServletRequest,
         httpServletResponse: HttpServletResponse
     ): Any
 
+    @ApiResponses(
+        value = [
+            ApiResponse(
+                responseCode = "200",
+                content = [
+                    Content(
+                        mediaType = "application/json",
+                        array = ArraySchema(
+                            schema = Schema(implementation = String::class)
+                        )
+                    )
+                ]
+            )
+        ]
+    )
     fun regenerateScratchCode(
         httpServletRequest: HttpServletRequest,
         httpServletResponse: HttpServletResponse
