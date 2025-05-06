@@ -1,5 +1,5 @@
 
-# Multi Tenant Spring OAUTH2 Authorization Server built with Kotlin/Java-Spring and Angular.
+# Multi Tenant Spring OAUTH2 Authorization Server built with Kotlin-Spring-Boot and KVSION(Kotlin) Frontend.
 
 [![Build](https://github.com/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server/actions/workflows/build.yml/badge.svg)](https://github.com/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server/actions/workflows/build.yml)
 
@@ -8,7 +8,7 @@
 1. Built with **Kotlin**, **Spring Boot** and **Spring Oauth2 Authorization Server library**
 2. **Multi Tenant** feature. Tenants can be accessed with different domains
 3. Full web UI to manage the application
-4. Create Tenant with web UI built on top of Angular
+4. Create Tenant with web UI built on top of KVISION (Kotlin)
 5. OpenID Connect support
 6. 2FA support
 7. Consent support
