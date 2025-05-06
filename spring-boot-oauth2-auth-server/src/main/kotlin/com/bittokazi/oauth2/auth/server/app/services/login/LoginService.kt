@@ -55,17 +55,25 @@ class LoginService(
         response: HttpServletResponse
     ): Any {
         checkDeviceId(request, response)
-        if (Objects.nonNull(request.userPrincipal)) {
-            val tenantOptional = tenantRepository
-                .findOneByCompanyKey(TenantContext.getCurrentTenant()!!)
-            if (tenantOptional.isPresent) {
-                if (tenantOptional.get().defaultRedirectUrl != "") {
-                    response.sendRedirect(tenantOptional.get().defaultRedirectUrl)
+        val savedRequest = HttpSessionRequestCache().getRequest(request, response)
+        if (null != savedRequest) {
+            val targetUrl = savedRequest.redirectUrl
+            if (Objects.nonNull(request.userPrincipal)) {
+                response.sendRedirect(targetUrl)
+            }
+        } else {
+            if (Objects.nonNull(request.userPrincipal)) {
+                val tenantOptional = tenantRepository
+                    .findOneByCompanyKey(TenantContext.getCurrentTenant()!!)
+                if (tenantOptional.isPresent) {
+                    if (tenantOptional.get().defaultRedirectUrl != "") {
+                        response.sendRedirect(tenantOptional.get().defaultRedirectUrl)
+                    } else {
+                        response.sendRedirect("/oauth2/login")
+                    }
                 } else {
                     response.sendRedirect("/oauth2/login")
                 }
-            } else {
-                response.sendRedirect("/oauth2/login")
             }
         }
         val tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant()!!)
