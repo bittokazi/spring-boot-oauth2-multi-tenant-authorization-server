@@ -17,6 +17,7 @@ import com.bittokazi.oauth2.auth.frontend.frontend.base.components.modal.bootstr
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.User
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.TwoFASecretPayload
 import com.bittokazi.oauth2.auth.frontend.frontend.base.services.QrCodeService
+import com.bittokazi.oauth2.auth.frontend.frontend.base.utils.Utils
 import io.kvision.core.Col
 import io.kvision.core.Color
 import io.kvision.core.Container
@@ -220,7 +221,7 @@ fun Container.securitySettingsComponent(): Container {
                                         content = device.userAgent
                                     }
                                     td {
-                                        content = device.createdDate
+                                        content = Utils.formatTimeFromNow(device.createdDate)
                                     }
                                     td {
                                         span {
