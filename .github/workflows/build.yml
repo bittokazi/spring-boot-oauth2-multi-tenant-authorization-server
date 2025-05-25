@@ -42,3 +42,15 @@ jobs:
 
       - name: Build Frontend Server
         run: cd frontend-server && gradle buildFatJar
+
+      - name: Log into registry docker.io
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: bittokazi
+          password: ${{ secrets.DOCKER_HUB_API_TOKEN }}
+
+      - name: Build and Push Docker image to Docker Hub
+        if: github.ref == 'refs/heads/main'
+        run: docker build . --file ./Dockerfile --tag docker.io/bittokazi/spring-boot-oauth2-multi-tenant-auth-server/full:latest && docker push docker.io/bittokazi/spring-boot-oauth2-multi-tenant-auth-server/full:latest
