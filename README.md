@@ -64,8 +64,8 @@ Create a **docker-compose.yml** with following content, adjust the environment v
 	      - authservernetwork  
 	    ports:  
 	      - "5020:5020"
-	  spring-boot-oauth2-auth-server-db:  
-		container_name: spring-boot-oauth2-auth-server-db  
+	  spring-boot-oauth2-auth-server-db:
+        container_name: spring-boot-oauth2-auth-server-db  
 	    image: postgres  
 	    restart: unless-stopped  
 	    networks:  
