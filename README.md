@@ -20,15 +20,80 @@
 
 ## Run using Docker
 
-### if you want to run it out of the box locally follow the below instructions:
+### Run directly by creating a docker compose file (no need to clone repository)
+
+Create a **docker-compose.yml** with following content, adjust the environment variables as needed and run using command **docker compose up**
+
+
+    services:  
+	  spring-boot-oauth2-auth-server:  
+	    container_name: spring-boot-oauth2-auth-server  
+	    image: "docker.io/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server:latest"  
+	    restart: unless-stopped  
+	    environment:  
+	      APPLICATION_BACKEND_URL: http://localhost:5020  
+	      GATEWAY_BACKEND_SERVICE: http://127.0.0.1:5010  
+	      GATEWAY_FRONTEND_SERVICE: http://127.0.0.1:3002  
+	      # db settings
+	      DB_HOSTNAME: authserverdb  
+	      DB_NAME: auth_server_db  
+	      DB_PASSWORD: password  
+	      DB_USERNAME: postgres  
+	      DB_PORT: 5432  
+	      # env  
+	      DEPLOY_ENV: testing  
+	      # remember me  
+	      REMEMBER_ME_KEY: secretkey  
+	      # http schema  
+	      HTTP_SCHEMA: http://  
+	      # Oauth2 settings  
+	      KID: 92ad669a-93ce-49cc-a258-82a33e679607  
+	      CERT_PRIVATE_KEY_FILE: default_authkit_private_key_pkcs8.pem  
+	      CERT_PUBLIC_KEY_FILE: default_authkit_public_key.pem  
+	      USE_X_AUTH_TENANT: true  
+	      # cert folder  
+	      CERT_FOLDER_BASE: /certs  
+	      # template folder  
+	      TEMPLATE_FOLDER_BASE: /template-assets  
+	      # release version file  
+	      VERSION_FILE: /app/info.json  
+	    volumes:  
+	      - ./certificates:/certs  
+	      - ./templates:/template-assets  
+	    networks:  
+	      - authservernetwork  
+	    ports:  
+	      - "5020:5020"
+	  spring-boot-oauth2-auth-server-db:  
+		container_name: spring-boot-oauth2-auth-server-db  
+	    image: postgres  
+	    restart: unless-stopped  
+	    networks:  
+	      authservernetwork:  
+	        aliases:  
+	          - authserverdb  
+	    expose:  
+	      - 5432  
+	    environment:  
+	      POSTGRES_USER: postgres  
+	      POSTGRES_PASSWORD: password
+	      
+	networks:
+	  authservernetwork:  
+	    external: false  
+	    name: authservernetwork
+
+
+Default **username**: `admin` and **password**: `password`
+### if you want to build and run it locally follow the below instructions:
 
 - **Clone** the repository
 - Go to **root** of the repository
-- Build with **docker compose** using the command: `docker-compose build`    
-  or if you use **Docker Compose V2** then build command: `docker compose build`
-- Run the application with command `docker-compose up `    
-  or if you use **Docker Compose V2** then build command `docker compose up`
-- If you want to run it in detached mode then: `docker-compose up -d`
+- Build with **docker compose** using the command: `docker-compose -f docker-compose-local.yml build`      
+  or if you use **Docker Compose V2** then build command: `docker compose -f docker-compose-local.yml build`
+- Run the application with command `docker-compose -f docker-compose-local.yml up `      
+  or if you use **Docker Compose V2** then build command `docker compose -f docker-compose-local.yml up`
+- If you want to run it in detached mode then: `docker compose -f docker-compose-local.yml up -d`
 - now access the application from web: [http://localhost:5020](http://localhost:5020)
 - default **username**: `admin` and **password**: `password`
 
