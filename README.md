@@ -20,11 +20,70 @@
 
 ## Run using Docker
 
-### Run directly using the docker hub image (already available)
+### Run directly by creating a docker compose file (no need to clone repository)
 
-- **Clone** the repository
-- Go inside repo root directory
-- Run the application with command `docker compose up` or `docker compose up -d` (for detached mode)
+Create a **docker-compose.yml** with following content, adjust the environment variables as needed and run using command **docker compose up**
+
+
+    services:  
+	  spring-boot-oauth2-auth-server:  
+	    container_name: spring-boot-oauth2-auth-server  
+	    image: "docker.io/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server:latest"  
+	    restart: unless-stopped  
+	    environment:  
+	      APPLICATION_BACKEND_URL: http://localhost:5020  
+	      GATEWAY_BACKEND_SERVICE: http://127.0.0.1:5010  
+	      GATEWAY_FRONTEND_SERVICE: http://127.0.0.1:3002  
+	      # db settings
+	      DB_HOSTNAME: authserverdb  
+	      DB_NAME: auth_server_db  
+	      DB_PASSWORD: password  
+	      DB_USERNAME: postgres  
+	      DB_PORT: 5432  
+	      # env  
+	      DEPLOY_ENV: testing  
+	      # remember me  
+	      REMEMBER_ME_KEY: secretkey  
+	      # http schema  
+	      HTTP_SCHEMA: http://  
+	      # Oauth2 settings  
+	      KID: 92ad669a-93ce-49cc-a258-82a33e679607  
+	      CERT_PRIVATE_KEY_FILE: default_authkit_private_key_pkcs8.pem  
+	      CERT_PUBLIC_KEY_FILE: default_authkit_public_key.pem  
+	      USE_X_AUTH_TENANT: true  
+	      # cert folder  
+	      CERT_FOLDER_BASE: /certs  
+	      # template folder  
+	      TEMPLATE_FOLDER_BASE: /template-assets  
+	      # release version file  
+	      VERSION_FILE: /app/info.json  
+	    volumes:  
+	      - ./certificates:/certs  
+	      - ./templates:/template-assets  
+	    networks:  
+	      - authservernetwork  
+	    ports:  
+	      - "5020:5020"
+	  spring-boot-oauth2-auth-server-db:  
+		container_name: spring-boot-oauth2-auth-server-db  
+	    image: postgres  
+	    restart: unless-stopped  
+	    networks:  
+	      authservernetwork:  
+	        aliases:  
+	          - authserverdb  
+	    expose:  
+	      - 5432  
+	    environment:  
+	      POSTGRES_USER: postgres  
+	      POSTGRES_PASSWORD: password
+	      
+	networks:
+	  authservernetwork:  
+	    external: false  
+	    name: authservernetwork
+
+
 - Dashboard URL:  [http://localhost:5020](http://localhost:5020/)
 - Default **username**: `admin` and **password**: `password`
 
