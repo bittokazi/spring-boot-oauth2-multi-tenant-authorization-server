@@ -53,4 +53,4 @@ jobs:
 
       - name: Build and Push Docker image to Docker Hub
         if: github.ref == 'refs/heads/main'
-        run: docker build . --file ./Dockerfile --tag docker.io/bittokazi/spring-boot-oauth2-multi-tenant-auth-server/full:latest && docker push docker.io/bittokazi/spring-boot-oauth2-multi-tenant-auth-server/full:latest
+        run: docker build . --file ./Dockerfile --tag docker.io/bittokazi/spring-boot-oauth2-multi-tenant-auth-server:latest && docker push docker.io/bittokazi/spring-boot-oauth2-multi-tenant-auth-server:latest
