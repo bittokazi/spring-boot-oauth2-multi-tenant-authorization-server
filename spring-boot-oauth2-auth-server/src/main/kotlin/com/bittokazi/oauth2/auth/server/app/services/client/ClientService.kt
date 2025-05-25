@@ -19,7 +19,7 @@ class ClientService(
         var oauthClient = oauthClient
         oauthClient.additionalInformation = "{ \"client\": \"user_generated\" }"
         oauthClient.clientId = UUID.randomUUID().toString()
-        val newSecret = Utils.randomNumberGenerator(90)
+        val newSecret = Utils.randomNumberGenerator(32)
         oauthClient.clientSecret = newSecret
         oauthClient.newSecret = newSecret
         if (TenantContext.getCurrentTenant() != "public") oauthClient.scope = oauthClient
@@ -63,7 +63,7 @@ class ClientService(
                 }?.joinToString(",")
             var newSecret = ""
             if (oauthClient.generateSecret) {
-                newSecret = Utils.randomNumberGenerator(90)
+                newSecret = Utils.randomNumberGenerator(32)
                 oauthClient.clientSecret = newSecret
             } else {
                 oauthClient.clientSecret = clientEntityToUpdate.clientSecret
