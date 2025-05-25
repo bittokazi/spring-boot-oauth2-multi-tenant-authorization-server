@@ -41,7 +41,7 @@ jobs:
         run: cp -r auth-kit-app-frontend/build/dist/js/productionExecutable/static frontend-server/src/main/resources
 
       - name: Build Frontend Server
-        run: cd frontend-server && gradle buildFatJar
+        run: cd frontend-server && gradle buildFatJar && cd ../
 
       - name: Log into registry docker.io
         if: github.ref == 'refs/heads/main'
