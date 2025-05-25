@@ -84,7 +84,9 @@ Create a **docker-compose.yml** with following content, adjust the environment v
 	    name: authservernetwork
 
 
-Default **username**: `admin` and **password**: `password`
+-   Dashboard URL:  [http://localhost:5020](http://localhost:5020/)
+-   Default **username**: `admin` and **password**: `password`
+
 ### if you want to build and run it locally follow the below instructions:
 
 - **Clone** the repository
