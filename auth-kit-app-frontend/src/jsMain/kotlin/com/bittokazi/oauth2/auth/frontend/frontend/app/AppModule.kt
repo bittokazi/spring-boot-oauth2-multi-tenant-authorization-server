@@ -7,13 +7,14 @@ import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.tenant.T
 import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboardModule
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.ObservableManager
-import com.bittokazi.oauth2.auth.frontend.frontend.base.layouts.errorPage
 import io.kvision.core.Container
-import io.kvision.html.div
 import kotlinx.browser.window
 import org.w3c.dom.get
 
 private const val COMPANY_INFO_OBSERVER_LOGIN_PAGE_TITLE = "companyInfoObserverLoginPageTitle"
+
+@JsName("moment")
+external fun moment(dateString: String): dynamic
 
 fun Container.appModule(parentContainer: Container) {
     val authHolder = AppEngine.defaultAuthHolder
