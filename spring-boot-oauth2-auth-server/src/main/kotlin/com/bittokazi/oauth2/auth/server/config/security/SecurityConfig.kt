@@ -172,6 +172,8 @@ open class SecurityConfig(
                             OidcUserInfo.builder()
                                 .subject(user.username)
                                 .email(user.email)
+                                .preferredUsername(user.username)
+                                .name(user.username)
                                 .build()
                         }
                     }
