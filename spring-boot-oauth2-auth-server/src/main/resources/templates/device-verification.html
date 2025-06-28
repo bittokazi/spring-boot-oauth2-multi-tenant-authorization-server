@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Device Verification</title>
+    </head>
+    <body>
+        <h1>Device Verification</h1>
+        <p>Please confirm the following code matches what's displayed on your device:</p>
+
+        <div style="font-size: 2em; margin: 20px 0;" th:text="${userCode}"></div>
+
+        <form method="post" action="/device-verification">
+            <input type="hidden" name="client_id" th:value="${clientId}">
+            <input type="hidden" name="user_code" th:value="${userCode}">
+            <input type="hidden" name="scope" th:value="${scopes}">
+            <input type="hidden" name="state" th:value="${state}">
+
+            <button type="submit" name="user_oauth_approval" value="true">Approve</button>
+            <button type="submit" name="user_oauth_approval" value="false">Deny</button>
+        </form>
+    </body>
+</html>

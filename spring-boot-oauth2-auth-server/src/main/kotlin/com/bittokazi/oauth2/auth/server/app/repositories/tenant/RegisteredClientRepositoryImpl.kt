@@ -41,7 +41,8 @@ class RegisteredClientRepositoryImpl(
             .clientAuthenticationMethod(ClientAuthenticationMethod(oauthClient.clientAuthenticationMethod))
             .postLogoutRedirectUri(oauthClient.postLogoutUrl) //                .scope(String.join(",", oauthClient.getScope()))
             .clientSettings(
-                ClientSettings.builder() //                        .requireProofKey(true)
+                ClientSettings.builder()
+                    .requireProofKey(false)
                     .requireAuthorizationConsent(oauthClient.requireConsent!!).build()
             )
             .tokenSettings(
