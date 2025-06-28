@@ -5,11 +5,13 @@ import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException
 import org.springframework.security.oauth2.core.OAuth2DeviceCode
 import org.springframework.security.oauth2.core.OAuth2UserCode
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -25,7 +27,8 @@ import java.util.*
 @Controller
 @RequestMapping("/device-verification")
 class DeviceVerificationController(
-    private val authorizationService: OAuth2AuthorizationService
+    private val authorizationService: OAuth2AuthorizationService,
+    private val registeredClientRepository: RegisteredClientRepository
 ) {
 
     @GetMapping
@@ -92,13 +95,16 @@ class DeviceVerificationController(
         val userCode = authorization.getToken(OAuth2UserCode::class.java)?.token
             ?: throw IllegalStateException("User code not found")
 
+        val registeredClient = registeredClientRepository.findById(authorization.registeredClientId)
+            ?: throw OAuth2AuthenticationException("invalid_client")
+
         val updatedAuthorization = authorizationBuilder
             .principalName(httpServletRequest.userPrincipal.name)
             .attribute(Principal::class.java.name, userAuthentication)
             .token(userCode) { metadata ->
                 metadata[OAuth2Authorization.Token.INVALIDATED_METADATA_NAME] = true
             }
-            .authorizedScopes(authorization.authorizedScopes) // ✅ tells Spring it's approved
+            .authorizedScopes(registeredClient.scopes) // ✅ tells Spring it's approved
             .build()
 
         authorizationService.save(updatedAuthorization)

@@ -14,6 +14,7 @@ import com.bittokazi.oauth2.auth.server.config.security.mfa.OtpOauthFilter
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomHttpStatusReturningLogoutSuccessHandler
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationConsentService
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationService
+import com.bittokazi.oauth2.auth.server.config.security.oauth2.device.CustomOAuth2DeviceCodeAuthenticationProvider
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.device.DeviceClientAuthenticationConverter
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.device.DeviceClientAuthenticationProvider
 import com.bittokazi.oauth2.auth.server.database.MultiTenantConnectionProviderImpl
@@ -108,12 +109,18 @@ open class SecurityConfig(
     @Bean
     @Order(1)
     @Throws(Exception::class)
-    open fun authorizationServerSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
+    open fun authorizationServerSecurityFilterChain(http: HttpSecurity, tokenGenerator: OAuth2TokenGenerator<*>): SecurityFilterChain {
         val authorizationServerConfigurer =
             OAuth2AuthorizationServerConfigurer()
 
         authorizationServerConfigurer.deviceAuthorizationEndpoint { deviceEndpoint ->
             deviceEndpoint.verificationUri("/device-verification") // Customize your verification URI
+        }
+
+        authorizationServerConfigurer.tokenEndpoint { it  ->
+            it.authenticationProvider(CustomOAuth2DeviceCodeAuthenticationProvider(
+                authorizationService(), tokenGenerator
+            ))
         }
 
         authorizationServerConfigurer.clientAuthentication { clientAuth ->
