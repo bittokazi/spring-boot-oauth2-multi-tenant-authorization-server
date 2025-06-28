@@ -358,6 +358,9 @@ open class SecurityConfig(
                             })
                         }
                         claims["scope"] = scopes
+                        claims["email"] = userOptional.get().email as Any
+                        claims["preferred_username"] = userOptional.get().username as Any
+                        claims["name"] = userOptional.get().username as Any
                     }
                     claims["tenant"] = TenantContext.getCurrentTenant()!!
                 }
@@ -367,9 +370,9 @@ open class SecurityConfig(
                     claims["iss"] = TenantContext.getCurrentIssuer()
                     if (claims["sub"].toString() != context.registeredClient.clientId) {
                         val userOptional = userRepository.findOneByUsername(claims["sub"].toString())
-                        userOptional.get().roles.forEach(Consumer { role: Role ->
-                            claims["email"] = userOptional.get().email
-                        })
+                        claims["email"] = userOptional.get().email
+                        claims["preferred_username"] = userOptional.get().username
+                        claims["name"] = userOptional.get().username
                     }
                 }
             }
