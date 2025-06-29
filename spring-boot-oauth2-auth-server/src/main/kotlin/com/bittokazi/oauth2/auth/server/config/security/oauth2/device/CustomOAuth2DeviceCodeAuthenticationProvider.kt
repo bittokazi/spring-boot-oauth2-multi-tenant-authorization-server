@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames
 import org.springframework.security.oauth2.core.oidc.OidcIdToken
 import org.springframework.security.oauth2.core.oidc.OidcScopes
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames
+import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames.ID_TOKEN
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationCode
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService
@@ -144,6 +145,7 @@ class CustomOAuth2DeviceCodeAuthenticationProvider(
         // ----- ID token -----
         val idToken: OidcIdToken?
         if (authorization.authorizedScopes.contains(OidcScopes.OPENID)) {
+            tokenContext = tokenContextBuilder.tokenType(OAuth2TokenType(ID_TOKEN)).build()
             val generatedIdToken: OAuth2Token? = this.tokenGenerator.generate(tokenContext)
 
             val claims: Map<String, Any> = if (generatedIdToken is ClaimAccessor) {
