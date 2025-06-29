@@ -370,9 +370,12 @@ open class SecurityConfig(
                     claims["iss"] = TenantContext.getCurrentIssuer()
                     if (claims["sub"].toString() != context.registeredClient.clientId) {
                         val userOptional = userRepository.findOneByUsername(claims["sub"].toString())
+                        val optionalOauthClient =
+                            oauthClientRepository.findOneByClientId(context.registeredClient.clientId)
                         claims["email"] = userOptional.get().email
                         claims["preferred_username"] = userOptional.get().username
                         claims["name"] = userOptional.get().username
+                        claims["scope"] = optionalOauthClient.get().scope?.split(",")
                     }
                 }
             }

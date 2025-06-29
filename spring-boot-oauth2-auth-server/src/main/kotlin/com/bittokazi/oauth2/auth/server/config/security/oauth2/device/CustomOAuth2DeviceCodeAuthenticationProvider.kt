@@ -148,8 +148,8 @@ class CustomOAuth2DeviceCodeAuthenticationProvider(
             tokenContext = tokenContextBuilder.tokenType(OAuth2TokenType(ID_TOKEN)).build()
             val generatedIdToken: OAuth2Token? = this.tokenGenerator.generate(tokenContext)
 
-            val claims: Map<String, Any> = if (generatedIdToken is ClaimAccessor) {
-                generatedIdToken.claims
+            val claims: MutableMap<String, Any> = if (generatedIdToken is ClaimAccessor) {
+                generatedIdToken.claims.toMutableMap()
             } else {
                 throw OAuth2AuthenticationException(
                     OAuth2Error(
@@ -160,6 +160,8 @@ class CustomOAuth2DeviceCodeAuthenticationProvider(
                 )
             }
 
+            claims["scope"] = authorization.authorizedScopes
+
             idToken = OidcIdToken(
                 generatedIdToken?.getTokenValue(), generatedIdToken?.getIssuedAt(),
                 generatedIdToken?.getExpiresAt(), claims
@@ -169,7 +171,7 @@ class CustomOAuth2DeviceCodeAuthenticationProvider(
                 Consumer { metadata: MutableMap<String?, Any?>? ->
                     metadata!!.put(
                         OAuth2Authorization.Token.CLAIMS_METADATA_NAME,
-                        idToken.getClaims()
+                        claims
                     )
                 })
         } else {
