@@ -358,9 +358,6 @@ open class SecurityConfig(
                             })
                         }
                         claims["scope"] = scopes
-                        claims["email"] = userOptional.get().email as Any
-                        claims["preferred_username"] = userOptional.get().username as Any
-                        claims["name"] = userOptional.get().username as Any
                     }
                     claims["tenant"] = TenantContext.getCurrentTenant()!!
                 }

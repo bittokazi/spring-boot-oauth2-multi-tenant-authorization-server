@@ -74,6 +74,9 @@ class OtpFilter(
                                         .getClientIpAddressIfServletRequestExist(httpServletRequest)
                                 )
                             }
+
+                            deviceAuthorizationRedirectCheck(httpServletRequest, httpServletResponse)
+
                             val savedRequest = requestCache.getRequest(request, response)
                             if (savedRequest == null) {
                                 super.onAuthenticationSuccess(request, response, SecurityContextHolder.getContext().authentication)
@@ -117,10 +120,21 @@ class OtpFilter(
                     val session = httpServletRequest.getSession(true)
                     session.setAttribute("otpRequired", false)
                     httpServletRequest.session.removeAttribute("otp")
+                    deviceAuthorizationRedirectCheck(httpServletRequest, httpServletResponse)
                 }
             }
         }
         chain.doFilter(request, response)
+    }
+
+    fun deviceAuthorizationRedirectCheck(request: HttpServletRequest, response: HttpServletResponse) {
+        val deviceRedirect = request.session.getAttribute("device_verification_redirect") as? Boolean
+        if (deviceRedirect != null) {
+            logger.debug("Device verification redirect found in session. Redirecting to $deviceRedirect")
+            request.session.removeAttribute("device_verification_redirect")
+            response.sendRedirect("/device-verification")
+            return
+        }
     }
 
     override fun destroy() {

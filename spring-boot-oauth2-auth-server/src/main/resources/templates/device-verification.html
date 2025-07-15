@@ -10,13 +10,11 @@
         <div style="font-size: 2em; margin: 20px 0;" th:text="${userCode}"></div>
 
         <form method="post" action="/device-verification">
-            <input type="hidden" name="client_id" th:value="${clientId}">
-            <input type="hidden" name="user_code" th:value="${userCode}">
-            <input type="hidden" name="scope" th:value="${scopes}">
-            <input type="hidden" name="state" th:value="${state}">
+            <input th:if="${userCode != ''}" type="hidden" name="user_code" th:value="${userCode}">
+            <input th:if="${userCode == ''}" type="text" name="user_code">
 
             <button type="submit" name="user_oauth_approval" value="true">Approve</button>
-            <button type="submit" name="user_oauth_approval" value="false">Deny</button>
+            <button type="submit" name="user_oauth_approval" value="false" style="display: none">Deny</button>
         </form>
     </body>
 </html>
