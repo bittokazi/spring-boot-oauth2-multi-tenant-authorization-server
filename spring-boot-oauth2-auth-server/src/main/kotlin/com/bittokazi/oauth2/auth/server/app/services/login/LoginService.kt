@@ -64,16 +64,23 @@ class LoginService(
             }
         } else {
             if (Objects.nonNull(request.userPrincipal)) {
-                val tenantOptional = tenantRepository
-                    .findOneByCompanyKey(TenantContext.getCurrentTenant()!!)
-                if (tenantOptional.isPresent) {
-                    if (tenantOptional.get().defaultRedirectUrl != "") {
-                        response.sendRedirect(tenantOptional.get().defaultRedirectUrl)
+                val deviceRedirect = request.session.getAttribute("device_verification_redirect") as? Boolean
+                if (deviceRedirect != null) {
+                    logger.debug("Device verification redirect found in session. Redirecting to $deviceRedirect")
+                    request.session.removeAttribute("device_verification_redirect")
+                    response.sendRedirect("/device-verification")
+                } else {
+                    val tenantOptional = tenantRepository
+                        .findOneByCompanyKey(TenantContext.getCurrentTenant()!!)
+                    if (tenantOptional.isPresent) {
+                        if (tenantOptional.get().defaultRedirectUrl != "") {
+                            response.sendRedirect(tenantOptional.get().defaultRedirectUrl)
+                        } else {
+                            response.sendRedirect("/oauth2/login")
+                        }
                     } else {
                         response.sendRedirect("/oauth2/login")
                     }
-                } else {
-                    response.sendRedirect("/oauth2/login")
                 }
             }
         }
