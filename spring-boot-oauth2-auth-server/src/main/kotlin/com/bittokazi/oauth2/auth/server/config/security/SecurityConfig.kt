@@ -181,13 +181,8 @@ open class SecurityConfig(
         http
             .authorizeHttpRequests { authorize ->
                 authorize
-                    // Permit the initial device authorization request (unauthenticated device)
-                    .requestMatchers("/oauth2/device_authorization").permitAll()
                     // Permit the device verification URI (where the user goes in their browser)
                     .requestMatchers("/device-verification").permitAll()
-                    // Permit the custom consent page
-                    .requestMatchers("/oauth2/consent").permitAll()
-                    // All other requests to the Authorization Server's matched endpoints require authentication
                     .anyRequest().authenticated()
             }
             .addFilterBefore(otpOauthFilter, AbstractPreAuthenticatedProcessingFilter::class.java)
