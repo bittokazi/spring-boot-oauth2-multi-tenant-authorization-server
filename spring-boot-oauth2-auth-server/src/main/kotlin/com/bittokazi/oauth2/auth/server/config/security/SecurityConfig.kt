@@ -14,6 +14,9 @@ import com.bittokazi.oauth2.auth.server.config.security.mfa.OtpOauthFilter
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomHttpStatusReturningLogoutSuccessHandler
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationConsentService
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationService
+import com.bittokazi.oauth2.auth.server.config.security.oauth2.device.CustomOAuth2DeviceCodeAuthenticationProvider
+import com.bittokazi.oauth2.auth.server.config.security.oauth2.device.DeviceClientAuthenticationConverter
+import com.bittokazi.oauth2.auth.server.config.security.oauth2.device.DeviceClientAuthenticationProvider
 import com.bittokazi.oauth2.auth.server.database.MultiTenantConnectionProviderImpl
 import com.nimbusds.jose.jwk.JWKSet
 import com.nimbusds.jose.jwk.RSAKey
@@ -50,10 +53,7 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationEndpointConfigurer
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OidcConfigurer
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OidcProviderConfigurationEndpointConfigurer
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.*
 import org.springframework.security.oauth2.server.authorization.oidc.OidcProviderConfiguration
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationToken
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings
@@ -66,7 +66,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices.RememberMeTokenAlgorithm
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher
+import org.springframework.security.web.util.matcher.OrRequestMatcher
 import org.springframework.security.web.util.matcher.RequestMatcher
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.TransactionDefinition
@@ -107,15 +109,37 @@ open class SecurityConfig(
     @Bean
     @Order(1)
     @Throws(Exception::class)
-    open fun authorizationServerSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
+    open fun authorizationServerSecurityFilterChain(http: HttpSecurity, tokenGenerator: OAuth2TokenGenerator<*>): SecurityFilterChain {
         val authorizationServerConfigurer =
             OAuth2AuthorizationServerConfigurer()
+
+        authorizationServerConfigurer.deviceAuthorizationEndpoint { deviceEndpoint ->
+            deviceEndpoint.verificationUri("/device-verification") // Customize your verification URI
+        }
+
+        authorizationServerConfigurer.tokenEndpoint { it  ->
+            it.authenticationProvider(CustomOAuth2DeviceCodeAuthenticationProvider(
+                authorizationService(), tokenGenerator
+            ))
+        }
+
+        authorizationServerConfigurer.clientAuthentication { clientAuth ->
+            clientAuth
+                .authenticationConverter(DeviceClientAuthenticationConverter())
+                .authenticationProvider(DeviceClientAuthenticationProvider(registeredClientRepository()))
+        }
 
         val endpointsMatcher: RequestMatcher = authorizationServerConfigurer
             .getEndpointsMatcher()
 
+        val additionalMatcher = AntPathRequestMatcher("/device-verification")
+        val combinedMatcher = OrRequestMatcher(endpointsMatcher, additionalMatcher)
+
         http
-            .securityMatcher(endpointsMatcher)
+            .securityMatcher(combinedMatcher)
+            .csrf {
+                it.ignoringRequestMatchers(combinedMatcher)
+            }
             .apply(authorizationServerConfigurer)
             .authorizationEndpoint { authorizationEndpoint: OAuth2AuthorizationEndpointConfigurer ->
                 authorizationEndpoint.consentPage(
@@ -148,13 +172,18 @@ open class SecurityConfig(
                             OidcUserInfo.builder()
                                 .subject(user.username)
                                 .email(user.email)
+                                .preferredUsername(user.username)
+                                .name(user.username)
                                 .build()
                         }
                     }
             }
         http
-            .authorizeHttpRequests {
-                it.anyRequest().authenticated()
+            .authorizeHttpRequests { authorize ->
+                authorize
+                    // Permit the device verification URI (where the user goes in their browser)
+                    .requestMatchers("/device-verification").permitAll()
+                    .anyRequest().authenticated()
             }
             .addFilterBefore(otpOauthFilter, AbstractPreAuthenticatedProcessingFilter::class.java)
             .exceptionHandling { exceptions: ExceptionHandlingConfigurer<HttpSecurity?> ->
@@ -333,9 +362,12 @@ open class SecurityConfig(
                     claims["iss"] = TenantContext.getCurrentIssuer()
                     if (claims["sub"].toString() != context.registeredClient.clientId) {
                         val userOptional = userRepository.findOneByUsername(claims["sub"].toString())
-                        userOptional.get().roles.forEach(Consumer { role: Role ->
-                            claims["email"] = userOptional.get().email
-                        })
+                        val optionalOauthClient =
+                            oauthClientRepository.findOneByClientId(context.registeredClient.clientId)
+                        claims["email"] = userOptional.get().email
+                        claims["preferred_username"] = userOptional.get().username
+                        claims["name"] = userOptional.get().username
+                        claims["scope"] = optionalOauthClient.get().scope?.split(",")
                     }
                 }
             }

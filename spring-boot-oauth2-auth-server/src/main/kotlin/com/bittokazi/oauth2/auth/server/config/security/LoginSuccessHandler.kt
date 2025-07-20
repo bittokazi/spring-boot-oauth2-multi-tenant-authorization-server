@@ -27,6 +27,15 @@ class LoginSuccessHandler : SimpleUrlAuthenticationSuccessHandler() {
             response.sendRedirect(request.contextPath + "/otp-login")
             return
         }
+
+        val deviceRedirect = request.session.getAttribute("device_verification_redirect") as? Boolean
+        if (deviceRedirect != null) {
+            logger.debug("Device verification redirect found in session. Redirecting to $deviceRedirect")
+            request.session.removeAttribute("device_verification_redirect")
+            response.sendRedirect("/device-verification")
+            return
+        }
+
         val savedRequest = requestCache.getRequest(request, response)
         if (savedRequest == null) {
             super.onAuthenticationSuccess(request, response, authentication)

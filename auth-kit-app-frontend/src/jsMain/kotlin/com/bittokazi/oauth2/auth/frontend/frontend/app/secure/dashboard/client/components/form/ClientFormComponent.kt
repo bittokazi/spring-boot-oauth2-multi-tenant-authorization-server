@@ -80,7 +80,8 @@ fun Container.clientFormComponent(
                         clientForm.clientAuthenticationMethod,
                         listOf(
                             "client_secret_basic" to "client_secret_basic",
-                            "client_secret_post" to "client_secret_post"
+                            "client_secret_post" to "client_secret_post",
+                            "none" to "none"
                         ),
                         client?.clientAuthenticationMethod ?: ""
                     )
