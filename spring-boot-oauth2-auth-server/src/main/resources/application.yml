@@ -32,9 +32,6 @@ spring:
   servlet:
     multipart:
       max-file-size: 5MB
-
-
-
   thymeleaf:
     prefix: "classpath:/templates/"
     suffix: ".html"

@@ -12,11 +12,12 @@
 5. OpenID Connect support
 6. 2FA support
 7. Consent support
-8. Login/2FA/Consent page custom template for different tenant support.
-9. Custom templates can be written in **Thymeleaf** and can be uploaded for each tenant using web UI Admin panel.
-10. Role support
-11. Swagger Integrated
-12. OpenAPI Integrated
+8. Device Authorization Support
+9. Login/2FA/Consent page custom template for different tenant support.
+10. Custom templates can be written in **Thymeleaf** and can be uploaded for each tenant using web UI Admin panel.
+11. Role support
+12. Swagger Integrated
+13. OpenAPI Integrated
 
 ## Run using Docker
 
