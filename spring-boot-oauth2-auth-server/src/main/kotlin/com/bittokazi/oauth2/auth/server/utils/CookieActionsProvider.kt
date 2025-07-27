@@ -8,7 +8,7 @@ import lombok.Setter
 import java.util.function.Function
 
 class CookieActionsProvider() {
-    var updateFunction: Function<CookieValue, Void>? = null
+    var updateFunction: Function<CookieValue, Void?>? = null
 
     fun updateCookie(cookieValue: CookieValue) {
         updateFunction!!.apply(cookieValue)
@@ -23,13 +23,13 @@ class CookieActionsProvider() {
     )
 
     companion object {
-        fun updateCookieFunc(httpServletResponse: HttpServletResponse): Function<CookieValue, Void> {
-            return Function<CookieValue, Void> { cookieValue: CookieValue ->
+        fun updateCookieFunc(httpServletResponse: HttpServletResponse): Function<CookieValue, Void?> {
+            return Function<CookieValue, Void?> { cookieValue: CookieValue ->
                 val cookie = Cookie(cookieValue.key, cookieValue.value)
                 cookie.path = "/"
                 cookie.maxAge = 63072000
                 httpServletResponse.addCookie(cookie)
-                null
+                null as Void?
             }
         }
     }

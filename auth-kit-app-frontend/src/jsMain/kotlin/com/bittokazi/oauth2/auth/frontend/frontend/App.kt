@@ -20,6 +20,7 @@ import io.kvision.ImaskModule
 import io.kvision.ToastifyModule
 import io.kvision.FontAwesomeModule
 import io.kvision.BootstrapIconsModule
+import io.kvision.Hot
 import io.kvision.MapsModule
 import io.kvision.core.Background
 import io.kvision.core.Color
@@ -31,22 +32,26 @@ import io.kvision.html.Div
 import io.kvision.html.div
 import io.kvision.i18n.DefaultI18nManager
 import io.kvision.i18n.I18n
-import io.kvision.module
 import io.kvision.panel.root
-import io.kvision.require
 import io.kvision.rest.RemoteRequestException
 import io.kvision.routing.Routing
 import io.kvision.routing.Strategy
 import io.kvision.startApplication
 import kotlinx.browser.document
 
+@JsModule("/kotlin/modules/i18n/messages-en.json")
+external val messagesEn: dynamic
+
+@JsModule("/kotlin/modules/i18n/messages-pl.json")
+external val messagesPl: dynamic
+
 class App : Application() {
     override fun start() {
         I18n.manager =
             DefaultI18nManager(
                 mapOf(
-                    "pl" to require("i18n/messages-pl.json"),
-                    "en" to require("i18n/messages-en.json")
+                    "en" to messagesEn,
+                    "pl" to messagesPl
                 )
             )
 
@@ -145,7 +150,7 @@ class App : Application() {
 fun main() {
     startApplication(
         ::App,
-        module.hot,
+        js("import.meta.webpackHot").unsafeCast<Hot?>(),
         //BootstrapModule,
         //BootstrapCssModule,
         DatetimeModule,

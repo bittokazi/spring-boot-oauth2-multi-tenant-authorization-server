@@ -21,6 +21,7 @@ val kvisionVersion: String by System.getProperties()
 kotlin {
     js(IR) {
         browser {
+            useEsModules()
             commonWebpackConfig {
                 outputFileName = "main.bundle.js"
                 sourceMaps = false
@@ -32,6 +33,9 @@ kotlin {
             }
         }
         binaries.executable()
+        compilerOptions {
+            target.set("es2015")
+        }
     }
     sourceSets["jsMain"].dependencies {
         implementation("io.kvision:kvision:$kvisionVersion")
