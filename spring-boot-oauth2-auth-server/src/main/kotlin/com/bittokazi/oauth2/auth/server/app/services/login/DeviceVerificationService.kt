@@ -1,5 +1,8 @@
 package com.bittokazi.oauth2.auth.server.app.services.login
 
+import com.bittokazi.oauth2.auth.server.app.repositories.master.TenantRepository
+import com.bittokazi.oauth2.auth.server.config.AppConfig
+import com.bittokazi.oauth2.auth.server.config.TenantContext
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -12,13 +15,15 @@ import org.springframework.security.oauth2.server.authorization.OAuth2TokenType
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
 import org.springframework.stereotype.Service
 import org.springframework.ui.Model
+import org.springframework.web.servlet.ModelAndView
 import java.security.Principal
 import kotlin.collections.set
 
 @Service
 class DeviceVerificationService(
     private val authorizationService: OAuth2AuthorizationService,
-    private val registeredClientRepository: RegisteredClientRepository
+    private val registeredClientRepository: RegisteredClientRepository,
+    private val tenantRepository: TenantRepository,
 ) {
 
     companion object {
@@ -31,17 +36,32 @@ class DeviceVerificationService(
         httpServletRequest: HttpServletRequest,
         httpServletResponse: HttpServletResponse
     ): Any {
+        val tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant()!!)
+        model.addAttribute(
+            "tenantName",
+            if (tenantOptional.isPresent) tenantOptional.get().name else AppConfig.DEFAULT_APP_NAME
+        )
+        model.addAttribute(
+            "signInBtnColor",
+            if (tenantOptional.isPresent) tenantOptional.get().signInBtnColor else "#7367f0 !important"
+        )
+
+        val viewName: String = when(tenantOptional.isPresent && tenantOptional.get().enableCustomTemplate == true) {
+            true -> "${tenantOptional.get().companyKey}/device-verification"
+            else -> "device-verification"
+        }
+
         if (httpServletRequest.userPrincipal == null) {
             httpServletRequest.session.setAttribute("device_verification_redirect", true)
             httpServletResponse.sendRedirect("/login")
-            return "device-verification"
+            return viewName
         }
 
         if (userCode == null) {
             model.addAllAttributes(mapOf(
                 "userCode" to "",
             ))
-            return "device-verification"
+            return viewName
         }
 
         val authorization = authorizationService.findByToken(
@@ -49,9 +69,17 @@ class DeviceVerificationService(
             OAuth2TokenType(USER_CODE_PARAMETER_NAME)
         )
 
-        if (userCode != null && authorization == null) {
+        if (authorization == null ||
+            authorization.getToken(OAuth2UserCode::class.java)?.metadata
+                ?.get(OAuth2Authorization.Token.INVALIDATED_METADATA_NAME) as? Boolean ?: false) {
+
+            val viewNameResult: String = when(tenantOptional.isPresent && tenantOptional.get().enableCustomTemplate == true) {
+                true -> "${tenantOptional.get().companyKey}/device-verification-result"
+                else -> "device-verification-result"
+            }
+
             model.addAttribute("message", "Invalid or expired user code.")
-            return "device-verification-result"
+            return viewNameResult
         }
 
         // Get client ID from authorization if not provided
@@ -65,7 +93,9 @@ class DeviceVerificationService(
             "userCode" to userCode,
             "scopes" to (resolvedScopes ?: "")
         ))
-        return "device-verification"
+
+        val modelAndView = ModelAndView(viewName, model as Map<String, *>)
+        return modelAndView
     }
 
     fun authorizeDevice(
@@ -74,6 +104,21 @@ class DeviceVerificationService(
         httpServletRequest: HttpServletRequest,
         httpServletResponse: HttpServletResponse
     ): Any {
+        val tenantOptional = tenantRepository.findOneByCompanyKey(TenantContext.getCurrentTenant()!!)
+        model.addAttribute(
+            "tenantName",
+            if (tenantOptional.isPresent) tenantOptional.get().name else AppConfig.DEFAULT_APP_NAME
+        )
+        model.addAttribute(
+            "signInBtnColor",
+            if (tenantOptional.isPresent) tenantOptional.get().signInBtnColor else "#7367f0 !important"
+        )
+
+        val viewName: String = when(tenantOptional.isPresent && tenantOptional.get().enableCustomTemplate == true) {
+            true -> "${tenantOptional.get().companyKey}/device-verification-result"
+            else -> "device-verification-result"
+        }
+
         if (httpServletRequest.userPrincipal == null) {
             httpServletRequest.session.setAttribute("device_verification_redirect", true)
             httpServletResponse.sendRedirect("/login")
@@ -85,7 +130,7 @@ class DeviceVerificationService(
         if (authorization == null ||
             authorization?.getToken(OAuth2UserCode::class.java)?.metadata?.get(OAuth2Authorization.Token.INVALIDATED_METADATA_NAME) as? Boolean ?: false) {
             model.addAttribute("message", "Invalid or expired user code.")
-            return "device-verification-result"
+            return viewName
         }
 
         val userAuthentication: Authentication = UsernamePasswordAuthenticationToken(
@@ -102,29 +147,33 @@ class DeviceVerificationService(
 
         if (userCode == null) {
             model.addAttribute("message", "User code not found.")
-            return "device-verification-result"
+            return viewName
         }
 
         val registeredClient = registeredClientRepository.findById(authorization.registeredClientId)
 
         if (registeredClient == null) {
             model.addAttribute("message", "Invalid Client.")
-            return "device-verification-result"
+            return viewName
         }
 
-        val updatedAuthorization = authorizationBuilder
-            .principalName(httpServletRequest.userPrincipal.name)
-            .attribute(Principal::class.java.name, userAuthentication)
-            .token(userCode) { metadata ->
-                metadata[OAuth2Authorization.Token.INVALIDATED_METADATA_NAME] = true
-            }
-            .authorizedScopes(registeredClient.scopes) // ✅ tells Spring it's approved
-            .build()
+        if(httpServletRequest.getParameter("user_oauth_approval") == "true") {
+            val updatedAuthorization = authorizationBuilder
+                .principalName(httpServletRequest.userPrincipal.name)
+                .attribute(Principal::class.java.name, userAuthentication)
+                .token(userCode) { metadata ->
+                    metadata[OAuth2Authorization.Token.INVALIDATED_METADATA_NAME] = true
+                }
+                .authorizedScopes(registeredClient.scopes) // ✅ tells Spring it's approved
+                .build()
 
-        authorizationService.save(updatedAuthorization)
+            authorizationService.save(updatedAuthorization)
 
-        model.addAttribute("message", "Successful")
-
-        return "device-verification-result"
+            model.addAttribute("message", "Successful")
+        } else {
+            authorizationService.remove(authorization)
+            model.addAttribute("message", "Denied by user")
+        }
+        return viewName
     }
 }

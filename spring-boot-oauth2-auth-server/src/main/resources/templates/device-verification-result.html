@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
     <head>
-        <title>Device Verification</title>
+        <meta charset="UTF-8" />
+        <title th:text="${tenantName}+' | Device Verification'"></title>
+        <link rel="stylesheet" href="/assets/login/style.css" />
+        <link rel="apple-touch-icon" href="/app/assets/dashboard-assets/app-assets/images/pages/login-bg.png"/>
+        <link rel="shortcut icon" type="image/x-icon" href="/app/assets/dashboard-assets/app-assets/images/pages/login-bg.png"/>
     </head>
     <body>
-        <h2 th:text="'Device Verification: ' + ${message}"></h2>
+        <div class="login-page">
+            <h1 class="title" th:text="${tenantName}+' Device Verification'"></h1>
+            <div class="form">
+                <p th:text="${message}"></p>
+            </div>
+        </div>
     </body>
 </html>
