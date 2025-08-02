@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
     <head>
-        <title>Device Verification</title>
+        <meta charset="UTF-8" />
+        <title th:text="${tenantName}+' | Device Verification'"></title>
+        <link rel="stylesheet" href="/assets/login/style.css" />
+        <link rel="apple-touch-icon" href="/app/assets/dashboard-assets/app-assets/images/pages/login-bg.png"/>
+        <link rel="shortcut icon" type="image/x-icon" href="/app/assets/dashboard-assets/app-assets/images/pages/login-bg.png"/>
     </head>
     <body>
-        <h1>Device Verification</h1>
-        <p>Please confirm the following code matches what's displayed on your device:</p>
+        <div class="login-page">
+            <h1 class="title" th:text="${tenantName}+' Device Verification'"></h1>
+            <div class="form">
+                <p>Please confirm the following code matches what's displayed on your device:</p>
 
-        <div style="font-size: 2em; margin: 20px 0;" th:text="${userCode}"></div>
+                <div style="font-size: 2em; margin: 20px 0;" th:text="${userCode}"></div>
 
-        <form method="post" action="/device-verification">
-            <input th:if="${userCode != ''}" type="hidden" name="user_code" th:value="${userCode}">
-            <input th:if="${userCode == ''}" type="text" name="user_code">
+                <form method="post" action="/device-verification">
+                    <input th:if="${userCode != ''}" type="hidden" name="user_code" th:value="${userCode}">
+                    <input th:if="${userCode == ''}" type="text" name="user_code">
 
-            <button type="submit" name="user_oauth_approval" value="true">Approve</button>
-            <button type="submit" name="user_oauth_approval" value="false" style="display: none">Deny</button>
-        </form>
+                    <button type="submit" name="user_oauth_approval" value="true"  th:style="${'background: ' + signInBtnColor}">Approve</button>
+                    <button type="submit" name="user_oauth_approval" value="false" style="background: #f73b3b" th:if="${userCode != ''}">Deny</button>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
