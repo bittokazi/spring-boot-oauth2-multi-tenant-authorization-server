@@ -20,7 +20,6 @@ jobs:
           cache: maven
 
       - name: Log into registry docker.io
-        if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v3
         with:
           registry: docker.io
