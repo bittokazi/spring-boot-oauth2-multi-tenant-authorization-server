@@ -1,5 +1,6 @@
 package com.bittokazi.oauth2.auth.frontend.frontend.base.services
 
+import com.bittokazi.kvision.spa.framework.base.common.AuthData
 import com.bittokazi.kvision.spa.framework.base.common.SpaAppEngine
 import com.bittokazi.kvision.spa.framework.base.common.AuthInformationProvider
 import com.bittokazi.kvision.spa.framework.base.common.SpaAppEngine.defaultAuthHolder
@@ -10,6 +11,7 @@ import com.bittokazi.oauth2.auth.frontend.frontend.base.models.User
 import io.kvision.rest.*
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonPrimitive
 import kotlin.js.Promise
 
 class AuthService: AuthInformationProvider, RefreshTokenRequestProvider {
@@ -57,6 +59,13 @@ class AuthService: AuthInformationProvider, RefreshTokenRequestProvider {
             mapOf(
                 "refresh_token" to JsonPrimitive(defaultAuthHolder.getAuth()?.refreshToken ?: "")
             )
+        )
+    }
+
+    override fun getAuthDataFromRefreshTokenResponse(response: JsonObject): AuthData {
+        return AuthData(
+            token = response["access_token"]?.jsonPrimitive?.content ?: "",
+            refreshToken = response["refresh_token"]?.jsonPrimitive?.content ?: ""
         )
     }
 }
