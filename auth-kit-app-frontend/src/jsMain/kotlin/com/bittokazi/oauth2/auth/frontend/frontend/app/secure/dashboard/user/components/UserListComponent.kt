@@ -1,10 +1,10 @@
 package com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.user.components
 
+import com.bittokazi.kvision.spa.framework.base.common.SpaAppEngine
+import com.bittokazi.kvision.spa.framework.base.components.pagination.paginationComponent
 import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.user.UserService
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.pagination.paginationComponent
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.UserList
-import io.kvision.core.Container
 import io.kvision.html.Div
 import io.kvision.html.div
 import io.kvision.html.link
@@ -15,13 +15,14 @@ import io.kvision.html.td
 import io.kvision.html.th
 import io.kvision.html.thead
 import io.kvision.html.tr
+import io.kvision.panel.SimplePanel
 import io.kvision.state.ObservableValue
 import kotlinx.browser.window
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.w3c.dom.get
 
 @OptIn(ExperimentalSerializationApi::class)
-fun Container.userListComponent(): Container {
+class UserListComponent: SimplePanel() {
 
     val userListObserver = ObservableValue<UserList?>(null)
 
@@ -134,20 +135,22 @@ fun Container.userListComponent(): Container {
         }
     }
 
-    return div {
-        userListObserver.subscribe {
-            if(it != null) {
-                removeAll()
-                add(tableContent(it))
-                add(pagination(it))
+    init {
+        div {
+            userListObserver.subscribe {
+                if(it != null) {
+                    removeAll()
+                    add(tableContent(it))
+                    add(pagination(it))
 
-                AppEngine.routing.updatePageLinks()
+                    SpaAppEngine.routing.updatePageLinks()
 
-                window.setTimeout({
-                    window["feather"].replace()
-                }, 100)
+                    window.setTimeout({
+                        window["feather"].replace()
+                    }, 100)
+                }
             }
+            getUsers()
         }
-        getUsers()
     }
 }

@@ -1,30 +1,16 @@
 package com.bittokazi.oauth2.auth.frontend.frontend.base.common
 
-import com.bittokazi.oauth2.auth.frontend.frontend.base.layouts.dashboard.layout.ContentContainerType
+import com.bittokazi.kvision.spa.framework.base.services.RestService
+import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.tenant.TenantService
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.User
 import com.bittokazi.oauth2.auth.frontend.frontend.base.services.AuthService
-import com.bittokazi.oauth2.auth.frontend.frontend.base.services.FileService
-import com.bittokazi.oauth2.auth.frontend.frontend.base.services.RestService
-import io.kvision.navigo.Navigo
 import io.kvision.state.ObservableValue
 
 object AppEngine {
-    lateinit var routing: Navigo
-    lateinit var defaultAuthHolder: AuthHolder
-    lateinit var defaultTenantHolder: TenantHolder
     lateinit var restService: RestService
     lateinit var authService: AuthService
-    lateinit var fileService: FileService
+    lateinit var tenantService: TenantService
 
-    var authHolderType: AuthHolderType = AuthHolderType.COOKIE
-
-    var globalSpinnerObservable: ObservableValue<Boolean> = ObservableValue(true)
-    var authObserver: ObservableValue<Boolean> = ObservableValue(false)
-    var pageTitleObserver: ObservableValue<String> = ObservableValue("")
-    var dashboardPageChangeObserver: ObservableValue<String> = ObservableValue("")
-    var dashboardContentContainerTypeObserver: ObservableValue<ContentContainerType> = ObservableValue(
-        ContentContainerType.CARD
-    )
     var userInfoChangeObserver: ObservableValue<User?> = ObservableValue(null)
 
     const val APP_BASE_ROUTE = "/app"

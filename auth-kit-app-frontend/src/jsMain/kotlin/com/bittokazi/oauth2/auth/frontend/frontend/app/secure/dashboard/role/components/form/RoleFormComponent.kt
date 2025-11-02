@@ -1,10 +1,10 @@
 package com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.role.components.form
 
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormControl
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormButton
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormTextInput
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.buttonComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.textInputComponent
+import com.bittokazi.kvision.spa.framework.base.components.form.FormButton
+import com.bittokazi.kvision.spa.framework.base.components.form.FormControl
+import com.bittokazi.kvision.spa.framework.base.components.form.FormTextInput
+import com.bittokazi.kvision.spa.framework.base.components.form.buttonComponent
+import com.bittokazi.kvision.spa.framework.base.components.form.textInputComponent
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.Role
 import io.kvision.core.Container
 import io.kvision.core.UNIT

@@ -1,8 +1,8 @@
 package com.bittokazi.oauth2.auth.frontend.frontend.app.public.signin
 
-import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.tenant.TenantService.tenantInfoObserver
+import com.bittokazi.kvision.spa.framework.base.common.ObservableManager
+import com.bittokazi.kvision.spa.framework.base.services.SpaTenantService.tenantInfoObserver
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.BACKEND_OAUTH2_LOGIN_ROUTE
-import com.bittokazi.oauth2.auth.frontend.frontend.base.common.ObservableManager
 import io.kvision.core.getElementJQuery
 import io.kvision.form.form
 import io.kvision.html.*

@@ -1,5 +1,16 @@
 package com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.account.components
 
+import com.bittokazi.kvision.spa.framework.base.common.ObservableManager
+import com.bittokazi.kvision.spa.framework.base.common.SpaAppEngine
+import com.bittokazi.kvision.spa.framework.base.components.form.FormButton
+import com.bittokazi.kvision.spa.framework.base.components.form.FormTextInput
+import com.bittokazi.kvision.spa.framework.base.components.form.buttonComponent
+import com.bittokazi.kvision.spa.framework.base.components.form.textInputComponent
+import com.bittokazi.kvision.spa.framework.base.components.modal.BootstrapModalService
+import com.bittokazi.kvision.spa.framework.base.components.modal.bootstrapModalComponent
+import com.bittokazi.kvision.spa.framework.base.services.QrCodeService
+import com.bittokazi.kvision.spa.framework.base.utils.SpaUtils
+import com.bittokazi.kvision.spa.framework.base.utils.sweetAlert
 import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.user.UserService
 import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.user.components.form.UserPasswordUpdateForm
 import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.user.components.form.userPasswordFormComponent
@@ -7,20 +18,10 @@ import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.user.com
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.APP_DASHBOARD_ACCOUNT_SECURITY_ROUTE
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.APP_DASHBOARD_ACCOUNT_SETTINGS_ROUTE
-import com.bittokazi.oauth2.auth.frontend.frontend.base.common.ObservableManager
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormButton
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormTextInput
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.buttonComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.textInputComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.modal.BootstrapModalService
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.modal.bootstrapModalComponent
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.User
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.TwoFASecretPayload
-import com.bittokazi.oauth2.auth.frontend.frontend.base.services.QrCodeService
-import com.bittokazi.oauth2.auth.frontend.frontend.base.utils.Utils
 import io.kvision.core.Col
 import io.kvision.core.Color
-import io.kvision.core.Container
 import io.kvision.core.Cursor
 import io.kvision.core.onClick
 import io.kvision.html.Div
@@ -38,8 +39,10 @@ import io.kvision.html.td
 import io.kvision.html.th
 import io.kvision.html.thead
 import io.kvision.html.tr
+import io.kvision.panel.SimplePanel
 import io.kvision.rest.RemoteRequestException
 import io.kvision.state.ObservableValue
+import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -47,16 +50,18 @@ import kotlinx.serialization.json.encodeToDynamic
 import org.w3c.dom.get
 
 @OptIn(ExperimentalSerializationApi::class)
-fun Container.securitySettingsComponent(): Container {
+class SecuritySettingsComponent: SimplePanel() {
     val userPasswordUpdateForm = UserPasswordUpdateForm(self = true)
-    var user: User
+    lateinit var user: User
     lateinit var twoFASecretPayload: TwoFASecretPayload
     val pageRefreshListner = ObservableValue<Boolean>(false)
     val twoFaModalChangeListner = ObservableValue<Boolean>(false)
     val deleteObserver = ObservableValue<Boolean?>(null)
-    val twoFaCodeInput = FormTextInput("", "Enter the code shown in 2FA App",
-        defaultInvalidFeedback = "Only numbers allowed") {
-        if(it == null) {
+    val twoFaCodeInput = FormTextInput(
+        "", "Enter the code shown in 2FA App",
+        defaultInvalidFeedback = "Only numbers allowed"
+    ) {
+        if (it == null) {
             return@FormTextInput false
         }
 
@@ -76,7 +81,7 @@ fun Container.securitySettingsComponent(): Container {
         ).then {
             when (it.data.twoFaEnabled) {
                 true -> {
-                    window.get("Swal").fire(
+                    sweetAlert.fire(
                         Json.encodeToDynamic(
                             mapOf(
                                 "title" to "Enabled 2FA",
@@ -110,7 +115,7 @@ fun Container.securitySettingsComponent(): Container {
         UserService.disableTwoFa().then {
             when (it.data.twoFaEnabled) {
                 false -> {
-                    window.get("Swal").fire(
+                    sweetAlert.fire(
                         Json.encodeToDynamic(
                             mapOf(
                                 "title" to "Success",
@@ -134,7 +139,7 @@ fun Container.securitySettingsComponent(): Container {
 
     fun reGenerateScratchCodes(onFinish: () -> Unit) {
         UserService.reGenerateScratchCodes().then {
-            window.get("Swal").fire(
+            sweetAlert.fire(
                 Json.encodeToDynamic(
                     mapOf(
                         "title" to "Success",
@@ -159,7 +164,7 @@ fun Container.securitySettingsComponent(): Container {
 
     fun delete(id: Long) {
         UserService.deleteTrustedDevice(id).then {
-            window.get("Swal").fire(
+            sweetAlert.fire(
                 Json.encodeToDynamic(
                     mapOf(
                         "title" to "Success",
@@ -170,7 +175,7 @@ fun Container.securitySettingsComponent(): Container {
             )
             deleteObserver.setState(true)
         }.catch {
-            window.get("Swal").fire(
+            sweetAlert.fire(
                 Json.encodeToDynamic(
                     mapOf(
                         "title" to "Error",
@@ -221,7 +226,7 @@ fun Container.securitySettingsComponent(): Container {
                                         content = device.userAgent
                                     }
                                     td {
-                                        content = Utils.formatTimeFromNow(device.createdDate)
+                                        content = SpaUtils.formatTimeFromNow(device.createdDate)
                                     }
                                     td {
                                         span {
@@ -246,7 +251,7 @@ fun Container.securitySettingsComponent(): Container {
                                 window["feather"].replace()
                             }, 100)
 
-                            AppEngine.routing.updatePageLinks()
+                            SpaAppEngine.routing.updatePageLinks()
                         }
                     }
                 }
@@ -317,7 +322,7 @@ fun Container.securitySettingsComponent(): Container {
                                                         .getValue()
                                                 )
                                             ).then {
-                                                window.get("Swal").fire(
+                                                sweetAlert.fire(
                                                     Json.encodeToDynamic(
                                                         mapOf(
                                                             "title" to "Success",
@@ -401,23 +406,10 @@ fun Container.securitySettingsComponent(): Container {
                                                                     BootstrapModalService.open {
                                                                         js("new bootstrap.Modal('#twoFa')")
                                                                     }
-                                                                    QrCodeService.create(
-                                                                        secretPayload.data,
-                                                                        "qrcode",
-                                                                        user.username
-                                                                    ) {
-                                                                        js(
-                                                                            "new QRCode(\"qrcode\", {\n" +
-                                                                                    "    text: \"n/a\",\n" +
-                                                                                    "    width: 128,\n" +
-                                                                                    "    height: 128,\n" +
-                                                                                    "    colorDark : \"#000000\",\n" +
-                                                                                    "    colorLight : \"#ffffff\",\n" +
-                                                                                    "    correctLevel : " +
-                                                                                    "QRCode.CorrectLevel.H\n" +
-                                                                                    "})"
-                                                                        )
-                                                                    }
+                                                                    document.getElementById("qrcode")!!.innerHTML = QrCodeService.create(
+                                                                        "otpauth://totp/${window.location.protocol}//${window.location.host}" +
+                                                                                ":${user.username}?secret=${twoFASecretPayload.secret}"
+                                                                    )
                                                                 }, 300)
                                                                 window.setTimeout({
                                                                     disabled = false
@@ -425,7 +417,7 @@ fun Container.securitySettingsComponent(): Container {
                                                             }.catch { throwable ->
                                                                 if (throwable is RemoteRequestException) {
                                                                     if (throwable.code.toInt() == 403) {
-                                                                        window.get("Swal").fire(
+                                                                        sweetAlert.fire(
                                                                             Json.encodeToDynamic(
                                                                                 mapOf(
                                                                                     "title" to "Error",
@@ -478,7 +470,7 @@ fun Container.securitySettingsComponent(): Container {
                                     window["feather"].replace()
                                 }, 100)
                             }.catch {
-                                window["Swal"].fire(
+                                sweetAlert.fire(
                                     Json.encodeToDynamic(
                                         mapOf(
                                             "title" to "Error",
@@ -529,19 +521,21 @@ fun Container.securitySettingsComponent(): Container {
         }
     }
 
-    return div {
-        ObservableManager.setSubscriber("securitySettingsPage") {
-            pageRefreshListner.subscribe {
-                if(it) {
-                    removeAll()
-                    add(contentBody())
-                    AppEngine.routing.updatePageLinks()
-                    window.setTimeout({
-                        window["feather"].replace()
-                    }, 100)
+    init {
+        div {
+            ObservableManager.setSubscriber("securitySettingsPage") {
+                pageRefreshListner.subscribe {
+                    if(it) {
+                        removeAll()
+                        add(contentBody())
+                        SpaAppEngine.routing.updatePageLinks()
+                        window.setTimeout({
+                            window["feather"].replace()
+                        }, 100)
+                    }
                 }
             }
+            pageRefreshListner.setState(true)
         }
-        pageRefreshListner.setState(true)
     }
 }
