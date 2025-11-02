@@ -1,35 +1,32 @@
 package com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.client
 
-import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.client.components.clientAddComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.client.components.clientListComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.client.components.clientUpdateComponent
+import com.bittokazi.kvision.spa.framework.base.common.RouterConfiguration
+import com.bittokazi.kvision.spa.framework.base.common.module.DefaultSecuredPageModule
+import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.client.components.ClientAddComponent
+import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.client.components.ClientListComponent
+import com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.client.components.ClientUpdateComponent
 import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine
-import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.APP_DASHBOARD_CLIENT_ADD_ROUTE
-import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.APP_DASHBOARD_CLIENT_ROUTE
-import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.APP_DASHBOARD_CLIENT_UPDATE_ROUTE
-import io.kvision.core.Container
 
-fun Container.clientModule(layoutContainer: Container) {
-    AppEngine.routing
-        .on(APP_DASHBOARD_CLIENT_ROUTE, {
-            AppEngine.authService.authenticated {
-                layoutContainer.removeAll()
-                layoutContainer.add(clientListComponent())
-                AppEngine.pageTitleObserver.setState("All Clients")
-            }
-        })
-        .on(APP_DASHBOARD_CLIENT_ADD_ROUTE, {
-            AppEngine.authService.authenticated {
-                layoutContainer.removeAll()
-                layoutContainer.add(clientAddComponent())
-                AppEngine.pageTitleObserver.setState("Add Client")
-            }
-        })
-        .on(APP_DASHBOARD_CLIENT_UPDATE_ROUTE(":id"), {
-            AppEngine.authService.authenticated {
-                layoutContainer.removeAll()
-                layoutContainer.add(clientUpdateComponent(it.data.id))
-                AppEngine.pageTitleObserver.setState("Update Client")
-            }
-        })
-}
+fun clientModule() = DefaultSecuredPageModule(
+    RouterConfiguration(
+        route = AppEngine.APP_DASHBOARD_CLIENT_ADD_ROUTE,
+        title = "Add Client",
+        view = {
+            ClientAddComponent()
+        }
+    ),
+    RouterConfiguration(
+        route = AppEngine.APP_DASHBOARD_CLIENT_UPDATE_ROUTE(":id"),
+        title = "Update Client",
+        view = {
+            ClientUpdateComponent(it.data.id)
+        }
+    ),
+    RouterConfiguration(
+        route = AppEngine.APP_DASHBOARD_CLIENT_ROUTE,
+        title = "Add Client",
+        view = {
+            ClientListComponent()
+        }
+    )
+)

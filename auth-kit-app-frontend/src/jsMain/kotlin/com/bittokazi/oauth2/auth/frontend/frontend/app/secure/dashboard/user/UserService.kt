@@ -15,7 +15,7 @@ import kotlin.js.Promise
 
 object UserService {
 
-    private val userBaseUrl = "${restService.API}/users"
+    private val userBaseUrl = "${restService.BASE_URL}/api/users"
 
     fun getAll(page: Int = 1, count: Int = 10): Promise<RestResponse<UserList>> {
         return restService.createAuthCall {

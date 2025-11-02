@@ -12,7 +12,7 @@ import kotlin.js.Promise
 
 object ClientService {
 
-    private val clientsBaseUrl = "${restService.API}/clients"
+    private val clientsBaseUrl = "${restService.BASE_URL}/api/clients"
 
     fun getAll(): Promise<RestResponse<List<Client>>> {
         return restService.createAuthCall {

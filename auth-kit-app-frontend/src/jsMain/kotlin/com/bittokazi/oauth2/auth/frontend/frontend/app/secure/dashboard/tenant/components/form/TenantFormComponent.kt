@@ -1,18 +1,18 @@
 package com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.tenant.components.form
 
-import com.bittokazi.oauth2.auth.frontend.frontend.base.models.FileResponse
-import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormControl
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormButton
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormSwitchInput
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormTextInput
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormUploadInput
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.buttonComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.switchInputComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.textInputComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.uploadInputComponent
+import com.bittokazi.kvision.spa.framework.base.common.SpaAppEngine
+import com.bittokazi.kvision.spa.framework.base.components.form.FormButton
+import com.bittokazi.kvision.spa.framework.base.components.form.FormControl
+import com.bittokazi.kvision.spa.framework.base.components.form.FormSwitchInput
+import com.bittokazi.kvision.spa.framework.base.components.form.FormTextInput
+import com.bittokazi.kvision.spa.framework.base.components.form.FormUploadInput
+import com.bittokazi.kvision.spa.framework.base.components.form.buttonComponent
+import com.bittokazi.kvision.spa.framework.base.components.form.switchInputComponent
+import com.bittokazi.kvision.spa.framework.base.components.form.textInputComponent
+import com.bittokazi.kvision.spa.framework.base.components.form.uploadInputComponent
+import com.bittokazi.kvision.spa.framework.base.models.SpaResult
+import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.restService
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.Tenant
-import com.bittokazi.oauth2.auth.frontend.frontend.base.models.Result
 import io.kvision.core.Container
 import io.kvision.core.UNIT
 import io.kvision.core.getElementJQuery
@@ -22,34 +22,36 @@ import io.kvision.html.Div
 import io.kvision.html.div
 import io.kvision.state.ObservableValue
 import kotlinx.browser.window
+import kotlinx.serialization.json.JsonObject
 import org.w3c.dom.events.Event
 
 fun Container.tenantFormComponent(
     update: Boolean = false,
     tenantForm: TenantForm,
     tenant: Tenant?,
-    submitCallback: (FileResponse?) -> Unit
+    submitCallback: (JsonObject?) -> Unit
 ): Container {
 
     var errorDiv: Div? = null
 
     val errorMessage: ObservableValue<String> = ObservableValue("")
 
-    val uploadFile: ((fn: (FileResponse?) -> Unit) -> Unit) = { fn ->
+    val uploadFile: ((fn: (JsonObject?) -> Unit) -> Unit) = { fn ->
         when (tenantForm.customTemplateLocation.input.value) {
             null -> fn(null)
-            else -> AppEngine.fileService.upload(
+            else -> SpaAppEngine.fileService.upload(
                 fileName = tenantForm.companyKey.getValue(),
-                tenantForm.customTemplateLocation.input
+                uploadInput = tenantForm.customTemplateLocation.input,
+                url = "${restService.BASE_URL}/api/tenants/templates"
             ) {
                 console.log("[upload response] -> ${it}")
 
                 when (it) {
-                    is Result.Failure -> {
+                    is SpaResult.Failure -> {
                         tenantForm.submitButton.resetInput()
                         errorMessage.setState("Unable to upload file [Server Error]")
                     }
-                    is Result.Success -> fn(it.outcome)
+                    is SpaResult.Success -> fn(it.outcome)
                 }
             }
         }

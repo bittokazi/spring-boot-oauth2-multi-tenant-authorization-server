@@ -13,9 +13,12 @@ import kotlin.js.Promise
 
 object RoleService {
 
+    val roleBaseUrl = "${restService.BASE_URL}/api/roles"
+
     fun getAll(): Promise<RestResponse<RoleList>> {
+
         return restService.createAuthCall {
-            restService.getClient().request<RoleList>("${restService.API}/roles/all") {
+            restService.getClient().request<RoleList>("$roleBaseUrl/all") {
                 method = HttpMethod.GET
             }
         }
@@ -23,7 +26,7 @@ object RoleService {
 
     fun get(id: String): Promise<RestResponse<Role>> {
         return restService.createAuthCall {
-            restService.getClient().request<Role>("${restService.API}/roles/$id") {
+            restService.getClient().request<Role>("$roleBaseUrl/$id") {
                 method = HttpMethod.GET
             }
         }
@@ -32,7 +35,7 @@ object RoleService {
     @OptIn(ExperimentalSerializationApi::class)
     fun create(role: Role): Promise<RestResponse<Role>> {
         return restService.createAuthCall {
-            restService.getClient().request<Role>("${restService.API}/roles") {
+            restService.getClient().request<Role>(roleBaseUrl) {
                 method = HttpMethod.POST
                 data = Json.encodeToDynamic(role)
             }
@@ -42,7 +45,7 @@ object RoleService {
     @OptIn(ExperimentalSerializationApi::class)
     fun update(role: Role): Promise<RestResponse<Role>> {
         return restService.createAuthCall {
-            restService.getClient().request<Role>("${restService.API}/roles/${role.id}") {
+            restService.getClient().request<Role>("$roleBaseUrl/${role.id}") {
                 method = HttpMethod.PUT
                 data = Json.encodeToDynamic(role)
             }

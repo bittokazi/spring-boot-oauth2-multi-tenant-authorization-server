@@ -1,14 +1,14 @@
 package com.bittokazi.oauth2.auth.frontend.frontend.app.secure.dashboard.client.components.form
 
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormButton
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormControl
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormSelectInput
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormSwitchInput
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.FormTextInput
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.buttonComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.selectInputComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.switchInputComponent
-import com.bittokazi.oauth2.auth.frontend.frontend.base.components.form.textInputComponent
+import com.bittokazi.kvision.spa.framework.base.components.form.FormButton
+import com.bittokazi.kvision.spa.framework.base.components.form.FormControl
+import com.bittokazi.kvision.spa.framework.base.components.form.FormSelectInput
+import com.bittokazi.kvision.spa.framework.base.components.form.FormSwitchInput
+import com.bittokazi.kvision.spa.framework.base.components.form.FormTextInput
+import com.bittokazi.kvision.spa.framework.base.components.form.buttonComponent
+import com.bittokazi.kvision.spa.framework.base.components.form.selectInputComponent
+import com.bittokazi.kvision.spa.framework.base.components.form.switchInputComponent
+import com.bittokazi.kvision.spa.framework.base.components.form.textInputComponent
 import com.bittokazi.oauth2.auth.frontend.frontend.base.models.Client
 import io.kvision.core.Container
 import io.kvision.core.UNIT

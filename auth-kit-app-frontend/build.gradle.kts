@@ -9,9 +9,16 @@ plugins {
 version = "1.0.0-SNAPSHOT"
 group = "com.bittokazi.oauth2.auth.frontend"
 
+val testSpaFramework: Boolean = false
+
 repositories {
     mavenCentral()
     mavenLocal()
+    if(testSpaFramework) {
+        flatDir {
+            dirs("../../kotlin-kvision-spa-framework/build/libs")
+        }
+    }
 }
 
 // Versions
@@ -57,6 +64,13 @@ kotlin {
         implementation("io.kvision:kvision-state:$kvisionVersion")
         implementation("io.kvision:kvision-state-flow:$kvisionVersion")
         implementation("io.kvision:kvision-select-remote:$kvisionVersion")
+        if(testSpaFramework) {
+            implementation(files("../../kotlin-kvision-spa-framework/build/libs/kotlinKvisionSpaFramework-js-1.0.8.klib"))
+            implementation(npm(file("../../kotlin-kvision-spa-framework/build/kotlin-kvision-spa-framework-resources")))
+        } else {
+            implementation("com.bittokazi.sonartype:kotlinKvisionSpaFramework-js:1.0.8")
+            implementation(npm("kotlin-kvision-spa-framework-resources", "1.0.8"))
+        }
     }
     sourceSets["jsTest"].dependencies {
         implementation(kotlin("test-js"))
