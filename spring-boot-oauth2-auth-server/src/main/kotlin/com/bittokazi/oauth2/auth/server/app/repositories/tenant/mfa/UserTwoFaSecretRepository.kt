@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface UserTwoFaSecretRepository : JpaRepository<UserTwoFaSecret?, Long?> {
+interface UserTwoFaSecretRepository : JpaRepository<UserTwoFaSecret, Long> {
     @Query(value = "SELECT * FROM user_two_fa_secret WHERE user_id = :userId", nativeQuery = true)
     fun findByUserId(@Param("userId") userId: String?): Optional<UserTwoFaSecret?>
 }

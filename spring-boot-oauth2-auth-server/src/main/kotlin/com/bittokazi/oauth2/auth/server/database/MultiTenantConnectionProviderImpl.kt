@@ -39,7 +39,7 @@ import javax.sql.DataSource
 open class MultiTenantConnectionProviderImpl(
     private val tenantRepository: TenantRepository,
     private val dataSource: DataSource
-) : AbstractDataSourceBasedMultiTenantConnectionProviderImpl<String>(), ApplicationListener<ContextRefreshedEvent?> {
+) : AbstractDataSourceBasedMultiTenantConnectionProviderImpl<String>(), ApplicationListener<ContextRefreshedEvent> {
 
     val logger = logger()
 
@@ -208,7 +208,7 @@ open class MultiTenantConnectionProviderImpl(
         return selectDataSource(tenantIdentifier)
     }
 
-    override fun onApplicationEvent(contextRefreshedEvent: ContextRefreshedEvent?) {
+    override fun onApplicationEvent(contextRefreshedEvent: ContextRefreshedEvent) {
         init()
     }
 

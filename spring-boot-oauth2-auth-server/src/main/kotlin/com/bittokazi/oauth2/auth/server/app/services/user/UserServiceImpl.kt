@@ -38,7 +38,7 @@ class UserServiceImpl(
         var user = user
         val errors = UserAddHelper.validateUser(user, userRepository, oauthClientRepository)
         if (errors.size > 0) {
-            return inputError(httpServletResponse!!, errors)
+            return inputError(httpServletResponse, errors)
         }
         user = userRepository.save(UserAddHelper.addDefaultValues(user))
         return user
@@ -53,7 +53,7 @@ class UserServiceImpl(
         if (userOptional.isPresent) {
             return userOptional.get()
         }
-        return notFound(httpServletResponse!!)
+        return notFound(httpServletResponse)
     }
 
     override fun getUsers(page: Int, count: Int): Any {
@@ -65,12 +65,12 @@ class UserServiceImpl(
         httpServletResponse: HttpServletResponse
     ): Any? {
         val userOptional = userRepository.findById(
-            user!!.id
+            user.id!!
         )
         if (userOptional.isPresent) {
             val errors = UserUpdateHelper.validateUser(user, userOptional, userRepository)
-            if (errors.size > 0) {
-                return inputError(httpServletResponse!!, errors)
+            if (errors.isNotEmpty()) {
+                return inputError(httpServletResponse, errors)
             }
             return UserHelpers.setUserImage(
                 userRepository.save(
@@ -82,12 +82,12 @@ class UserServiceImpl(
                 )
             )
         }
-        return notFound(httpServletResponse!!)
+        return notFound(httpServletResponse)
     }
 
     override fun updateUserPassword(user: User, httpServletResponse: HttpServletResponse): Any {
         val userOptional = userRepository.findById(
-            user!!.id
+            user.id!!
         )
         if (userOptional.isPresent) {
             val userDB = userOptional.get()
@@ -124,10 +124,10 @@ class UserServiceImpl(
 
     override fun updateMyProfile(user: User, httpServletRequest: HttpServletRequest): ResponseEntity<*> {
         val userOptional = userRepository.findOneByUsername(
-            httpServletRequest!!.userPrincipal.name
+            httpServletRequest.userPrincipal.name
         )
         if (userOptional.isPresent) {
-            val errors = UserUpdateHelper.validateUser(user, userOptional, userRepository)
+            val errors = UserUpdateHelper.validateUser(user, Optional.of(userOptional.get()), userRepository)
             if (errors.size > 0) {
                 return ResponseEntity.badRequest().body(errors)
             }
@@ -137,7 +137,7 @@ class UserServiceImpl(
                         userRepository.save(
                             UserUpdateHelper.setDefaultValues(
                                 user,
-                                userOptional,
+                                Optional.of(userOptional.get()),
                                 true
                             )
                         )
@@ -153,14 +153,14 @@ class UserServiceImpl(
         )
         if (userOptional.isPresent) {
             val errors = UserUpdateHelper.validatePassword(
-                user, userOptional,
+                user, Optional.of(userOptional.get()),
                 userRepository
             )
-            if (errors.size > 0) {
+            if (errors.isNotEmpty()) {
                 return ResponseEntity.badRequest().body(errors)
             }
             val userDB = userOptional.get()
-            userDB.password = BCryptPasswordEncoder().encode(user!!.newPassword)
+            userDB.password = BCryptPasswordEncoder().encode(user.newPassword)
             return ResponseEntity.ok(userRepository.save(userDB))
         }
         return ResponseEntity.status(404).build<Any>()
@@ -168,14 +168,14 @@ class UserServiceImpl(
 
     override fun updateMyPasswordFromClient(user: User, httpServletRequest: HttpServletRequest): ResponseEntity<*> {
         val userOptional = userRepository.findById(
-            user!!.id
+            user.id!!
         )
         if (userOptional.isPresent) {
             val errors = UserUpdateHelper.validatePassword(
                 user, userOptional,
                 userRepository
             )
-            if (errors.size > 0) {
+            if (errors.isNotEmpty()) {
                 return ResponseEntity.badRequest().body(errors)
             }
             val userDB = userOptional.get()
@@ -211,7 +211,7 @@ class UserServiceImpl(
         httpServletResponse: HttpServletResponse
     ): Any {
         val userOptional = userRepository.findById(
-            user.id
+            user.id!!
         )
         if (userOptional.isPresent) {
             val userDb = userOptional.get()

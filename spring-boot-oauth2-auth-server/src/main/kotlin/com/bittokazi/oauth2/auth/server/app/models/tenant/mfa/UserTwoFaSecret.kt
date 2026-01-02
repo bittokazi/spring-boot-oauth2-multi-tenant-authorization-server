@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor
 import lombok.Setter
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
-import org.hibernate.annotations.Proxy
 import java.io.Serializable
 
 @Entity
@@ -18,7 +17,6 @@ import java.io.Serializable
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "user_two_fa_secret")
-@Proxy(lazy = false)
 @JsonIgnoreProperties(ignoreUnknown = true)
 class UserTwoFaSecret : Serializable {
     @Id
@@ -29,7 +27,7 @@ class UserTwoFaSecret : Serializable {
         initialValue = 1,
         allocationSize = 1
     )
-    val id: Long? = null
+    var id: Long? = null
 
     @OneToOne(fetch = FetchType.EAGER, cascade = [CascadeType.DETACH])
     @Fetch(value = FetchMode.SELECT)
@@ -42,7 +40,7 @@ class UserTwoFaSecret : Serializable {
     var scratchCodes: String? = null
 
     @Transient
-    val tenantName: String? = null
+    var tenantName: String? = null
 
     companion object {
         const val serialVersionUID = 1L

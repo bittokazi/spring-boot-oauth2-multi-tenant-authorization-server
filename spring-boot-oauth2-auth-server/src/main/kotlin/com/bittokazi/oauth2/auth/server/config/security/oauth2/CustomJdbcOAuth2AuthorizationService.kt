@@ -3,41 +3,42 @@ package com.bittokazi.oauth2.auth.server.config.security.oauth2
 import com.bittokazi.oauth2.auth.server.app.models.tenant.security.RoleOauth
 import com.bittokazi.oauth2.auth.server.app.models.tenant.security.UserOauth
 import com.bittokazi.oauth2.auth.server.config.TenantContext
-import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationService
 import com.bittokazi.oauth2.auth.server.database.MultiTenantConnectionProviderImpl
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.datatype.hibernate6.Hibernate6Module
+import com.fasterxml.jackson.databind.Module
 import jakarta.transaction.Transactional
+import org.springframework.core.ParameterizedTypeReference
 import org.springframework.dao.DataRetrievalFailureException
 import org.springframework.jdbc.core.*
 import org.springframework.jdbc.support.lob.DefaultLobHandler
 import org.springframework.jdbc.support.lob.LobCreator
 import org.springframework.jdbc.support.lob.LobHandler
 import org.springframework.lang.Nullable
-import org.springframework.security.cas.jackson2.CasJackson2Module
 import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.jackson2.CoreJackson2Module
+import org.springframework.security.jackson.SecurityJacksonModules
 import org.springframework.security.jackson2.SecurityJackson2Modules
 import org.springframework.security.oauth2.core.*
 import org.springframework.security.oauth2.core.OAuth2AccessToken.TokenType
+import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames
 import org.springframework.security.oauth2.core.oidc.OidcIdToken
-import org.springframework.security.oauth2.server.authorization.OAuth2Authorization
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationCode
-import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService
-import org.springframework.security.oauth2.server.authorization.OAuth2TokenType
+import org.springframework.security.oauth2.server.authorization.*
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
+//import org.springframework.security.oauth2.server.authorization.jackson.OAuth2AuthorizationServerJacksonModule
 import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module
-import org.springframework.security.web.jackson2.WebJackson2Module
-import org.springframework.security.web.jackson2.WebServletJackson2Module
-import org.springframework.security.web.server.jackson2.WebServerJackson2Module
 import org.springframework.util.Assert
 import org.springframework.util.CollectionUtils
 import org.springframework.util.StringUtils
+import tools.jackson.core.StreamReadFeature
+import tools.jackson.core.type.TypeReference
+import tools.jackson.databind.JacksonModule
+import tools.jackson.databind.ObjectMapper
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.databind.jsontype.BasicPolymorphicTypeValidator
+import java.lang.Deprecated
 import java.nio.charset.StandardCharsets
 import java.sql.*
 import java.time.Instant
 import java.util.*
+import java.util.function.Consumer
 import java.util.function.Function
 
 @Transactional
@@ -46,6 +47,12 @@ open class CustomJdbcOAuth2AuthorizationService(
     registeredClientRepository: RegisteredClientRepository,
     lobHandler: LobHandler
 ) : OAuth2AuthorizationService {
+
+    val TABLE_NAME: String = "oauth2_authorization"
+
+    val SAVE_AUTHORIZATION_SQL: String = "INSERT INTO " + TABLE_NAME +
+            " (" + COLUMN_NAMES + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
     private val jdbcOperations: JdbcOperations
     protected val lobHandler: LobHandler
     private var authorizationRowMapper: RowMapper<OAuth2Authorization>
@@ -128,64 +135,13 @@ open class CustomJdbcOAuth2AuthorizationService(
         val tenantId = tenantId
         val jdbcOperations: JdbcOperations = JdbcTemplate(multiTenantConnectionProviderImpl!!.getDataSource(tenantId))
 
-
-        //        RegisteredClient registeredClient = registeredClientRepository.findById(authorization.getRegisteredClientId());
-//
-//        if(registeredClient.getClientSettings().isRequireAuthorizationConsent()) {
-//            SqlParameterValue[] _parameters = new SqlParameterValue[]{new SqlParameterValue(12, registeredClient.getId()), new SqlParameterValue(12, authorization.getPrincipalName())};
-//            PreparedStatementSetter pss = new ArgumentPreparedStatementSetter(_parameters);
-//            CustomJdbcOAuth2AuthorizationConsentService.OAuth2AuthorizationConsentRowMapper authorizationConsentRowMapper  = authorizationConsentRowMapper = new CustomJdbcOAuth2AuthorizationConsentService.OAuth2AuthorizationConsentRowMapper(registeredClientRepository);
-//            List<OAuth2AuthorizationConsent> result = jdbcOperations.query("SELECT registered_client_id, principal_name, authorities FROM oauth2_authorization_consent WHERE registered_client_id = ? AND principal_name = ?", pss, authorizationConsentRowMapper);
-//
-//            if((UsernamePasswordAuthenticationToken) authorization.getAttributes().get("java.security.Principal") instanceof UsernamePasswordAuthenticationToken) {
-//                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) authorization.getAttributes().get("java.security.Principal");
-//                List<GrantedAuthority> rls = usernamePasswordAuthenticationToken.getAuthorities().stream().collect(Collectors.toList());
-//                if(!result.isEmpty()) {
-//                    OAuth2AuthorizationConsent oAuth2AuthorizationConsent = (OAuth2AuthorizationConsent)result.get(0);
-//                    oAuth2AuthorizationConsent.getScopes().forEach(s -> {
-//                        if(!rls.contains(new SimpleGrantedAuthority("SCOPE_"+s))) rls.add(new SimpleGrantedAuthority("SCOPE_"+s));
-//                    });
-//                    usernamePasswordAuthenticationToken.getPrincipal();
-//                    UserOauth userOauth = ((UserOauth) usernamePasswordAuthenticationToken.getPrincipal());
-//                    userOauth.setAuthorities(rls);
-//                    UsernamePasswordAuthenticationToken _token = new UsernamePasswordAuthenticationToken(userOauth,
-//                            usernamePasswordAuthenticationToken.getCredentials(),
-//                            rls);
-////                        _token.setAuthenticated(usernamePasswordAuthenticationToken.isAuthenticated());
-//                    _token.setDetails(usernamePasswordAuthenticationToken.getDetails());
-////                    authorization.getAttributes().put("java.security.Principal", _token);
-//
-//                    authorization = OAuth2Authorization.from(authorization)
-//                            .attribute("java.security.Principal", _token)
-//                            .build();
-//                }
-//            }
-//        }
-        val lobCreator = lobHandler.lobCreator
-
-        try {
+        val parameters: MutableList<SqlParameterValue> = this.authorizationParametersMapper.apply(authorization)
+        this.lobHandler.getLobCreator().use { lobCreator ->
             val pss: PreparedStatementSetter = LobCreatorArgumentPreparedStatementSetter(
-                lobCreator, authorizationParametersMapper.apply(authorization)
-                    .toTypedArray()
+                lobCreator,
+                parameters.toTypedArray()
             )
-            jdbcOperations.update(
-                "INSERT INTO oauth2_authorization (id, registered_client_id, principal_name, authorization_grant_type, authorized_scopes, attributes, state, authorization_code_value, authorization_code_issued_at, authorization_code_expires_at,authorization_code_metadata,access_token_value,access_token_issued_at,access_token_expires_at,access_token_metadata,access_token_type,access_token_scopes,oidc_id_token_value,oidc_id_token_issued_at,oidc_id_token_expires_at,oidc_id_token_metadata,refresh_token_value,refresh_token_issued_at,refresh_token_expires_at,refresh_token_metadata,user_code_value,user_code_issued_at,user_code_expires_at,user_code_metadata,device_code_value,device_code_issued_at,device_code_expires_at,device_code_metadata) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                pss
-            )
-        } catch (var7: Throwable) {
-            if (lobCreator != null) {
-                try {
-                    lobCreator.close()
-                } catch (var6: Throwable) {
-                    var7.addSuppressed(var6)
-                }
-            }
-
-            throw var7
-        }
-
-        if (lobCreator != null) {
-            lobCreator.close()
+            jdbcOperations.update(SAVE_AUTHORIZATION_SQL, pss)
         }
     }
 
@@ -305,29 +261,25 @@ open class CustomJdbcOAuth2AuthorizationService(
         return this.authorizationParametersMapper
     }
 
-    open class OAuth2AuthorizationRowMapper(registeredClientRepository: RegisteredClientRepository) :
-        RowMapper<OAuth2Authorization> {
-        protected val registeredClientRepository: RegisteredClientRepository
-        private var lobHandler: LobHandler = DefaultLobHandler()
-        private var objectMapper = ObjectMapper()
+    open class JsonMapperOAuth2AuthorizationRowMapper(
+        registeredClientRepository: RegisteredClientRepository
+    ): AbstractOAuth2AuthorizationRowMapper(registeredClientRepository) {
+        private val jsonMapper: JsonMapper? = Jackson3.createJsonMapper()
 
-        init {
-            Assert.notNull(registeredClientRepository, "registeredClientRepository cannot be null")
-            this.registeredClientRepository = registeredClientRepository
-            val classLoader = CustomJdbcOAuth2AuthorizationService::class.java.classLoader
-            val securityModules = SecurityJackson2Modules.getModules(classLoader)
-            objectMapper.registerModules(securityModules)
-            objectMapper.registerModule(OAuth2AuthorizationServerJackson2Module())
-            objectMapper.registerModule(Hibernate6Module())
-            objectMapper.registerModule(CoreJackson2Module())
-            objectMapper.registerModule(CasJackson2Module())
-            objectMapper.registerModule(WebJackson2Module())
-            objectMapper.registerModule(WebServletJackson2Module())
-            objectMapper.registerModule(WebServerJackson2Module())
-            objectMapper.addMixIn(UserOauth::class.java, UserDetails::class.java)
-            objectMapper.addMixIn(RoleOauth::class.java, UserDetails::class.java)
-            objectMapper.addMixIn(RoleOauth::class.java, UserOauth::class.java)
+        override fun readValue(data: String?): MutableMap<String?, Any?> {
+            val typeReference: ParameterizedTypeReference<MutableMap<String?, Any?>> =
+                object : ParameterizedTypeReference<MutableMap<String?, Any?>>() {
+                }
+            val javaType = this.jsonMapper!!.getTypeFactory()
+                .constructType(typeReference.getType())
+            return this.jsonMapper.readValue(data, javaType)
         }
+    }
+
+    open class OAuth2AuthorizationRowMapper(protected val registeredClientRepository: RegisteredClientRepository) :
+        RowMapper<OAuth2Authorization> {
+        private var lobHandler: LobHandler = DefaultLobHandler()
+        private var objectMapper: com.fasterxml.jackson.databind.ObjectMapper = Jackson2.createObjectMapper()
 
         @Transactional
         @Throws(SQLException::class)
@@ -480,22 +432,13 @@ open class CustomJdbcOAuth2AuthorizationService(
             this.lobHandler = lobHandler
         }
 
-        fun setObjectMapper(objectMapper: ObjectMapper) {
-            Assert.notNull(objectMapper, "objectMapper cannot be null")
-            this.objectMapper = objectMapper
-        }
-
         protected fun getLobHandler(): LobHandler {
             return this.lobHandler
         }
 
-        protected fun getObjectMapper(): ObjectMapper {
-            return this.objectMapper
-        }
-
         private fun parseMap(data: String?): Map<String, Any> {
             try {
-                return objectMapper.readValue<Map<String, Any>>(data, object : TypeReference<Map<String, Any>?>() {
+                return objectMapper.readValue(data!!, object : com.fasterxml.jackson.core.type.TypeReference<Map<String, Any>?>() {
                 }) as Map<String, Any>
             } catch (var3: Exception) {
                 throw IllegalArgumentException(var3.message, var3)
@@ -504,13 +447,10 @@ open class CustomJdbcOAuth2AuthorizationService(
     }
 
     class OAuth2AuthorizationParametersMapper : Function<OAuth2Authorization, MutableList<SqlParameterValue>> {
-        private var objectMapper = ObjectMapper()
+        private var objectMapper: com.fasterxml.jackson.databind.ObjectMapper
 
         init {
-            val classLoader = CustomJdbcOAuth2AuthorizationService::class.java.classLoader
-            val securityModules = SecurityJackson2Modules.getModules(classLoader)
-            objectMapper.registerModules(securityModules)
-            objectMapper.registerModule(OAuth2AuthorizationServerJackson2Module())
+            objectMapper = Jackson2.createObjectMapper()
         }
 
         override fun apply(authorization: OAuth2Authorization): MutableList<SqlParameterValue> {
@@ -580,12 +520,12 @@ open class CustomJdbcOAuth2AuthorizationService(
             return parameters
         }
 
-        fun setObjectMapper(objectMapper: ObjectMapper) {
+        fun setObjectMapper(objectMapper: com.fasterxml.jackson.databind.ObjectMapper) {
             Assert.notNull(objectMapper, "objectMapper cannot be null")
             this.objectMapper = objectMapper
         }
 
-        protected fun getObjectMapper(): ObjectMapper {
+        protected fun getObjectMapper(): com.fasterxml.jackson.databind.ObjectMapper {
             return this.objectMapper
         }
 
@@ -630,8 +570,9 @@ open class CustomJdbcOAuth2AuthorizationService(
 
     private class LobCreatorArgumentPreparedStatementSetter(private val lobCreator: LobCreator?, args: Array<Any>) :
         ArgumentPreparedStatementSetter(args) {
+
         @Throws(SQLException::class)
-        override fun doSetValue(ps: PreparedStatement, parameterPosition: Int, argValue: Any) {
+        override fun doSetValue(ps: PreparedStatement, parameterPosition: Int, argValue: Any?) {
             if (argValue is SqlParameterValue) {
                 if (argValue.sqlType == 2004) {
                     if (argValue.value != null) {
@@ -761,5 +702,252 @@ open class CustomJdbcOAuth2AuthorizationService(
             ) else SqlParameterValue(columnMetadata.getDataType(), value)
         }
     }
-}
 
+    private object Jackson3 {
+        fun createJsonMapper(): JsonMapper? {
+            // 1. Use String patterns to allow broad categories of classes
+            val ptv = BasicPolymorphicTypeValidator.builder()
+                /// 1. CRITICAL: Allow the Base Type java.lang.Object (Kotlin's Any)
+                .allowIfBaseType(Any::class.java)
+                .allowIfBaseType(Object::class.java)
+
+                // 2. Allow all types under the base java.lang package (covers Object itself)
+                .allowIfSubType("java.lang.")
+
+                // 3. Allow all types under the java.security package (covers Principal, etc.)
+                .allowIfSubType("java.security.")
+
+                // 4. Allow standard Java collections
+                .allowIfSubType("java.util.")
+
+                // 5. Allow Spring Security types
+                .allowIfSubType("org.springframework.security.")
+
+                // 6. Allow your specific application models
+                .allowIfSubType("com.bittokazi.")
+                .build()
+
+            val modules: MutableList<JacksonModule> =
+                SecurityJacksonModules.getModules(Jackson3::class.java.getClassLoader())
+
+            return JsonMapper
+                .builder()
+                .enable(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION)
+                .polymorphicTypeValidator(ptv) // Apply the validator
+                .addModules(modules)
+                .addMixIn(UserOauth::class.java, UserDetails::class.java)
+                .addMixIn(RoleOauth::class.java, UserDetails::class.java)
+                // .addMixIn(RoleOauth::class.java, UserOauth::class.java) // <--- Remove this, it looks incorrect/circular
+                .build()
+        }
+    }
+
+    @Deprecated(forRemoval = true, since = "7.0")
+    private object Jackson2 {
+        fun createObjectMapper(): com.fasterxml.jackson.databind.ObjectMapper {
+            val objectMapper = com.fasterxml.jackson.databind.ObjectMapper()
+            val classLoader = Jackson2::class.java.getClassLoader()
+            val securityModules: MutableList<Module> = SecurityJackson2Modules.getModules(classLoader)
+            objectMapper.registerModules(securityModules)
+            objectMapper.registerModule(OAuth2AuthorizationServerJackson2Module())
+            objectMapper.addMixIn(UserOauth::class.java, UserDetails::class.java)
+            objectMapper.addMixIn(RoleOauth::class.java, UserDetails::class.java)
+            objectMapper.addMixIn(RoleOauth::class.java, UserOauth::class.java)
+            return objectMapper
+        }
+    }
+
+    abstract class AbstractOAuth2AuthorizationRowMapper(
+        registeredClientRepository: RegisteredClientRepository
+    ): RowMapper<OAuth2Authorization> {
+        protected val registeredClientRepository: RegisteredClientRepository
+
+        private var lobHandler: LobHandler = DefaultLobHandler()
+
+        init {
+            Assert.notNull(registeredClientRepository, "registeredClientRepository cannot be null")
+            this.registeredClientRepository = registeredClientRepository
+        }
+
+        @Throws(SQLException::class)
+        override fun mapRow(rs: ResultSet, rowNum: Int): OAuth2Authorization {
+            val registeredClientId = rs.getString("registered_client_id")
+            val registeredClient = this.registeredClientRepository.findById(registeredClientId)
+            if (registeredClient == null) {
+                throw DataRetrievalFailureException(
+                    ("The RegisteredClient with id '" + registeredClientId
+                            + "' was not found in the RegisteredClientRepository.")
+                )
+            }
+
+            val builder = OAuth2Authorization.withRegisteredClient(registeredClient)
+            val id = rs.getString("id")
+            val principalName = rs.getString("principal_name")
+            val authorizationGrantType = rs.getString("authorization_grant_type")
+            var authorizedScopes = mutableSetOf<String>()
+            val authorizedScopesString = rs.getString("authorized_scopes")
+            if (authorizedScopesString != null) {
+                authorizedScopes = StringUtils.commaDelimitedListToSet(authorizedScopesString)
+            }
+            val attributes = parseMap(getLobValue(rs, "attributes"))
+
+            builder.id(id)
+                .principalName(principalName)
+                .authorizationGrantType(AuthorizationGrantType(authorizationGrantType))
+                .authorizedScopes(authorizedScopes)
+                .attributes(Consumer { attrs: MutableMap<String?, Any?>? -> attrs!!.putAll(attributes) })
+
+            val state = rs.getString("state")
+            if (StringUtils.hasText(state)) {
+                builder.attribute(OAuth2ParameterNames.STATE, state)
+            }
+
+            var tokenIssuedAt: Instant?
+            var tokenExpiresAt: Instant?
+            val authorizationCodeValue = getLobValue(rs, "authorization_code_value")
+
+            if (StringUtils.hasText(authorizationCodeValue)) {
+                tokenIssuedAt = rs.getTimestamp("authorization_code_issued_at").toInstant()
+                tokenExpiresAt = rs.getTimestamp("authorization_code_expires_at").toInstant()
+                val authorizationCodeMetadata =
+                    parseMap(getLobValue(rs, "authorization_code_metadata"))
+
+                val authorizationCode = OAuth2AuthorizationCode(
+                    authorizationCodeValue,
+                    tokenIssuedAt, tokenExpiresAt
+                )
+                builder.token<OAuth2AuthorizationCode?>(
+                    authorizationCode,
+                    Consumer { metadata: MutableMap<String?, Any?>? -> metadata!!.putAll(authorizationCodeMetadata) })
+            }
+
+            val accessTokenValue = getLobValue(rs, "access_token_value")
+            if (StringUtils.hasText(accessTokenValue)) {
+                tokenIssuedAt = rs.getTimestamp("access_token_issued_at").toInstant()
+                tokenExpiresAt = rs.getTimestamp("access_token_expires_at").toInstant()
+                val accessTokenMetadata =
+                    parseMap(getLobValue(rs, "access_token_metadata"))
+                var tokenType: TokenType? = null
+                if (TokenType.BEARER.getValue().equals(rs.getString("access_token_type"), ignoreCase = true)) {
+                    tokenType = TokenType.BEARER
+                } else if (TokenType.DPOP.getValue()
+                        .equals(rs.getString("access_token_type"), ignoreCase = true)
+                ) {
+                    tokenType = TokenType.DPOP
+                }
+
+                var scopes = mutableSetOf<String>()
+                val accessTokenScopes = rs.getString("access_token_scopes")
+                if (accessTokenScopes != null) {
+                    scopes = StringUtils.commaDelimitedListToSet(accessTokenScopes)
+                }
+                val accessToken = OAuth2AccessToken(
+                    tokenType, accessTokenValue, tokenIssuedAt,
+                    tokenExpiresAt, scopes
+                )
+                builder.token<OAuth2AccessToken?>(
+                    accessToken,
+                    Consumer { metadata: MutableMap<String?, Any?>? -> metadata!!.putAll(accessTokenMetadata) })
+            }
+
+            val oidcIdTokenValue = getLobValue(rs, "oidc_id_token_value")
+            if (StringUtils.hasText(oidcIdTokenValue)) {
+                tokenIssuedAt = rs.getTimestamp("oidc_id_token_issued_at").toInstant()
+                tokenExpiresAt = rs.getTimestamp("oidc_id_token_expires_at").toInstant()
+                val oidcTokenMetadata = parseMap(getLobValue(rs, "oidc_id_token_metadata"))
+
+                val oidcToken = OidcIdToken(
+                    oidcIdTokenValue, tokenIssuedAt, tokenExpiresAt,
+                    oidcTokenMetadata.get(OAuth2Authorization.Token.CLAIMS_METADATA_NAME) as MutableMap<String?, Any?>?
+                )
+                builder.token<OidcIdToken?>(
+                    oidcToken,
+                    Consumer { metadata: MutableMap<String?, Any?>? -> metadata!!.putAll(oidcTokenMetadata) })
+            }
+
+            val refreshTokenValue = getLobValue(rs, "refresh_token_value")
+            if (StringUtils.hasText(refreshTokenValue)) {
+                tokenIssuedAt = rs.getTimestamp("refresh_token_issued_at").toInstant()
+                tokenExpiresAt = null
+                val refreshTokenExpiresAt = rs.getTimestamp("refresh_token_expires_at")
+                if (refreshTokenExpiresAt != null) {
+                    tokenExpiresAt = refreshTokenExpiresAt.toInstant()
+                }
+                val refreshTokenMetadata =
+                    parseMap(getLobValue(rs, "refresh_token_metadata"))
+
+                val refreshToken = OAuth2RefreshToken(
+                    refreshTokenValue, tokenIssuedAt,
+                    tokenExpiresAt
+                )
+                builder.token<OAuth2RefreshToken?>(
+                    refreshToken,
+                    Consumer { metadata: MutableMap<String?, Any?>? -> metadata!!.putAll(refreshTokenMetadata) })
+            }
+
+            val userCodeValue = getLobValue(rs, "user_code_value")
+            if (StringUtils.hasText(userCodeValue)) {
+                tokenIssuedAt = rs.getTimestamp("user_code_issued_at").toInstant()
+                tokenExpiresAt = rs.getTimestamp("user_code_expires_at").toInstant()
+                val userCodeMetadata = parseMap(getLobValue(rs, "user_code_metadata"))
+
+                val userCode = OAuth2UserCode(userCodeValue, tokenIssuedAt, tokenExpiresAt)
+                builder.token<OAuth2UserCode?>(
+                    userCode,
+                    Consumer { metadata: MutableMap<String?, Any?>? -> metadata!!.putAll(userCodeMetadata) })
+            }
+
+            val deviceCodeValue = getLobValue(rs, "device_code_value")
+            if (StringUtils.hasText(deviceCodeValue)) {
+                tokenIssuedAt = rs.getTimestamp("device_code_issued_at").toInstant()
+                tokenExpiresAt = rs.getTimestamp("device_code_expires_at").toInstant()
+                val deviceCodeMetadata = parseMap(getLobValue(rs, "device_code_metadata"))
+
+                val deviceCode = OAuth2DeviceCode(deviceCodeValue, tokenIssuedAt, tokenExpiresAt)
+                builder.token<OAuth2DeviceCode?>(
+                    deviceCode,
+                    Consumer { metadata: MutableMap<String?, Any?>? -> metadata!!.putAll(deviceCodeMetadata) })
+            }
+
+            return builder.build()
+        }
+
+        @Throws(SQLException::class)
+        fun getLobValue(rs: ResultSet, columnName: String): String? {
+            var columnValue: String? = null
+            val columnMetadata: ColumnMetadata =
+                columnMetadataMap.get(columnName)!!
+            if (Types.BLOB == columnMetadata.getDataType()) {
+                val columnValueBytes: ByteArray = this.lobHandler.getBlobAsBytes(rs, columnName)!!
+                if (columnValueBytes != null) {
+                    columnValue = String(columnValueBytes, StandardCharsets.UTF_8)
+                }
+            } else if (Types.CLOB == columnMetadata.getDataType()) {
+                columnValue = this.lobHandler.getClobAsString(rs, columnName)
+            } else {
+                columnValue = rs.getString(columnName)
+            }
+            return columnValue
+        }
+
+        fun setLobHandler(lobHandler: LobHandler) {
+            Assert.notNull(lobHandler, "lobHandler cannot be null")
+            this.lobHandler = lobHandler
+        }
+
+        protected fun getLobHandler(): LobHandler {
+            return this.lobHandler
+        }
+
+        fun parseMap(data: String?): MutableMap<String?, Any?> {
+            try {
+                return readValue(data)
+            } catch (ex: java.lang.Exception) {
+                throw java.lang.IllegalArgumentException(ex.message, ex)
+            }
+        }
+
+        @Throws(java.lang.Exception::class)
+        abstract fun readValue(data: String?): MutableMap<String?, Any?>
+    }
+}
