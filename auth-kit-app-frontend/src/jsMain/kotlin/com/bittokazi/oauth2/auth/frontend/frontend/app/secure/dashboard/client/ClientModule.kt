@@ -24,7 +24,7 @@ fun clientModule() = DefaultSecuredPageModule(
     ),
     RouterConfiguration(
         route = AppEngine.APP_DASHBOARD_CLIENT_ROUTE,
-        title = "Add Client",
+        title = "All Clients",
         view = {
             ClientListComponent()
         }

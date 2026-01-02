@@ -11,7 +11,7 @@ import com.bittokazi.oauth2.auth.frontend.frontend.base.common.AppEngine.APP_DAS
 fun accountModule() = DefaultSecuredPageModule(
     RouterConfiguration(
         route = APP_DASHBOARD_ACCOUNT_SETTINGS_ROUTE,
-        title = "Account",
+        title = "Account Settings",
         view = {
             MyProfileComponent()
         },
