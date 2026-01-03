@@ -26,5 +26,14 @@ jobs:
           username: bittokazi
           password: ${{ secrets.DOCKER_HUB_API_TOKEN }}
 
-      - name: Build and Push Docker image to Docker Hub
-        run: docker build . --file ./Dockerfile --tag docker.io/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server:latest && docker push docker.io/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server:latest
+      - name: Build Docker image
+        run: |
+          docker build . \
+          --file ./Dockerfile \
+          --tag docker.io/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server:latest \
+          --tag docker.io/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server:${{ github.event.release.tag_name }}
+
+      - name: Push Docker images
+        run: |
+          docker push docker.io/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server:latest
+          docker push docker.io/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server:${{ github.event.release.tag_name }}
