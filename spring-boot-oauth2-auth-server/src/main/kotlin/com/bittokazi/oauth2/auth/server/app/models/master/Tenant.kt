@@ -3,20 +3,18 @@ package com.bittokazi.oauth2.auth.server.app.models.master
 import jakarta.persistence.*
 import lombok.Getter
 import lombok.Setter
-import org.hibernate.annotations.GenericGenerator
-import org.hibernate.annotations.Proxy
+import org.hibernate.annotations.UuidGenerator
 import java.io.Serializable
 
 @Entity
 @Table(name = "tenant")
-@Proxy(lazy = false)
 @Setter
 @Getter
 class Tenant : Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    val id: String? = null
+    @UuidGenerator
+    var id: String? = null
 
     @Column(name = "company_key", length = 255, unique = true, nullable = false)
     var companyKey: String? = null

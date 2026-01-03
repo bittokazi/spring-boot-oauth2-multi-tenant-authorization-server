@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface OauthClientRepository : JpaRepository<OauthClient?, String?> {
+interface OauthClientRepository : JpaRepository<OauthClient, String> {
     @Query(value = "SELECT * FROM oauth_client_details WHERE id = :id", nativeQuery = true)
     fun findOneById(id: String?): Optional<OauthClient>
 

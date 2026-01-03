@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @Repository
-interface UserTrustedDeviceRepository : JpaRepository<UserTrustedDevice?, Long?> {
+interface UserTrustedDeviceRepository : JpaRepository<UserTrustedDevice, Long> {
     @Query(value = "SELECT * FROM user_trusted_device WHERE user_id = :userId", nativeQuery = true)
     fun findAllByUserId(@Param("userId") userId: String?): List<UserTrustedDevice?>
 

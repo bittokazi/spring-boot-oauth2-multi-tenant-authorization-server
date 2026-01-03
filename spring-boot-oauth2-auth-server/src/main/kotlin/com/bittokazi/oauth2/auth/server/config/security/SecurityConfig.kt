@@ -11,6 +11,7 @@ import com.bittokazi.oauth2.auth.server.config.TenantContext
 import com.bittokazi.oauth2.auth.server.config.interceptors.TenantContextListener
 import com.bittokazi.oauth2.auth.server.config.security.mfa.OtpFilter
 import com.bittokazi.oauth2.auth.server.config.security.mfa.OtpOauthFilter
+import com.bittokazi.oauth2.auth.server.config.security.oauth2.AuthorizationLoginRedirectFilter
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomHttpStatusReturningLogoutSuccessHandler
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationConsentService
 import com.bittokazi.oauth2.auth.server.config.security.oauth2.CustomJdbcOAuth2AuthorizationService
@@ -30,15 +31,21 @@ import org.springframework.core.annotation.Order
 import org.springframework.http.MediaType
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration
 import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer
 import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer
 import org.springframework.security.config.annotation.web.configurers.RememberMeConfigurer
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationEndpointConfigurer
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OidcConfigurer
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OidcProviderConfigurationEndpointConfigurer
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -52,8 +59,6 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration
-import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.*
 import org.springframework.security.oauth2.server.authorization.oidc.OidcProviderConfiguration
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationToken
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings
@@ -66,7 +71,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices.RememberMeTokenAlgorithm
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+import org.springframework.security.web.savedrequest.NullRequestCache
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher
 import org.springframework.security.web.util.matcher.OrRequestMatcher
 import org.springframework.security.web.util.matcher.RequestMatcher
@@ -75,6 +80,7 @@ import org.springframework.transaction.TransactionDefinition
 import org.springframework.transaction.TransactionException
 import org.springframework.transaction.TransactionStatus
 import org.springframework.transaction.support.ResourceTransactionManager
+import org.springframework.transaction.support.SimpleTransactionStatus
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -93,8 +99,12 @@ import javax.sql.DataSource
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-open class SecurityConfig(
+@EnableMethodSecurity(
+    prePostEnabled = true,
+    securedEnabled = true,
+    jsr250Enabled = true
+)
+class SecurityConfig(
     private val oauthClientRepository: OauthClientRepository,
     private val dataSource: DataSource,
     private val userRepository: UserRepository,
@@ -103,7 +113,8 @@ open class SecurityConfig(
     private val customHttpStatusReturningLogoutSuccessHandler: CustomHttpStatusReturningLogoutSuccessHandler,
     private val otpFilter: OtpFilter,
     private val otpOauthFilter: OtpOauthFilter,
-    private val authProvider: CustomAuthenticationProvider
+    private val authProvider: CustomAuthenticationProvider,
+    private val authorizationLoginRedirectFilter: AuthorizationLoginRedirectFilter
 ) {
 
     @Bean
@@ -129,14 +140,19 @@ open class SecurityConfig(
                 .authenticationProvider(DeviceClientAuthenticationProvider(registeredClientRepository()))
         }
 
-        val endpointsMatcher: RequestMatcher = authorizationServerConfigurer
-            .getEndpointsMatcher()
+        val endpointsMatcher: RequestMatcher =
+            authorizationServerConfigurer.endpointsMatcher
 
-        val additionalMatcher = AntPathRequestMatcher("/device-verification")
+        val additionalMatcher: RequestMatcher =
+            RequestMatcher { request ->
+                request.requestURI == "/device-verification"
+            }
+
         val combinedMatcher = OrRequestMatcher(endpointsMatcher, additionalMatcher)
 
         http
             .securityMatcher(combinedMatcher)
+            .requestCache { it.disable() }
             .csrf {
                 it.ignoringRequestMatchers(combinedMatcher)
             }
@@ -185,6 +201,7 @@ open class SecurityConfig(
                     .requestMatchers("/device-verification").permitAll()
                     .anyRequest().authenticated()
             }
+            .addFilterBefore(authorizationLoginRedirectFilter, AbstractPreAuthenticatedProcessingFilter::class.java)
             .addFilterBefore(otpOauthFilter, AbstractPreAuthenticatedProcessingFilter::class.java)
             .exceptionHandling { exceptions: ExceptionHandlingConfigurer<HttpSecurity?> ->
                 exceptions
@@ -196,10 +213,6 @@ open class SecurityConfig(
             .csrf {
                 it.ignoringRequestMatchers(endpointsMatcher)
             }
-            .oauth2ResourceServer { resourceServer: OAuth2ResourceServerConfigurer<HttpSecurity?> ->
-                resourceServer
-                    .jwt(Customizer.withDefaults())
-            }
         return http.build()
     }
 
@@ -207,7 +220,9 @@ open class SecurityConfig(
     @Order(2)
     @Throws(Exception::class)
     open fun defaultSecurityFilterChain(http: HttpSecurity, rememberMeServices: RememberMeServices?): SecurityFilterChain {
-        http.csrf().disable()
+        http.csrf {
+            it.disable()
+        }
         http
             .authorizeHttpRequests(
                 Customizer { authorize ->
@@ -238,6 +253,9 @@ open class SecurityConfig(
             .oauth2ResourceServer { resourceServer: OAuth2ResourceServerConfigurer<HttpSecurity?> ->
                 resourceServer
                     .jwt(Customizer.withDefaults())
+            }
+            .requestCache {
+                it.requestCache(NullRequestCache())
             }
 
         return http.build()
@@ -383,13 +401,13 @@ open class SecurityConfig(
     @Primary
     open fun annotationDrivenTransactionManager(): PlatformTransactionManager {
         return object : ResourceTransactionManager {
-            override fun getResourceFactory(): Any? {
-                return null
+            override fun getResourceFactory(): Any {
+                return this
             }
 
             @Throws(TransactionException::class)
-            override fun getTransaction(definition: TransactionDefinition): TransactionStatus? {
-                return null
+            override fun getTransaction(definition: TransactionDefinition?): TransactionStatus {
+                return SimpleTransactionStatus()
             }
 
             @Throws(TransactionException::class)
@@ -401,7 +419,7 @@ open class SecurityConfig(
     }
 
     @Bean
-    open fun rememberMeServices(userDetailsService: UserDetailsService?): RememberMeServices {
+    open fun rememberMeServices(userDetailsService: UserDetailsService): RememberMeServices {
         val encodingAlgorithm = RememberMeTokenAlgorithm.SHA256
         val rememberMe = TokenBasedRememberMeServices(AppConfig.REMEMBER_ME_KEY, userDetailsService, encodingAlgorithm)
         rememberMe.setTokenValiditySeconds(3600 * 24 * 365)

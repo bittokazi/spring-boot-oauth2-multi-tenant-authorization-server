@@ -16,7 +16,7 @@ import java.util.*
 @AllArgsConstructor
 @NoArgsConstructor
 class UserOauth : UserDetails, Serializable {
-    val id: String? = null
+    var id: String? = null
 
     var email: String? = null
 
@@ -27,25 +27,25 @@ class UserOauth : UserDetails, Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     var password: String? = null
 
-    val enabled = false
+    var enabled = false
 
     var roles: Set<RoleOauth> = HashSet()
 
     @JvmField
     var authorities: Collection<GrantedAuthority>? = null
 
-    val accountNonLocked = true
+    var accountNonLocked = true
 
-    val accountNonExpired = true
+    var accountNonExpired = true
 
-    val credentialsNonExpired = true
+    var credentialsNonExpired = true
 
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
         if (Objects.nonNull(authorities)) return authorities!!
         val rls: MutableList<GrantedAuthority> = ArrayList()
         for (role in roles) {
-            rls.add(SimpleGrantedAuthority(role.name))
+            rls.add(SimpleGrantedAuthority(role.name!!))
         }
         return rls
     }
@@ -54,8 +54,8 @@ class UserOauth : UserDetails, Serializable {
         return password
     }
 
-    override fun getUsername(): String? {
-        return username
+    override fun getUsername(): String {
+        return username!!
     }
 
     override fun isAccountNonExpired(): Boolean {

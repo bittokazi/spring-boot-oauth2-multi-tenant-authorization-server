@@ -79,7 +79,7 @@ class OtpFilter(
 
                             val savedRequest = requestCache.getRequest(request, response)
                             if (savedRequest == null) {
-                                super.onAuthenticationSuccess(request, response, SecurityContextHolder.getContext().authentication)
+                                super.onAuthenticationSuccess(request, response, SecurityContextHolder.getContext().authentication!!)
                                 return
                             }
                             val targetUrlParameter = targetUrlParameter
@@ -87,7 +87,7 @@ class OtpFilter(
                                 || (targetUrlParameter != null && StringUtils.hasText(request.getParameter(targetUrlParameter)))
                             ) {
                                 requestCache.removeRequest(request, response)
-                                super.onAuthenticationSuccess(request, response, SecurityContextHolder.getContext().authentication)
+                                super.onAuthenticationSuccess(request, response, SecurityContextHolder.getContext().authentication!!)
                                 return
                             }
                             // Use the DefaultSavedRequest URL

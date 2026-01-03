@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonSetter
 import com.nimbusds.jose.shaded.gson.Gson
 import jakarta.persistence.*
-import org.hibernate.annotations.GenericGenerator
+import org.hibernate.annotations.UuidGenerator
 import java.io.Serializable
 import java.util.*
 
@@ -17,8 +17,8 @@ import java.util.*
 class OauthClient: Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    val id: String? = null
+    @UuidGenerator
+    var id: String? = null
 
     @Column(name = "client_id")
     var clientId: String? = null
@@ -68,7 +68,7 @@ class OauthClient: Serializable {
     var tokenType: String? = null
 
     @Transient
-    val generateSecret = false
+    var generateSecret = false
 
     @Transient
     var newSecret: String? = null
