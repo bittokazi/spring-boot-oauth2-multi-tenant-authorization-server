@@ -177,7 +177,7 @@ open class CustomJdbcOAuth2AuthorizationConsentService(
             val parameters: MutableList<SqlParameterValue> = mutableListOf()
             parameters.add(SqlParameterValue(12, authorizationConsent.registeredClientId))
             parameters.add(SqlParameterValue(12, authorizationConsent.principalName))
-            val authorities: MutableSet<String> = mutableSetOf()
+            val authorities: MutableSet<String?> = mutableSetOf()
             val var4: Iterator<*> = authorizationConsent.authorities.iterator()
 
             while (var4.hasNext()) {

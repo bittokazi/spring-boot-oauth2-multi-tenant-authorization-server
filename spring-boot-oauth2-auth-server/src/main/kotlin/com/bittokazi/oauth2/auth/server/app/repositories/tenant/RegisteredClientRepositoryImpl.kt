@@ -37,7 +37,7 @@ class RegisteredClientRepositoryImpl(
     private fun generateRegisteredClient(oauthClient: OauthClient): RegisteredClient {
         val oidcClient = RegisteredClient.withId(oauthClient.id)
             .clientId(oauthClient.clientId)
-            .clientSecret(BCrypt.hashpw(oauthClient.clientSecret, BCrypt.gensalt()))
+            .clientSecret(BCrypt.hashpw(oauthClient.clientSecret!!, BCrypt.gensalt()))
             .clientAuthenticationMethod(ClientAuthenticationMethod(oauthClient.clientAuthenticationMethod))
             .postLogoutRedirectUri(oauthClient.postLogoutUrl) //                .scope(String.join(",", oauthClient.getScope()))
             .clientSettings(

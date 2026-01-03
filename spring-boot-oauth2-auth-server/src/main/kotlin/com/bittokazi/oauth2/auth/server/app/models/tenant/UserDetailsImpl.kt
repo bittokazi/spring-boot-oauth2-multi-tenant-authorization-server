@@ -14,14 +14,14 @@ import java.io.Serializable
 @AllArgsConstructor
 @NoArgsConstructor
 class UserDetailsImpl : UserDetails, Serializable {
-    private val username: String? = null
+    private var username: String? = null
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private val password: String? = null
+    private var password: String? = null
 
-    val authorities: List<GrantedAuthority>? = null
+    var authorities: List<GrantedAuthority>? = null
 
-    val enabled = false
+    var enabled = false
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
         return authorities!!

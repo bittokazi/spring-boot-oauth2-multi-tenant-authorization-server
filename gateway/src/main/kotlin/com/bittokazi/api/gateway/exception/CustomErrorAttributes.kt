@@ -1,7 +1,7 @@
 package com.bittokazi.api.gateway.exception
 
 import org.springframework.boot.web.error.ErrorAttributeOptions
-import org.springframework.boot.web.reactive.error.DefaultErrorAttributes
+import org.springframework.boot.webflux.error.DefaultErrorAttributes
 import org.springframework.core.annotation.MergedAnnotation
 import org.springframework.core.annotation.MergedAnnotations
 import org.springframework.http.HttpStatus
@@ -13,14 +13,17 @@ import java.net.ConnectException
 
 @Component
 class CustomErrorAttributes : DefaultErrorAttributes() {
-    override fun getErrorAttributes(request: ServerRequest, options: ErrorAttributeOptions): Map<String, Any> {
+    override fun getErrorAttributes(request: ServerRequest, options: ErrorAttributeOptions): Map<String, Any?> {
         val attributes = super.getErrorAttributes(request, options)
         val error = getError(request)
-        val responseStatusAnnotation = MergedAnnotations
-            .from(error.javaClass, MergedAnnotations.SearchStrategy.TYPE_HIERARCHY).get(
-                ResponseStatus::class.java
-            )
-        val errorStatus = determineHttpStatus(error, responseStatusAnnotation)
+        val responseStatusAnnotation = if (error != null) {
+            MergedAnnotations
+                .from(error.javaClass, MergedAnnotations.SearchStrategy.TYPE_HIERARCHY)
+                .get(ResponseStatus::class.java)
+        } else {
+            MergedAnnotation.missing()
+        }
+        val errorStatus = determineHttpStatus(error!!, responseStatusAnnotation)
         attributes["status"] = (errorStatus["status"] as HttpStatus).value()
         attributes["message"] = errorStatus["message"]
         attributes["error"] = errorStatus["error"]

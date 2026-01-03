@@ -6,8 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.*
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
-import org.hibernate.annotations.GenericGenerator
-import org.hibernate.annotations.Proxy
+import org.hibernate.annotations.UuidGenerator
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import java.io.Serializable
@@ -23,8 +22,8 @@ import java.util.*
 class User : BaseModel(), Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    val id: String? = null
+    @UuidGenerator
+    var id: String? = null
 
     @Column(name = "first_name", length = 128, nullable = false)
     var firstName: String? = null
@@ -76,21 +75,21 @@ class User : BaseModel(), Serializable {
     @Column(name = "email_verified")
     var emailVerified: Boolean? = null
 
-    val address: String? = null
+    var address: String? = null
 
-    val gender: String? = null
+    var gender: String? = null
 
     @Column(name = "two_fa_enabled")
     var twoFaEnabled: Boolean? = null
 
     @Transient
-    val newPassword: String? = null
+    var newPassword: String? = null
 
     @Transient
-    val newConfirmPassword: String? = null
+    var newConfirmPassword: String? = null
 
     @Transient
-    val authorities: List<GrantedAuthority>? = null
+    var authorities: List<GrantedAuthority>? = null
 
     @Transient
     var avatarImage: String? = null
@@ -99,12 +98,12 @@ class User : BaseModel(), Serializable {
     var adminTenantUser = false
 
     @Transient
-    val currentPassword: String? = null
+    var currentPassword: String? = null
 
     fun getAuthorities(): Collection<GrantedAuthority> {
         val rls: MutableList<GrantedAuthority> = ArrayList()
         for (role in roles) {
-            rls.add(SimpleGrantedAuthority(role.name))
+            rls.add(SimpleGrantedAuthority(role.name!!))
         }
         return rls
     }

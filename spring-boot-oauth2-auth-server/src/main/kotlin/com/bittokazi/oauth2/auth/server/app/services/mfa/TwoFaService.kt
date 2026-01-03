@@ -64,7 +64,7 @@ open class TwoFaService(
             }
             var userTwoFaSecret = faSecret.get()
             userTwoFaSecret.scratchCodes =
-                Gson().toJson(scratchCodes.stream().map { code: String? -> BCrypt.hashpw(code, BCrypt.gensalt()) }
+                Gson().toJson(scratchCodes.stream().map { code: String? -> BCrypt.hashpw(code!!, BCrypt.gensalt()) }
                     .toList())
 
             userTwoFaSecret = userTwoFaSecretRepository.save(userTwoFaSecret)
@@ -85,7 +85,7 @@ open class TwoFaService(
         userTwoFaSecret.user = userOptional.get()
         userTwoFaSecret.secret = twoFASecretPayload.secret
         userTwoFaSecret.scratchCodes = Gson().toJson(
-            twoFASecretPayload.scratchCodes.stream().map { code: String? -> BCrypt.hashpw(code, BCrypt.gensalt()) }
+            twoFASecretPayload.scratchCodes.stream().map { code: String? -> BCrypt.hashpw(code!!, BCrypt.gensalt()) }
                 .toList())
         val user = userOptional.get()
         if (validate2FA(twoFASecretPayload.code!!, userTwoFaSecret.secret)) {

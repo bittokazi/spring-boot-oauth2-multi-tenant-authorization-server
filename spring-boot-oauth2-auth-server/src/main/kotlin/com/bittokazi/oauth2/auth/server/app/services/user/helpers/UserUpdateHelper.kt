@@ -11,7 +11,7 @@ import java.util.*
 object UserUpdateHelper {
 
     fun validateUser(
-        user: User, userOptional: Optional<User?>,
+        user: User, userOptional: Optional<User>,
         userRepository: UserRepository
     ): Map<String, List<String>> {
         val errors: MutableMap<String, List<String>> = HashMap()
@@ -23,7 +23,7 @@ object UserUpdateHelper {
         return errors
     }
 
-    fun setDefaultValues(user: User, userOptional: Optional<User?>, myProfile: Boolean): User {
+    fun setDefaultValues(user: User, userOptional: Optional<User>, myProfile: Boolean): User {
         if (Objects.isNull(user.imageAbsolutePath) || user.imageAbsolutePath == "") {
             user.imageAbsolutePath = userOptional.get().imageAbsolutePath
             user.imageName = userOptional.get().imageName
@@ -50,7 +50,7 @@ object UserUpdateHelper {
     }
 
     fun validatePassword(
-        user: User, userOptional: Optional<User?>,
+        user: User, userOptional: Optional<User>,
         userRepository: UserRepository?
     ): Map<String, List<String>> {
         val errors: MutableMap<String, List<String>> = HashMap()

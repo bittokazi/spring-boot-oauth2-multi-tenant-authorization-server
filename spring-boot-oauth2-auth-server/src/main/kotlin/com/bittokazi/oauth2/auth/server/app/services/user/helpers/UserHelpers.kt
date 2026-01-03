@@ -24,21 +24,19 @@ object UserHelpers {
         )
     }
 
-    fun setUserImage(user: User?): User? {
+    fun setUserImage(user: User): User {
         try {
-            if (user != null) {
-                user.avatarImage = "https://www.gravatar.com/avatar/" + getMD5(
-                    user!!.email!!
-                ) + "?d=identicon"
-            }
+            user.avatarImage = "https://www.gravatar.com/avatar/" + getMD5(
+                user.email!!
+            ) + "?d=identicon"
         } catch (e: NoSuchAlgorithmException) {
             e.printStackTrace()
         }
         return user
     }
 
-    fun setUsersImage(users: MutableList<User?>): List<User?> {
-        return users.stream().map { user: User? -> setUserImage(user) }
+    fun setUsersImage(users: MutableList<User>): List<User> {
+        return users.stream().map { user: User -> setUserImage(user) }
             .collect(Collectors.toList())
     }
 }

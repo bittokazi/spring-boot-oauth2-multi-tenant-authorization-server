@@ -283,7 +283,7 @@ class LoginService(
 
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_FORM_URLENCODED
-        headers.setBasicAuth(optionalOauthClient.get().clientId, optionalOauthClient.get().clientSecret)
+        headers.setBasicAuth(optionalOauthClient.get().clientId!!, optionalOauthClient.get().clientSecret!!)
 
         val map: MultiValueMap<String, String> = LinkedMultiValueMap()
         map.add("grant_type", "authorization_code")
@@ -301,7 +301,7 @@ class LoginService(
                     System.getenv()["APPLICATION_BACKEND_URL"] + "/oauth2/token", request,
                     Oauth2Response::class.java
                 )
-                updateCookies(httpServletResponse, oauth2Response.body)
+                updateCookies(httpServletResponse, oauth2Response.body!!)
                 if (TenantContext.getCurrentTenant() != "public" && AppConfig.USE_X_AUTH_TENANT) {
                     httpServletResponse
                         .sendRedirect(AppConfig.HTTP_SCHEMA + tenantOptional.get().domain + "/app/dashboard")
@@ -315,7 +315,7 @@ class LoginService(
                     System.getenv()["HTTP_SCHEMA"] + tenantOptional.get().domain + "/oauth2/token",
                     request, Oauth2Response::class.java
                 )
-                updateCookies(httpServletResponse, oauth2Response.body)
+                updateCookies(httpServletResponse, oauth2Response.body!!)
                 httpServletResponse
                     .sendRedirect(AppConfig.HTTP_SCHEMA + tenantOptional.get().domain + "/app/dashboard")
                 return ResponseEntity.ok(oauth2Response.body)
@@ -379,7 +379,7 @@ class LoginService(
 
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_FORM_URLENCODED
-        headers.setBasicAuth(optionalOauthClient.get().clientId, optionalOauthClient.get().clientSecret)
+        headers.setBasicAuth(optionalOauthClient.get().clientId!!, optionalOauthClient.get().clientSecret!!)
 
         val map: MultiValueMap<String, String> = LinkedMultiValueMap()
         map.add("grant_type", "refresh_token")
@@ -393,14 +393,14 @@ class LoginService(
                     System.getenv()["APPLICATION_BACKEND_URL"] + "/oauth2/token", request,
                     Oauth2Response::class.java
                 )
-                updateCookies(httpServletResponse, oauth2Response.body)
+                updateCookies(httpServletResponse, oauth2Response.body!!)
                 return ResponseEntity.ok(oauth2Response.body)
             } else {
                 val oauth2Response = restTemplate.postForEntity(
                     System.getenv()["HTTP_SCHEMA"] + tenantOptional.get().domain + "/oauth2/token",
                     request, Oauth2Response::class.java
                 )
-                updateCookies(httpServletResponse, oauth2Response.body)
+                updateCookies(httpServletResponse, oauth2Response.body!!)
                 return ResponseEntity.ok(oauth2Response.body)
             }
         } catch (e: HttpStatusCodeException) {

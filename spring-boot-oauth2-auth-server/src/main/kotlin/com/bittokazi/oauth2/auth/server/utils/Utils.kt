@@ -92,7 +92,7 @@ object Utils {
         return saltStr.toInt()
     }
 
-    fun <T> searchSpecificationBuilder(search: String, c: Class<*>): Specification<T>? {
+    fun <T : Any> searchSpecificationBuilder(search: String, c: Class<*>): Specification<T>? {
         try {
             val builder = Class.forName(c.name).getDeclaredConstructor().newInstance()
             var method: Method? = null

@@ -43,7 +43,7 @@ class ClientService(
 
     fun updateOauthClient(oauthClient: OauthClient, httpServletResponse: HttpServletResponse): ResponseEntity<*> {
         var oauthClient = oauthClient
-        val clientEntityOptional = oauthClientRepository.findById(oauthClient.id)
+        val clientEntityOptional = oauthClientRepository.findById(oauthClient.id!!)
 
         if (clientEntityOptional.isPresent) {
             val clientEntityToUpdate = clientEntityOptional.get()
