@@ -37,3 +37,14 @@ jobs:
         run: |
           docker push docker.io/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server:latest
           docker push docker.io/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server:${{ github.event.release.tag_name }}
+
+      - name: Publish Docker Hub summary
+        run: |
+          echo "## 🐳 Docker Image Published" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Docker Hub:**" >> $GITHUB_STEP_SUMMARY
+          echo "https://hub.docker.com/r/bittokazi/spring-boot-oauth2-multi-tenant-authorization-server" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Tags:**" >> $GITHUB_STEP_SUMMARY
+          echo "- \`latest\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`${{ github.event.release.tag_name }}\`" >> $GITHUB_STEP_SUMMARY
